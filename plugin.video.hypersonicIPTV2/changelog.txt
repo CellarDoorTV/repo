@@ -1,0 +1,12 @@
+[B]Version 3.0[/B]
+- Added new icons
+- IVUE TV Guide fixed
+- Fixed account information 
+- Organized categories 
+- Thanks to Durex
+
+[B]Version 2.9.2[/B]
+- Added new provider 
+
+[B]Version 1.0[/B]
+- Initial version

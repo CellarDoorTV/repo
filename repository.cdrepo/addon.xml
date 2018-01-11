@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.cdrepo" name="[COLOR steelblue]Cellardoor [COLOR white]Repo[/COLOR]" version="1.0" provider-name="GhostBuilder">
+	<extension point="xbmc.addon.repository" name="Cellardoor Repo">
+		<info compressed="false">https://raw.githubusercontent.com/drxbld/CellarDoorTV/master/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/CellarDoorTV/repo/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/CellarDoorTV/repo/master/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>CellarDoorTV Repository</summary>
+		<description>Kodi Repository for CellarDoorTV</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
