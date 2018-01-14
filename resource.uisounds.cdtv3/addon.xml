@@ -6,7 +6,7 @@
   <extension point="kodi.resource.uisounds"/>
   <extension point="kodi.addon.metadata">
     <summary lang="en">CDTV UI Sounds</summary>
-    <description lang="en">CDTV UI Sounds</description>
+    <description lang="en">CDTV UI Sounds v3</description>
     <platform>all</platform>
   </extension>
 </addon>

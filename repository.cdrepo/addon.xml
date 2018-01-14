@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.cdrepo" name="[COLOR steelblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="1.0" provider-name="GhostBuilder">
+<addon id="repository.cdrepo" name="[COLOR steelblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="1.1" provider-name="GhostBuilder">
 	<extension point="xbmc.addon.repository" name="CellarDoorTV Repo">
 		<info compressed="false">https://raw.githubusercontent.com/CellarDoorTV/repo/master/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/CellarDoorTV/repo/master/addons.xml.md5</checksum>
@@ -7,7 +7,7 @@
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>CellarDoorTV Repository</summary>
-		<description>Kodi Repository for CellarDoorTV</description>
+		<description>Kodi Repository for [COLOR steelblue]CellarDoorTV[/COLOR][CR][COLOR steelblue]CellarDoorTV[/COLOR] [COLOR white]Repo[/COLOR] allows you to install our CDTV Wizard and get access to the latest CDTV Custom Builds and more.[CR]This repo will keep your CDTV Wizard and [COLOR steelblue]Hypersonic[/COLOR] [COLOR white]IPTV2[/COLOR] add-on updated with future updates.[CR]For more info go to [COLOR yellowgreen]https://www.hypersonic-tv.com[/COLOR] or email [COLOR yellowgreen]hypersonictvpro@gmail.com[/COLOR] to request your username and password.[CR][COLOR yellowgreen]Thank you![/COLOR]</description>
 		<platform>all</platform>
 	</extension>
 </addon>
