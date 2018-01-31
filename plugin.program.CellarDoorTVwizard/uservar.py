@@ -79,7 +79,7 @@ CONTACTFANART  = 'http://cellardoortv.com/icons/iconsWIZARD/iconWIZARD.png'
 ### AUTO UPDATE #########################################
 ########## FOR THOSE WITH NO REPO #######################
 # Enable Auto Update 'Yes' or 'No'
-AUTOUPDATE     = 'Yes'
+AUTOUPDATE     = 'No'
 # Url to wizard version
 WIZARDFILE     = 'http://cellardoortv.com/cdtvtxt/newwiztxt/autobuilds.txt'
 #########################################################

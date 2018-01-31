@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.CellarDoorTVwizard" name="[COLOR lightskyblue]CellarDoorTV Wizard[/COLOR]" version="0.2.5" provider-name="CDTV Builds">
+<addon id="plugin.program.CellarDoorTVwizard" name="[COLOR lightskyblue]CellarDoorTV Wizard[/COLOR]" version="0.2.6" provider-name="CDTV Builds">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
