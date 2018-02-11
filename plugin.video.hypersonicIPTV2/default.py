@@ -120,6 +120,15 @@ Switzerland='%s:%s/enigma2.php?username=%s&password=%s&type=get_live_streams&cat
 Turkish='%s:%s/enigma2.php?username=%s&password=%s&type=get_live_streams&cat_id=40'%(host,port,username,password)
 Vietnam='%s:%s/enigma2.php?username=%s&password=%s&type=get_live_streams&cat_id=62'%(host,port,username,password)
 Adult='%s:%s/enigma2.php?username=%s&password=%s&type=get_live_streams&cat_id=23'%(host,port,username,password)
+twentyfourseven_Kids='%s:%s/enigma2.php?username=%s&password=%s&type=get_live_streams&cat_id=708'%(host,port,username,password)
+twentyfourseven_Movies='%s:%s/enigma2.php?username=%s&password=%s&type=get_live_streams&cat_id=709'%(host,port,username,password)
+twentyfourseven_TV='%s:%s/enigma2.php?username=%s&password=%s&type=get_live_streams&cat_id=710'%(host,port,username,password)
+Olympics_Winter_2018='%s:%s/enigma2.php?username=%s&password=%s&type=get_live_streams&cat_id=711'%(host,port,username,password)
+US_Reality='%s:%s/enigma2.php?username=%s&password=%s&type=get_live_streams&cat_id=706'%(host,port,username,password)
+WASHINGTON_DC='%s:%s/enigma2.php?username=%s&password=%s&type=get_live_streams&cat_id=703'%(host,port,username,password)
+ALASKA='%s:%s/enigma2.php?username=%s&password=%s&type=get_live_streams&cat_id=704'%(host,port,username,password)
+US_KIDS='%s:%s/enigma2.php?username=%s&password=%s&type=get_live_streams&cat_id=702'%(host,port,username,password)
+US_Premium_Movies='%s:%s/enigma2.php?username=%s&password=%s&type=get_live_streams&cat_id=707'%(host,port,username,password)
 
 Guide = xbmc.translatePath(os.path.join('special://home/addons/plugin.video.hypersonicIPTV2/resources/catchup', 'guide.xml'))
 GuideLoc = xbmc.translatePath(os.path.join('special://home/addons/plugin.video.hypersonicIPTV2/resources/catchup', 'g'))
@@ -182,7 +191,7 @@ def start():
 			#if xbmc.getCondVisibility('System.HasAddon(pvr.iptvsimple)'):
 				#tools.addDir('[COLOR yellowgreen]Simple PVR Client Channels Guide[/COLOR]','pvr',45,icon,fanart,'')
 			tools.addDir('[COLOR yellowgreen]Video on Demand[/COLOR]','vod',3,vodtv,fanart,'')
-			tools.addDir('[COLOR yellowgreen]24/7[/COLOR]',TwentyFourSeven,25,catch,fanart,'')
+			tools.addDir('[COLOR yellowgreen]24/7[/COLOR]','url',49,catch,fanart,'')
 			tools.addDir('[COLOR yellowgreen]Music Channels[/COLOR]',Music_Choice,25,music,fanart,'')
 			tools.addDir('[COLOR white]Search[/COLOR]','url',5,search2,fanart,'')
 			#tools.addDir('[COLOR white]Search VOD[/COLOR]','url',43,icon,fanart,'')
@@ -204,7 +213,7 @@ def home():
 	#if xbmc.getCondVisibility('System.HasAddon(pvr.iptvsimple)'):
 		#tools.addDir('[COLOR yellowgreen]Channels Guide[/COLOR]','pvr',45,icon,fanart,'')
 	tools.addDir('[COLOR yellowgreen]Video on Demand[/COLOR]','vod',3,vodtv,fanart,'')
-	tools.addDir('[COLOR yellowgreen]24/7[/COLOR]',TwentyFourSeven,25,catch,fanart,'')
+	tools.addDir('[COLOR yellowgreen]24/7[/COLOR]','url',49,catch,fanart,'')
 	tools.addDir('[COLOR yellowgreen]Music Channels[/COLOR]',Music_Choice,25,music,fanart,'')
 	tools.addDir('[COLOR white]Search[/COLOR]','url',5,search2,fanart,'')
 	#tools.addDir('[COLOR white]Search VOD[/COLOR]','url',43,icon,fanart,'')
@@ -214,6 +223,7 @@ def home():
 	tools.addDir('[COLOR white]Extras[/COLOR]','url',16,extra,fanart,'')
 	tools.addDir('[COLOR white]Settings[/COLOR]','url',8,system,fanart,'')
 	tools.addDir('[COLOR gray]Original Playlist[/COLOR]','live',1,icon,fanart,'')
+	tools.addDir('[COLOR gray]Test[/COLOR]','live',37,icon,fanart,'')
 	plugintools.set_view( plugintools.LIST )
 	setView()
 	
@@ -237,6 +247,11 @@ def NEW_MENU():
 def US():
 	tools.addDir('[B][COLOR white]=-=-=-=-=-=-=-=-=-=[/COLOR][/B] [B][COLOR crimson]US LIVE[/COLOR][/B] [B][COLOR white]=-=-=-=-=-=-=-=-=-=[/COLOR][/B]','','',icon,fanart,'')
 	tools.addDir('[COLOR white]US Entertainment[/COLOR]',US_Entertainment,25,entertainment,fanart,'')
+	tools.addDir('[COLOR white]US Reality[/COLOR]',US_Reality,25,icon,fanart,'')
+	tools.addDir('[COLOR white]Washington DC[/COLOR]',WASHINGTON_DC,25,icon,fanart,'')
+	tools.addDir('[COLOR white]Alaska[/COLOR]',ALASKA,25,icon,fanart,'')
+	tools.addDir('[COLOR white]US Kids[/COLOR]',US_KIDS,25,icon,fanart,'')
+	tools.addDir('[COLOR white]US Premium Movies[/COLOR]',US_Premium_Movies,25,icon,fanart,'')
 	tools.addDir('[COLOR white]US News[/COLOR]',USNEWS,25,topenglish,fanart,'')	
 	tools.addDir('[COLOR white]--------[/COLOR] [COLOR crimson][B]US SPORTS[/B][/COLOR] [COLOR white]--------[/COLOR]','','',american,fanart,'')
 	tools.addDir('[COLOR white]US/CAN Sports[/COLOR]',USA_CAN_Sports,25,topenglish,fanart,'')
@@ -247,6 +262,7 @@ def US():
 	tools.addDir('[COLOR white]MLS[/COLOR]',Major_League_Soccer,25,mls,fanart,'')
 	tools.addDir('[COLOR white]NCAAF[/COLOR]',NCAAF,25,ncaa,fanart,'')
 	tools.addDir('[COLOR white]NCAAB[/COLOR]',NCAAB,25,ncaa,fanart,'')
+	tools.addDir('[COLOR white]Olympics[/COLOR]',Olympics_Winter_2018,25,icon,fanart,'')
 	tools.addDir('[B][COLOR white]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[/COLOR][/B]','','',icon,fanart,'')
 	tools.addDir('[COLOR white]Clear Cache[/COLOR]','CC',10,cache,fanart,'')
 	tools.addDir('[COLOR white]Search[/COLOR]','url',5,search2,fanart,'')
@@ -265,6 +281,7 @@ def UK():
 	tools.addDir('[COLOR white]UK Sports (2 of 3)[/COLOR]',UK_Sports_2,25,icon,fanart,'')
 	tools.addDir('[COLOR white]UK Sports (3 of 3)[/COLOR]',UK_Sports_3,25,icon,fanart,'')
 	tools.addDir('[COLOR white]EPL[/COLOR]',EPL,25,sports2,fanart,'')
+	tools.addDir('[COLOR white]Olympics[/COLOR]',Olympics_Winter_2018,25,icon,fanart,'')
 	tools.addDir('[B][COLOR white]=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=[/COLOR][/B]','','',icon,fanart,'')
 	tools.addDir('[COLOR white]Clear Cache[/COLOR]','CC',10,cache,fanart,'')
 	tools.addDir('[COLOR white]Search[/COLOR]','url',5,search2,fanart,'')
@@ -336,7 +353,16 @@ def settingsmenu():
 	tools.addDir('Edit Advanced Settings','ADS',10,icon,fanart,'')
 	tools.addDir('Log Out','LO',10,icon,fanart,'')
 	
-
+def ALL_247():	
+	tools.addDir('[B][COLOR white]=-=-=-=-=-=-=-=-=-=[/COLOR][/B] [B][COLOR orange]24/7[/COLOR][/B] [B][COLOR white]=-=-=-=-=-=-=-=-=-=[/COLOR][/B]','','',icon,fanart,'')
+	tools.addDir('[COLOR white]More 24/7[/COLOR]',TwentyFourSeven,25,catch,fanart,'')
+	tools.addDir('[COLOR white]Movies[/COLOR]',twentyfourseven_Movies,25,catch,fanart,'')
+	tools.addDir('[COLOR white]TV Shows[/COLOR]',twentyfourseven_TV,25,catch,fanart,'')
+	tools.addDir('[COLOR white]Kids TV Shows[/COLOR]',twentyfourseven_Kids,25,catch,fanart,'')
+	tools.addDir('[COLOR crimson]-------------------------------[/COLOR]','','',icon,fanart,'')
+	tools.addDir('[COLOR white]Search[/COLOR]','url',5,search2,fanart,'')
+	tools.addDir('[COLOR white]Clear Cache[/COLOR]','CC',10,cache,fanart,'')
+	setView()
 	
 
 	
@@ -1296,6 +1322,9 @@ elif mode==45:
 	
 elif mode==48:		
 	ALL_ADULT()
+	
+elif mode==49:		
+	ALL_247()
 	
 	
 	
