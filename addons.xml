@@ -169,7 +169,7 @@ provider-name="Team IVUE">
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="script.skinswitch" 
 	     name="Switch CDTV Skins" 
-	     version="1.0.0" 
+	     version="1.1.5" 
 	     provider-name="CellarDoorTV">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -181,6 +181,28 @@ provider-name="Team IVUE">
     <platform>all</platform>
     <summary lang="en">-</summary>
     <description lang="en">Small Simple Script for Switching Skins</description>
+    <disclaimer lang="en">.</disclaimer>
+    <language></language>
+    <platform>all</platform>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+  </extension>
+</addon>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.switchskins" 
+	     name="[COLOR yellowgreen]CDTV[/COLOR] Skin Swap" 
+	     version="2.0.0" 
+	     provider-name="CDTV Builds">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+        <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary lang="en">-</summary>
+    <description lang="en">Small Simple Script for Switching Between 39 Skins</description>
     <disclaimer lang="en">.</disclaimer>
     <language></language>
     <platform>all</platform>
