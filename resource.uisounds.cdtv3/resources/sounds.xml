@@ -120,7 +120,7 @@
     </window>
 	<window>
         <name>shutdownmenu</name>
-        <activate>popup.wav</activate>
+        <activate>goodbye.wav</activate>
     </window>
   </windows>
 </sounds>

@@ -30,6 +30,33 @@
 	</extension>
 </addon>
 
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.program.advancedsettings"
+       name="[COLOR yellowgreen]E.A.S 4Krypton[/COLOR]"
+       version="0.8.9"
+       provider-name="kinkin">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource"
+               	library="default.py">
+        <provides>executable</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary>Create, view, edit and delete your advancedsettings.xml file in a user-friendly gui</summary>
+        <description>All settings follow the xbmc.org wiki[CR][CR]With this tool you can create your advanced settings directly from XBMC[CR][CR]If you don't know what a setting does, don't enable it!</description>
+        <platform>all</platform>
+        <language>en</language>
+        <license>GNU GENERAL PUBLIC LICENSE</license>
+        <forum></forum>
+        <website></website>
+        <source></source>
+        <email></email>
+    </extension>
+	
+</addon>
+
 <?xml version="1.1" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.hypersonicIPTV2"
        name="[COLOR steelblue]Hypersonic [COLOR white]IPTV2[/COLOR]"
@@ -72,42 +99,311 @@ provider-name="Team IVUE">
 </extension>
 </addon>
 
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.metalliq" name="[COLOR yellowgreen]M[/COLOR]etalli[COLOR yellowgreen]Q[/COLOR]" version="2.0.16krypton" provider-name="Tempname Fix">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0"/>
+		<import addon="script.module.requests" version="2.9.1"/>
+		<import addon="script.module.futures" version="2.2.0"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video audio</provides>
+	</extension>
+	<extension point="xbmc.service" library="service.py" start="[login|startup]">
+	</extension>
+	<extension point="kodi.context.item">
+		<menu id="kodi.core.main">
+			<menu>
+				<label>MetalliQ</label>
+				<item library="context_toggle.py">
+					<label>Preferred toggle</label>
+					<visible>!System.HasAddon(context.metalliq) + !Skin.HasSetting(Toggling)</visible>
+				</item>
+				<item library="context_movie.py">
+					<label>$ADDON[plugin.video.metalliq 30602]</label>
+					<visible>StringCompare(ListItem.dbtype,movie) + SubString(ListItem.Path, plugin.video.metalliq)</visible>
+				</item>
+				<item library="context_tvshow.py">
+					<label>$ADDON[plugin.video.metalliq 30602]</label>
+					<visible>StringCompare(ListItem.dbtype,tvshow) + SubString(ListItem.Path, plugin.video.metalliq)</visible>
+				</item>
+				<item library="context_live.py">
+					<label>$ADDON[plugin.video.metalliq 30602]</label>
+					<visible>[SubString(ListItem.FileNameAndPath, plugin.video.metalliq\\Live) | SubString(ListItem.FileNameAndPath, plugin.video.metalliq\\Live)]</visible>
+				</item>
+				<item library="context_playable.py">
+					<label>$ADDON[plugin.video.metalliq 30622]</label>
+					<visible>!System.HasAddon(context.metalliq) + !Skin.HasSetting(Contexting)</visible>
+				</item>
+			</menu>
+		</menu>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<language></language>
+		<summary lang="en">TMDb, TVDb, Trakt, AudioDb and LastFM browser</summary>
+		<description lang="en">Browse The MovieDb, The TVDb, Trakt, The AudioDb and LastFM and pass info along to library or an addon to try and play it. Needs player-files and the appropriate addon to actually play.</description>
+		<summary lang="nl">Blader door TMDb, TVDb, Trakt, AudioDb en LastFM</summary>
+		<description lang="nl">Blader door The MovieDb, The TVDb, Trakt, The AudioDb en LastFM en geef info door aan de bibliotheek of een addon om te proberen het af te spelen. Vereist player-bestanden en de bijbehorende addon om daadwerkelijk af te kunnen spelen.</description>
+		<supportedcontent>
+			<content>movies</content>
+			<content>tvshows</content>
+			<content>episodes</content>
+			<content>musicvideos</content>
+			<content>music</content>
+			<content>livetv</content>
+		</supportedcontent>
+		<genre>movies,tv,music,livetv</genre>
+		<!--<video_guide>yt-id</video_guide>
+		<video_preview>yt-id</video_preview>-->
+		<forum>http://www.noobsandnerds.com/support/showthread.php?tid=17118</forum>
+		<source>https://github.com/OpenELEQ/repository.q/tree/master/zips/plugin.video.metalliq/</source>
+		<email>OpenELEQ@gmail.com</email>
+		<news>Fixed duration error on non-default version of kodi</news>
+	</extension>
+</addon>
+
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<addon id="plugin.video.spotitube" name="Youtube Music" version="2.0.8" provider-name="LORE/realvito">
+	<requires>
+		<import addon="xbmc.python" version="2.14.0"/>
+		<import addon="script.module.simplejson" optional="true"/>
+		<import addon="plugin.video.youtube" version="5.2.1"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video audio</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="de">Musik über Youtube abspielen</summary>
+		<summary lang="en">Play Music via Youtube</summary>
+		<description lang="de">@realvito[CR]Musik aus verschiedenen Quellen z.B. Billboard, iTunes, Spotify etc. auswählen und über Youtube abspielen.[CR][CR]Für mehr Informationen zu allen Neuerungen siehe - CHANGELOG.[CR]     TEST IT AND LIKE IT</description>
+		<description lang="en">@realvito[CR]Choose Music from different sources e.g. Billboard, iTunes, Spotify etc. and play it via Youtube.[CR][CR]For more information about all new features see - CHANGELOG.[CR]     TEST IT AND LIKE IT</description>
+		<disclaimer lang="de">Die von diesem Addon dargestellten Inhalte werden von den Erstellern des Addons weder gehostet oder verbreitet, noch stehen die Ersteller in irgendeiner Beziehung zu den Anbietern des Inhalts.</disclaimer>
+		<disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content providers.</disclaimer>
+		<language></language>
+		<platform>all</platform>
+		<license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+		<forum>http://www.kodinerds.net/index.php/Thread/47087-Release-YoutubeMusic-patched/</forum>
+		<website></website>
+		<email></email>
+		<source>https://github.com/kodinerds/repo/tree/master/plugin.video.spotitube</source>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+		<news>[B][COLOR orangered]Version 2.0.8  (27.10.2017)[/COLOR][/B] by realvito[CR]
+- fixed: Billboard - a few Links were changed
+- fixed: Billboard - text errors and some folders are empty in "Billboard-Archive-Videos"
+- fixed: Hypem - all clicked folders are empty
+- * Hypem - NO Video-Images at the time/because they were removed completely *
+- changed: Deezer-Search - apiURL and increase Searchlimit to "100" in settings
+		</news>
+	</extension>
+</addon>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.youtube" name="YouTube" version="6.0.0beta1" provider-name="bromix">
+    <requires>
+        <import addon="xbmc.python" version="2.20.0"/>
+        <import addon="script.module.six"/>
+        <import addon="script.module.requests" version="2.12.4"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="resources/lib/default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.service" library="resources/lib/startup.py" start="startup"/>
+    <extension point="xbmc.python.module" library="resources/lib/"/>
+    <extension point="xbmc.addon.metadata">
+        <news>
+[add] Python 3 compat.
+[add] Settings -> Maintenance -> Delete temporary files
+[add] Settings -> General -> Rate video after watching
+[add] Settings -> API -> Enable API configuration page
+        - when enabled, visit http://ipaddress:port/api to configure API keys from a web browser
+        - port is configured in Settings - HTTP Server - Port
+[add] Storing personal api keys in api_keys.json, restore keys from json on settings loss
+[add] Storing login tokens in access_manager.json, restore tokens from json on settings loss
+[add] youtube_registration module, register developer keys and use them by appending an addon_id=:addon_id parameter to youtube add-on plugin urls
+[add] screensaver=true parameter to /play route - no suggested videos, no post play events, don't ask for quality
+[add] play route for channel live streams
+        - plugin://plugin.video.youtube/play/?channel_id=UCLA_DiR1FfKNvjuUpBHmylQ&amp;live=1
+[fix] Signature deciphering
+[fix] context menu after playback
+[fix] alternative player, do not append headers
+[fix/upd] post play events happen post play
+[fix/upd] set title from metadata on play
+[upd] Use monitor to track api key changes
+[upd] Dutch strings [MB1968]
+[upd] French strings [bubuleur]
+[upd] Greek strings [twilight0]
+[upd] Spanish strings [roliverosc]
+        </news>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+        <summary lang="en_gb">Plugin for YouTube</summary>
+        <description lang="en_gb">YouTube is one of the biggest video-sharing websites of the world.</description>
+        <disclaimer lang="en_gb">This plugin is not endorsed by Google</disclaimer>
+        <summary lang="he_il">תוסף עבור YouTube</summary>
+        <description lang="he_il">YouTube הוא אחד מאתרי שיתוף הווידאו הגדולים בעולם.</description>
+        <summary lang="de_de">Plugin für YouTube</summary>
+        <description lang="de_de">YouTube ist eines der größten Video-Sharing-Websites der Welt.</description>
+        <summary lang="pl_pl">Wtyczka YouTube</summary>
+        <description lang="pl_pl">YouTube jest jednym z największych na świecie serwisów udostępniania wideo.</description>
+        <summary lang="hu_hu">YouTube kiegészítő</summary>
+        <description lang="hu_hu">A YouTube világ egyik legnagyobb videómegosztó weboldala.</description>
+        <summary lang="es_es">Plugin para YouTube</summary>
+        <description lang="es_es">YouTube es uno de los mayores sitios web de intercambio de vídeos del mundo.</description>
+        <disclaimer lang="es_es">Este add-on no esta respaldado por Google</disclaimer>
+        <summary lang="ru_ru">Видеодополнение YouTube</summary>
+        <description lang="ru_ru">Данное дополнение позволяет находить и смотреть видео на всеми любимом сайте.</description>
+        <summary lang="fr_fr">Plugin pour YouTube</summary>
+        <description lang="fr_fr">YouTube est l'un des plus grands sites de partage vidéos du monde.</description>
+        <summary lang="zh_cn">YouTube附加元件</summary>
+        <description lang="zh_cn">「Youtube」是全世界最大的影片分享網站</description>
+        <summary lang="bg_bg">Добавка за YouTube</summary>
+        <description lang="bg_bg">YouTube е един от най-големите уеб сайтове за споделяне на видео в целия свят.</description>
+        <summary lang="el_gr">Πρόσθετο YouTube</summary>
+        <description lang="el_gr">Το YouTube είναι μία από τις μεγαλύτερες ιστοσελίδες διαμοιρασμού βίντεο στον κόσμο.</description>
+        <disclaimer lang="el_gr">Η παρούσα μικροεφαρμογή δεν έχει υϊοθετηθεί από την Google</disclaimer>
+        <summary lang="nb_no">Tillegg for YouTube</summary>
+        <description lang="nb_no">YouTube er en av verdens største nettsider for videodeling.</description>
+        <language></language>
+        <platform>all</platform>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+        <forum>https://forum.kodi.tv/showthread.php?tid=325740</forum>
+        <website>https://www.youtube.com</website>
+        <email>ytplugin at datanet dot ws</email>
+        <source>https://github.com/jdf76/plugin.video.youtube</source>
+        <size>1776578</size>
+    </extension>
+</addon>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.audio.mp3streams" name="MP3 Streams" version="2017.09.09" provider-name="qahanik, kinkin, art by Marquerite">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+        <import addon="script.module.t0mm0.common" version="1.1.0"/>
+        <import addon="script.module.mutagen"/>
+        <import addon="script.module.requests" version="1.1.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>audio</provides>
+    </extension>
+    <extension point="xbmc.service" library="playerMP3.py" start="startup" />
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary>A music streaming collection</summary>
+        <description>Browse, stream or download your favourite songs and albums</description>
+        <news>fixed by qahanik (thank you very much!) / changed versioning to date-format / fixed album downloading / minor cosmetic cleanups</news>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+    </extension>
+</addon>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.audio.soundcloud" name="SoundCloud" version="2.0.6" provider-name="bromix">
+	<requires>
+		<import addon="xbmc.python" version="2.14.0"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="addon.py">
+		<provides>audio</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="bg">SoundCloud е платформа за разпространяване на аудио.</summary>
+		<summary lang="en">SoundCloud is an online audio distribution platform.</summary>
+		<summary lang="de">Soundcloud ist ein Online-Audio-Vertriebsplattform.</summary>
+		<summary lang="fr">SoundCloud est une plateforme de streaming audio en ligne.</summary>
+		<summary lang="he">סאונדקלאוד הוא פלטפורמת הפצת אודיו באינטרנט.</summary>
+		<summary lang="nl">SoundCloud is een online audio distributie platform.</summary>
+		<description lang="bg">SoundCloud е платформа за разпространение на аудио, която позволява на потребителите да качват, записват, представят и споделят звуците създадени от тях.</description>
+		<description lang="en">SoundCloud is an online audio distribution platform that enables its users to upload, record, promote and share their originally-created sounds.</description>
+		<description lang="de">Soundcloud ist ein Online-Audio-Vertriebsplattform. Benutzer können ihre ursprünglich erstelle Music hochladen, aufnehmen und unter weiteren Benutzern teilen.</description>
+		<description lang="fr">SoundCloud est une plateforme de streaming audio en ligne qui permet aux utilisateurs d'envoyer, d'enregistrer, de promouvoir et partager leurs créations audio originales.</description>
+		<description lang="he">סאונדקלאוד הוא פלטפורמה הפצת אודיו מקוונת המאפשרת למשתמשים שלה להעלות, להקליט, לקדם ולשתף את היצירות שלהם.</description>
+		<description lang="nl">SoundCloud is een online audio distributie platform dat gebruikers in staat stelt om hun eigen muziekcreaties te uploaden, opnemen, promoten en te delen.</description>
+		<disclaimer lang="en"></disclaimer>
+		<language></language>
+		<platform>all</platform>
+		<license>GNU General Public License v2.0</license>
+		<forum>http://forum.kodi.tv/showthread.php?tid=206635</forum>
+		<website>www.soundcloud.com</website>
+		<email>kodi at bromix dot org</email>
+		<source>https://github.com/bromix/plugin.audio.soundcloud</source>
+	</extension>
+</addon>
+
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="resource.uisounds.cdtv" version="1.0.0" name="CDTV UI Sounds" provider-name="CellarDoorTV Builds">
+<addon id="resource.uisounds.cdtv" version="2.0.0" name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite] UI Sounds v1[/COLOR]" provider-name="CDTV Builds">
   <requires>
     <import addon="kodi.resource" version="1.0.0"/>
   </requires>
   <extension point="kodi.resource.uisounds"/>
   <extension point="kodi.addon.metadata">
     <summary lang="en">CDTV UI Sounds</summary>
-    <description lang="en">CDTV UI Sounds</description>
+    <description lang="en">CDTV UI Sounds - Intro - Sound design multimedia start up: swirling deep chord with tinkling accents.</description>
     <platform>all</platform>
   </extension>
 </addon>
 
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="resource.uisounds.cdtv2" version="1.0.0" name="CDTV UI Sounds v2" provider-name="CellarDoorTV Builds">
+<addon id="resource.uisounds.cdtv2" version="2.0.0" name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite] UI Sounds v2[/COLOR]" provider-name="CDTV Builds">
   <requires>
     <import addon="kodi.resource" version="1.0.0"/>
   </requires>
   <extension point="kodi.resource.uisounds"/>
   <extension point="kodi.addon.metadata">
     <summary lang="en">CDTV UI Sounds</summary>
-    <description lang="en">CDTV UI Sounds v2</description>
+    <description lang="en">CDTV UI Sounds v2 - Intro - I AM ON AND READY TO GO</description>
     <platform>all</platform>
   </extension>
 </addon>
 
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="resource.uisounds.cdtv3" version="1.0.0" name="CDTV UI Sounds v3" provider-name="CellarDoorTV Builds">
+<addon id="resource.uisounds.cdtv3" version="2.0.0" name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite] UI Sounds v3[/COLOR]" provider-name="CDTV Builds">
   <requires>
     <import addon="kodi.resource" version="1.0.0"/>
   </requires>
   <extension point="kodi.resource.uisounds"/>
   <extension point="kodi.addon.metadata">
     <summary lang="en">CDTV UI Sounds</summary>
-    <description lang="en">CDTV UI Sounds v3</description>
+    <description lang="en">CDTV UI Sounds v3 Is the fusion of v1 and v2 - Intro - I AM ON AND READY TO GO followed by the sound design multimedia start up: swirling deep chord with tinkling accents</description>
     <platform>all</platform>
+  </extension>
+</addon>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="resource.uisounds.cdtv4" version="1.0.0" name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite] UI Sounds v4[/COLOR]" provider-name="CellarDoorTV Builds">
+  <requires>
+    <import addon="kodi.resource" version="1.0.0"/>
+  </requires>
+  <extension point="kodi.resource.uisounds"/>
+  <extension point="kodi.addon.metadata">
+    <summary lang="en">CDTV UI Sounds</summary>
+    <description lang="en">CDTV UI Sounds - I AM ACTIVATED READY FOR ACTION followed by the sound design multimedia start up: swirling deep chord with tinkling accents</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.cdtv.easytopair"
+  name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]EASY TO PAIR[/COLOR]"
+  version="1.0" 
+  provider-name="CDTV Builds">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.script" library="addon.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary lang="en">CDTV Easy to Pair Menu System</summary>
+    <description lang="en">Small Simple Script for CDTV Menu System</description>
+	<disclaimer>.</disclaimer>
   </extension>
 </addon>
 
@@ -226,6 +522,54 @@ provider-name="Team IVUE">
     <summary lang="en">ARNU Box Speed Tester</summary>
     <description lang="en">ARNU Box Speed Tester powered by speedtest.net will give you accurate Internet speed/ping test results. \n Brought to you by http://www.arnubox.com</description>
     <platform>all</platform>
+  </extension>
+</addon>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.image.resource.select" name="Image Resource Select Addon" version="2.0.2" provider-name="ronie">
+	<requires>
+		<import addon="xbmc.python" version="2.25.0"/>
+	</requires>
+	<extension point="xbmc.python.library" library="default.py"/>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Image resource selection addon</summary>
+		<description lang="en">Script for skinners to let users select an image resource addon.</description>
+		<language></language>
+		<platform>all</platform>
+		<license>GNU GENERAL PUBLIC LICENSE Version 2</license>
+		<forum>http://forum.kodi.tv/showthread.php?tid=239558</forum>
+		<website></website>
+		<email></email>
+		<source>https://github.com/ronie/script.image.resource.select</source>
+	</extension>
+</addon>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.module.mutagen"
+       name="mutagen"
+       version="1.22.0"
+       provider-name="Joe Wreschnig">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.module"
+             library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <language></language>
+    <summary lang="en">Mutagen is a Python module to handle audio metadata.</summary>
+    <description lang="en">Mutagen is a Python module to handle audio metadata. It supports ASF, FLAC, 
+M4A, Monkey's Audio, MP3, Musepack, Ogg Opus, Ogg FLAC, Ogg Speex, Ogg 
+Theora, Ogg Vorbis, True Audio, WavPack and OptimFROG audio files. All 
+versions of ID3v2 are supported, and all standard ID3v2.4 frames are 
+parsed. It can read Xing headers to accurately calculate the bitrate and 
+length of MP3s. ID3 and APEv2 tags can be edited regardless of audio 
+format. It can also manipulate Ogg streams on an individual packet/page 
+level.</description>
+    <disclaimer lang="en">Code taken from http://code.google.com/p/mutagen/</disclaimer>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    <website>http://code.google.com/p/mutagen/</website>
+    <source>https://bitbucket.org/lazka/mutagen/overview</source>
   </extension>
 </addon>
 
