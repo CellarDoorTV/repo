@@ -2,7 +2,7 @@
 <addon id="plugin.video.metalliq" name="[COLOR gold]M[/COLOR]etalli[COLOR gold]Q[/COLOR] [COLOR gold]GOLDEN[/COLOR]" version="2.0.17krypton" provider-name="[COLOR gold][B]Last Version[/B][/COLOR]">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
-		<import addon="repository.cdrepo" version="1.1"/>
+		<import addon="repository.cdrepo" version="1.2"/>
 		<import addon="script.module.requests" version="2.9.1"/>
 		<import addon="script.module.futures" version="2.2.0"/>
 	</requires>

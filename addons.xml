@@ -17,7 +17,7 @@
 </addon>
 
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.cdrepo" name="[COLOR steelblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="1.1" provider-name="GhostBuilder">
+<addon id="repository.cdrepo" name="[COLOR steelblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="1.2" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite] Builds[/COLOR]">
 	<extension point="xbmc.addon.repository" name="CellarDoorTV Repo">
 		<info compressed="false">https://raw.githubusercontent.com/CellarDoorTV/repo/master/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/CellarDoorTV/repo/master/addons.xml.md5</checksum>
@@ -82,7 +82,7 @@
 <addon id="plugin.video.metalliq" name="[COLOR gold]M[/COLOR]etalli[COLOR gold]Q[/COLOR] [COLOR gold]GOLDEN[/COLOR]" version="2.0.17krypton" provider-name="[COLOR gold][B]Last Version[/B][/COLOR]">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
-		<import addon="repository.cdrepo" version="1.1"/>
+		<import addon="repository.cdrepo" version="1.2"/>
 		<import addon="script.module.requests" version="2.9.1"/>
 		<import addon="script.module.futures" version="2.2.0"/>
 	</requires>
@@ -147,7 +147,7 @@
 <addon id="plugin.video.metalliq-forqed" name="[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed" version="3.0.17krypton" provider-name="[COLOR lime][B]Serious Fork[/B][/COLOR]">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
-		<import addon="repository.cdrepo" version="1.1"/>
+		<import addon="repository.cdrepo" version="1.2"/>
 		<import addon="script.module.requests" version="2.9.1"/>
 		<import addon="script.module.futures" version="2.2.0"/>
 	</requires>
