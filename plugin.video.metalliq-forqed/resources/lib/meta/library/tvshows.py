@@ -60,7 +60,7 @@ def add_tvshow_to_library(library_folder, show, play_plugin = None):
     playlist_folder = plugin.get_setting(SETTING_TV_PLAYLIST_FOLDER, unicode)
     if not xbmcvfs.exists(playlist_folder):
         try: xbmcvfs.mkdir(playlist_folder)
-        except: dialogs.notify(msg=_('Creation of MetalliQ-ForQed Playlist Folder'), title=_('Failed'), delay=5000, image=get_icon_path("lists"))
+        except: dialogs.notify(msg=_('Creation of [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed Playlist Folder'), title=_('Failed'), delay=5000, image=get_icon_path("lists"))
     playlist_file = os.path.join(playlist_folder, id+".xsp")
     if not xbmcvfs.exists(playlist_file):
         playlist_file = xbmcvfs.File(playlist_file, 'w')
@@ -137,7 +137,7 @@ def batch_add_tvshows_to_library(library_folder, show):
     playlist_folder = plugin.get_setting(SETTING_TV_PLAYLIST_FOLDER, unicode)
     if not xbmcvfs.exists(playlist_folder):
         try: xbmcvfs.mkdir(playlist_folder)
-        except: dialogs.notify(msg=_('Creation of MetalliQ-ForQed Playlist Folder'), title=_('Failed'), delay=5000, image=get_icon_path("lists"))
+        except: dialogs.notify(msg=_('Creation of [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed Playlist Folder'), title=_('Failed'), delay=5000, image=get_icon_path("lists"))
     playlist_file = os.path.join(playlist_folder, id+".xsp")
     if not xbmcvfs.exists(playlist_file):
         playlist_file = xbmcvfs.File(playlist_file, 'w')
@@ -217,11 +217,11 @@ def setup_library(library_folder):
     if not xbmcvfs.exists(library_folder):
         xbmcvfs.mkdir(library_folder)
         # auto configure folder
-        msg = _("Would you like to automatically set MetalliQ-ForQed as a tv shows source?")
+        msg = _("Would you like to automatically set [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed as a tv shows source?")
         if dialogs.yesno("{0} {1}".format(_("Library"), "setup"), msg):
             try:
                 source_thumbnail = get_icon_path("tv")
-                source_name = "MetalliQ-ForQed " + _("TV shows")
+                source_name = "[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed " + _("TV shows")
                 source_content = "('{0}','tvshows','metadata.tvdb.com','',0,0,'<settings><setting id=\"RatingS\" value=\"TheTVDB\" /><setting id=\"absolutenumber\" value=\"false\" /><setting id=\"dvdorder\" value=\"false\" /><setting id=\"fallback\" value=\"true\" /><setting id=\"fanart\" value=\"true\" /><setting id=\"language\" value=\"{1}\" /></settings>',0,0,NULL,NULL)".format(library_folder, LANG)
                 add_source(source_name, library_folder, source_content, source_thumbnail)
             except: pass
@@ -237,7 +237,7 @@ def auto_tvshows_setup(library_folder):
         try:
             xbmcvfs.mkdir(library_folder)
             source_thumbnail = get_icon_path("tv")
-            source_name = "MetalliQ-ForQed " + _("TV shows")
+            source_name = "[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed " + _("TV shows")
             source_content = "('{0}','tvshows','metadata.tvdb.com','',0,0,'<settings><setting id=\"RatingS\" value=\"TheTVDB\" /><setting id=\"absolutenumber\" value=\"false\" /><setting id=\"dvdorder\" value=\"false\" /><setting id=\"fallback\" value=\"true\" /><setting id=\"fanart\" value=\"true\" /><setting id=\"language\" value=\"{1}\" /></settings>',0,0,NULL,NULL)".format(library_folder, LANG)
             add_source(source_name, library_folder, source_content, source_thumbnail)
             return True

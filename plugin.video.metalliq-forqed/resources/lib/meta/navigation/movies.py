@@ -1061,7 +1061,7 @@ def make_movie_item(movie_info, is_list = False):
     if imdb_id == "": 
         try: imdb_id = info['imdb']
         except: imdb_id = False
-    if movie_info['poster'] == None or movie_info['poster'] == "": movie_info['poster'] = "http://cellardoortv.com/style/themes/MetalliQ-Forqed/unavailable.png"
+    if movie_info['poster'] == None or movie_info['poster'] == "": movie_info['poster'] = "http://cellardoortv.com/style/themes/default/unavailable.png"
     if movie_info['fanart'] == None or movie_info['fanart'] == "": movie_info['fanart'] = get_background_path()
     if tmdb_id:
         id = tmdb_id 

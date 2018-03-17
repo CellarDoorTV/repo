@@ -147,8 +147,8 @@ def get_current_movie_players_from_library():
 def setup_library(library_folder):
     if library_folder[-1] != "/":
         library_folder += "/"
-    metalliqforqed_playlist_folder = "special://profile/playlists/mixed/MetalliQForQed/"
-    if not xbmcvfs.exists(metalliqforqed_playlist_folder): xbmcvfs.mkdir(metalliqforqed_playlist_folder)
+    metalliq_playlist_folder = "special://profile/playlists/mixed/MetalliQ/"
+    if not xbmcvfs.exists(metalliq_playlist_folder): xbmcvfs.mkdir(metalliq_playlist_folder)
     playlist_folder = plugin.get_setting(SETTING_MOVIES_PLAYLIST_FOLDER, unicode)
     if plugin.get_setting(SETTING_MOVIES_PLAYLIST_FOLDER, unicode)[-1] != "/": playlist_folder += "/"
     # create folders
@@ -157,10 +157,10 @@ def setup_library(library_folder):
         # create folder
         xbmcvfs.mkdir(library_folder)
         # auto configure folder
-        msg = _("Would you like to automatically set MetalliQForQed as a movies video source?")
+        msg = _("Would you like to automatically set [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed as a movies video source?")
         if dialogs.yesno(_("Library setup"), msg):
             source_thumbnail = get_icon_path("movies")
-            source_name = "MetalliQForQed " + _("Movies")
+            source_name = "[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed " + _("Movies")
             source_content = "('{0}','movies','metadata.themoviedb.org','',2147483647,1,'<settings><setting id=\"RatingS\" value=\"TMDb\" /><setting id=\"certprefix\" value=\"Rated \" /><setting id=\"fanart\" value=\"true\" /><setting id=\"keeporiginaltitle\" value=\"false\" /><setting id=\"language\" value=\"{1}\" /><setting id=\"tmdbcertcountry\" value=\"us\" /><setting id=\"trailer\" value=\"true\" /></settings>',0,0,NULL,NULL)".format(library_folder, LANG)
             add_source(source_name, library_folder, source_content, source_thumbnail)
     # return translated path
@@ -177,7 +177,7 @@ def auto_movie_setup(library_folder):
             if not xbmcvfs.exists(playlist_folder): xbmcvfs.mkdir(playlist_folder)
             xbmcvfs.mkdir(library_folder)
             source_thumbnail = get_icon_path("movies")
-            source_name = "MetalliQForQed " + _("Movies")
+            source_name = "[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed " + _("Movies")
             source_content = "('{0}','movies','metadata.themoviedb.org','',2147483647,1,'<settings><setting id=\"RatingS\" value=\"TMDb\" /><setting id=\"certprefix\" value=\"Rated \" /><setting id=\"fanart\" value=\"true\" /><setting id=\"keeporiginaltitle\" value=\"false\" /><setting id=\"language\" value=\"{1}\" /><setting id=\"tmdbcertcountry\" value=\"us\" /><setting id=\"trailer\" value=\"true\" /></settings>',0,0,NULL,NULL)".format(library_folder, LANG)
             add_source(source_name, library_folder, source_content, source_thumbnail)
             return True
