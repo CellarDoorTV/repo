@@ -145,7 +145,7 @@ def get_tvshow_window(window_type):
         def show_manage_dialog(self):
             manage_list = []
             manage_list.append([xbmc.getInfoLabel('System.AddonTitle(%s)' % ADDON_ID) + " " + LANG(10004), 'Addon.OpenSettings(%s)' % ADDON_ID])
-            manage_list.append([xbmc.getInfoLabel('System.AddonTitle(%s)' % 'plugin.video.metalliq') + " " + LANG(10004), 'Addon.OpenSettings(%s)' % 'plugin.video.metalliq'])
+            manage_list.append([xbmc.getInfoLabel('System.AddonTitle(%s)' % 'plugin.video.metalliq-forqed') + " " + LANG(10004), 'Addon.OpenSettings(%s)' % 'plugin.video.metalliq-forqed'])
             addons = get_addons("tvshows")
             if len(addons) > 0:
                 for addon in addons:  manage_list.append([xbmc.getInfoLabel('System.AddonTitle(%s)' % addon[0]) + " " + LANG(10004), 'Addon.OpenSettings(%s)' % addon[1]])
@@ -156,7 +156,7 @@ def get_tvshow_window(window_type):
 
         @ch.click(1900)
         def pick_and_mix(self):
-            url = 'plugin://plugin.video.metalliq/tv/play/%s/1/1/%s' % (self.info.get("tvdb_id", ""), self.listitem.getProperty("qid"))
+            url = 'plugin://plugin.video.metalliq-forqed/tv/play/%s/1/1/%s' % (self.info.get("tvdb_id", ""), self.listitem.getProperty("qid"))
             PLAYER.qlickplay(url, listitem=None, window=self, dbid=0)
 
         @ch.click(6001)
@@ -197,9 +197,9 @@ def get_tvshow_window(window_type):
             if self.dbid:
                 url = "special://profile/playlists/video/%s.xsp" % self.info.get("tvdb_id", "")
                 if not os.path.exists(url):
-                    url = "plugin://plugin.video.metalliq/tv/play/%s/1/1/%s" % (self.info.get("tvdb_id", ""), SETTING("player_main_tv"))
+                    url = "plugin://plugin.video.metalliq-forqed/tv/play/%s/1/1/%s" % (self.info.get("tvdb_id", ""), SETTING("player_main_tv"))
             else:
-                url = "plugin://plugin.video.metalliq/tv/play/%s/1/1/%s" % (self.info.get("tvdb_id", ""), SETTING("player_main_tv"))
+                url = "plugin://plugin.video.metalliq-forqed/tv/play/%s/1/1/%s" % (self.info.get("tvdb_id", ""), SETTING("player_main_tv"))
             PLAYER.qlickplay(url,
                              listitem=None,
                              window=self,
@@ -210,7 +210,7 @@ def get_tvshow_window(window_type):
             TVLibrary = METALLIQ.getSetting("tv_library_folder")
             tvdb_id = self.info["tvdb_id"]
             if not os.path.exists(xbmc.translatePath("%s%s/" % (TVLibrary, tvdb_id))):
-                xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq/tv/add_to_library/%s)" % self.info.get("tvdb_id", ""))
+                xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq-forqed/tv/add_to_library/%s)" % self.info.get("tvdb_id", ""))
                 notify(header='Added "%s" to library' % self.info.get("TVShowTitle", ""), message="Starting library scan now", icon=self.info["poster"], time=5000, sound=False)
                 after_add(type="tv")
             else:
@@ -234,7 +234,7 @@ def get_tvshow_window(window_type):
 
         @ch.click(120)
         def browse_tvshow(self):
-            url = "plugin://plugin.video.metalliq/tv/tvdb/%s" % self.info.get("tvdb_id", "")
+            url = "plugin://plugin.video.metalliq-forqed/tv/tvdb/%s" % self.info.get("tvdb_id", "")
             self.close()
             xbmc.executebuiltin("ActivateWindow(videos,%s,return)" % url)
 

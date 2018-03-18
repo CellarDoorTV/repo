@@ -37,7 +37,7 @@ FAVTHUMB = SETTING("fav_thumb")
 MOVIESORTS = ["popularity", "release_date", "revenue", "original_title", "vote_average", "vote_count"]
 TVSORTS = ["popularity", "first_air_date", "vote_average", "vote_count"]
 trailersearches = ["official trailer", "trailer", "teaser", "promo", "sneak preview", "intro", "opening credits"]
-METALLIQ = xbmcaddon.Addon("plugin.video.metalliq")
+METALLIQ = xbmcaddon.Addon("plugin.video.metalliq-forqed")
 
 def after_add(type=False):
     basepath = os.path.join(ADDON_DATA_PATH, "TheMovieDB")
@@ -69,7 +69,7 @@ def get_addons(type=None):
     else:
         addons = []
         ids = []
-        players_path = "special://profile/addon_data/plugin.video.metalliq/players/"
+        players_path = "special://profile/addon_data/plugin.video.metalliq-forqed/players/"
         files = [x for x in xbmcvfs.listdir(players_path)[1] if x.endswith(".json")]
         for file in files:
             path = xbmc.translatePath(os.path.join(players_path,file))
@@ -93,7 +93,7 @@ def get_addons(type=None):
                     addon.append(str(meta["id"]))
                     addons.append(addon)
                     ids.append(str(meta["id"]))
-                elif meta[type] and xbmc.getCondVisibility('System.HasAddon(%s)' % meta["plugin"]) and meta["plugin"] not in str(addons) and meta["plugin"] != 'plugin.video.metalliq' and meta["plugin"] != 'script.qlickplay' and meta["plugin"] != 'plugin.video.youtube' and meta["plugin"] != 'script.extendedinfo':
+                elif meta[type] and xbmc.getCondVisibility('System.HasAddon(%s)' % meta["plugin"]) and meta["plugin"] not in str(addons) and meta["plugin"] != 'plugin.video.metalliq-forqed' and meta["plugin"] != 'script.qlickplay' and meta["plugin"] != 'plugin.video.youtube' and meta["plugin"] != 'script.extendedinfo':
                     addon = []
                     addon.append(str(meta["plugin"]))
                     addon.append(str(meta["id"]))

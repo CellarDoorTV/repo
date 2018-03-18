@@ -86,11 +86,11 @@ def get_episode_window(window_type):
                 dbid = self.dbid
                 url = "special://profile/playlists/mixed/MetalliQ/TVShows/%s.xsp" % self.info.get("tvdb_id", "")
                 if not os.path.exists(url):
-                    url = "plugin://plugin.video.metalliq/tv/play/%s/%s/%s/%s" % (self.info.get("tvdb_id", ""), self.info.get("season", ""), self.info["episode"], SETTING("player_main_tv"))
+                    url = "plugin://plugin.video.metalliq-forqed/tv/play/%s/%s/%s/%s" % (self.info.get("tvdb_id", ""), self.info.get("season", ""), self.info["episode"], SETTING("player_main_tv"))
             else:
                 dbid = 0
                 tvdb_id = fetch(get_tvshow_ids(self.tvshow_id), "tvdb_id")
-                url = "plugin://plugin.video.metalliq/tv/play/%s/%s/%s/%s" % (tvdb_id, self.info["season"], self.info["episode"], SETTING("player_main_tv"))
+                url = "plugin://plugin.video.metalliq-forqed/tv/play/%s/%s/%s/%s" % (tvdb_id, self.info["season"], self.info["episode"], SETTING("player_main_tv"))
             PLAYER.qlickplay(url,
                              listitem=None,
                              window=self,
@@ -100,7 +100,7 @@ def get_episode_window(window_type):
         def show_manage_dialog(self):
             manage_list = []
             manage_list.append([xbmc.getInfoLabel('System.AddonTitle(%s)' % 'script.extendedinfo') + " " + LANG(32133), 'Addon.OpenSettings(%s)' % 'script.extendedinfo'])
-            manage_list.append([xbmc.getInfoLabel('System.AddonTitle(%s)' % 'plugin.video.metalliq') + " " + LANG(32133), 'Addon.OpenSettings(%s)' % 'plugin.video.metalliq'])
+            manage_list.append([xbmc.getInfoLabel('System.AddonTitle(%s)' % 'plugin.video.metalliq-forqed') + " " + LANG(32133), 'Addon.OpenSettings(%s)' % 'plugin.video.metalliq-forqed'])
             addons = get_addons("tvshows")
             if len(addons) > 0:
                 for addon in addons:  manage_list.append([xbmc.getInfoLabel('System.AddonTitle(%s)' % addon[0]) + " " + LANG(32133), 'Addon.OpenSettings(%s)' % addon[1]])
@@ -111,7 +111,7 @@ def get_episode_window(window_type):
 
         @ch.click(1900)
         def pick_and_mix(self):
-            url = 'plugin://plugin.video.metalliq/tv/play/%s/%s/%s/%s' % (self.data.get("tvdb_id", ""), self.info.get("season", ""), self.info.get("episode", ""), self.listitem.getProperty("qid"))
+            url = 'plugin://plugin.video.metalliq-forqed/tv/play/%s/%s/%s/%s' % (self.data.get("tvdb_id", ""), self.info.get("season", ""), self.info.get("episode", ""), self.listitem.getProperty("qid"))
             PLAYER.qlickplay(url, listitem=None, window=self, dbid=0)
 
         def update_states(self):

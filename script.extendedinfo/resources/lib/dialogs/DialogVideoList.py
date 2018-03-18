@@ -135,11 +135,11 @@ def get_tmdb_window(window_type):
                         show_playlist = xbmc.translatePath("special://profile/playlists/video/%s.xsp" % (tvdb_id, SETTING("player_alt")))
                         if os.path.exists(show_playlist):
                             url = show_playlist
-                        else: url = 'plugin://plugin.video.metalliq/tv/play/%s/1/1/%s' % (tvdb_id, SETTING("player_alt"))
-                    else: url = 'plugin://plugin.video.metalliq/tv/play/%s/1/1/%s' % (tvdb_id, SETTING("player_alt"))
+                        else: url = 'plugin://plugin.video.metalliq-forqed/tv/play/%s/1/1/%s' % (tvdb_id, SETTING("player_alt"))
+                    else: url = 'plugin://plugin.video.metalliq-forqed/tv/play/%s/1/1/%s' % (tvdb_id, SETTING("player_alt"))
                 else:
                     if self.listitem.getProperty("dbid"): url = 'temp'
-                    else: url = 'plugin://plugin.video.metalliq/movies/play/tmdb/%s/%s' % (item_id, SETTING("player_alt"))
+                    else: url = 'plugin://plugin.video.metalliq-forqed/movies/play/tmdb/%s/%s' % (item_id, SETTING("player_alt"))
                 PLAYER.qlickplay(url, listitem=None, dbid=dbid, window=self)
             if selection == 1:
                 if self.type == "tv" or self.type == "episode":
@@ -159,7 +159,7 @@ def get_tmdb_window(window_type):
                         else:
                             notify(header='Item not added by QlickPlay' % self.listitem.getProperty("TVShowTitle"), message="Needs manual deletion", icon=self.listitem.getProperty("poster"), time=5000, sound=False)
                     else:
-                        xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq/tv/add_to_library/%s)" % tvdb_id)
+                        xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq-forqed/tv/add_to_library/%s)" % tvdb_id)
                         notify(header='Added "%s" to library' % self.listitem.getProperty("TVShowTitle"), message="Starting library scan now", icon=self.listitem.getProperty("poster"), time=5000, sound=False)
                 else:
                     MovieLibrary = METALLIQ.getSetting("movies_library_folder")
@@ -172,7 +172,7 @@ def get_tmdb_window(window_type):
                         else:
                             notify(header='Item not added by QlickPlay', message="Needs manual deletion", icon=self.listitem.getProperty("poster"), time=5000, sound=False)
                     else:
-                        xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq/movies/add_to_library/tmdb/%s)" % item_id)
+                        xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq-forqed/movies/add_to_library/tmdb/%s)" % item_id)
                         notify(header='Added "%s" to library' % self.listitem.getProperty("title"), message="Starting library scan now", icon=self.listitem.getProperty("poster"), time=5000, sound=False)
                 after_add(type=self.type)
                 self.update(force_update=True)

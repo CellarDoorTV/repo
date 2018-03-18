@@ -8,7 +8,7 @@ from Utils import *
 from local_db import *
 import TheMovieDB as tmdb
 
-TRAKT_KEY = 'e9a7fba3fa1b527c08c073770869c258804124c5d7c984ce77206e695fbaddd5'
+TRAKT_KEY = 'fa87e39d5004cfc2fc125932dfe1696990f1c89775d2914798f258f7ebff195a'
 BASE_URL = "https://api-v2launch.trakt.tv/"
 HEADERS = {
     'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ def get_trakt_calendar_shows(content):
                         'trakt_id': episode["show"]["ids"]["trakt"],
                         'season': episode["episode"]["season"],
                         'episode': episode["episode"]["number"],
-                        'path': 'plugin://script.extendedinfo/?info=extendedtvinfo&tvdb_id=%s' % episode["show"]["ids"]["tvdb"],
+                        'path': 'plugin://script.wraith/?info=extendedtvinfo&tvdb_id=%s' % episode["show"]["ids"]["tvdb"],
                         'Runtime': episode["show"]["runtime"] * 60,
                         'duration': episode["show"]["runtime"] * 60,
                         'duration(h)': format_time(episode["show"]["runtime"], "h"),
@@ -88,13 +88,13 @@ def handle_trakt_movies(results):
                  'duration(h)': format_time(movie["movie"]["runtime"], "h"),
                  'duration(m)': format_time(movie["movie"]["runtime"], "m"),
                  'Tagline': movie["movie"]["tagline"],
-                 'Trailer': 'plugin://script.extendedinfo/?info=playtrailer&id=%s' % str(movie["movie"]["ids"]["tmdb"]),
+                 'Trailer': 'plugin://script.wraith/?info=playtrailer&id=%s' % str(movie["movie"]["ids"]["tmdb"]),
                  'year': movie["movie"]["year"],
                  'id': id,
                  'imdb_id': movie["movie"]["ids"]["imdb"],
                  'trakt_id': movie["movie"]["ids"]["trakt"],
                  'slug': movie["movie"]["ids"]["slug"],
-                 'path': 'plugin://script.extendedinfo/?info=extendedinfo&id=%s' % str(movie["movie"]["ids"]["tmdb"]), 
+                 'path': 'plugin://script.wraith/?info=wraith&id=%s' % str(movie["movie"]["ids"]["tmdb"]), 
                  'mpaa': movie["movie"]["certification"],
                  'Plot': movie["movie"]["overview"],
                  'Premiered': movie["movie"]["released"],
@@ -127,7 +127,7 @@ def handle_trakt_tvshows(results):
                 'duration': tvshow['show']["runtime"] * 60,
                 'duration(h)': format_time(tvshow['show']["runtime"], "h"),
                 'duration(m)': format_time(tvshow['show']["runtime"], "m"),
-                'Trailer': 'plugin://script.extendedinfo/?info=playtvtrailer&id=%s' % str(tvshow['show']['ids']["tmdb"]),
+                'Trailer': 'plugin://script.wraith/?info=playtvtrailer&id=%s' % str(tvshow['show']['ids']["tmdb"]),
                 'year': tvshow['show']["year"],
                 'Status': fetch(tvshow['show'], "status"),
                 'mpaa': tvshow['show']["certification"],
@@ -139,7 +139,7 @@ def handle_trakt_tvshows(results):
                 'tmdb_id': tvshow['show']['ids']["tmdb"],
                 'trakt_id': tvshow['show']['ids']["trakt"],
                 'slug': tvshow['show']['ids']["slug"],
-                'path': 'plugin://script.extendedinfo/?info=extendedtvinfo&id=%s' % str(tvshow['show']['ids']["tmdb"]),
+                'path': 'plugin://script.wraith/?info=extendedtvinfo&id=%s' % str(tvshow['show']['ids']["tmdb"]),
                 'AirDay': fetch(airs, "day"),
                 'AirShortTime': fetch(airs, "time"),
                 'Premiered': tvshow['show']["first_aired"][:10],

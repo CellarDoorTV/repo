@@ -102,18 +102,18 @@ class DialogBaseInfo(object):
                             xbmc.executebuiltin("ActivateWindow(videos,videodb://tvshows/titles/%s/)" % dbid)
                             self.close()
                     else:
-                        xbmc.executebuiltin("ActivateWindow(10025,plugin://plugin.video.metalliq/tv/tvdb/%s,return)" % tvdb)
+                        xbmc.executebuiltin("ActivateWindow(10025,plugin://plugin.video.metalliq-forqed/tv/tvdb/%s,return)" % tvdb)
                         self.close()
                 else:
                     if dbid: url = "temp"
                     else:
                         dbid = 0
-                        url = "plugin://plugin.video.metalliq/movies/play/tmdb/%s/%s" % (item_id, SETTING("player_main_movie"))
+                        url = "plugin://plugin.video.metalliq-forqed/movies/play/tmdb/%s/%s" % (item_id, SETTING("player_main_movie"))
                     PLAYER.qlickplay(url, listitem=None, window=self, dbid=dbid)
             if selection == 1:
                 if self.type == "TVShow":
                     if dbid:
-                        show_path = xbmc.translatePath("special://profile/addon_data/plugin.video.metalliq/TVShows/%s" % tvdb)
+                        show_path = xbmc.translatePath("special://profile/addon_data/plugin.video.metalliq-forqed/TVShows/%s" % tvdb)
                         if os.path.exists(show_path):
                             try:
                                 shutil.rmtree(show_path)
@@ -121,11 +121,11 @@ class DialogBaseInfo(object):
                                 xbmc.executebuiltin("CleanLibrary(video)")
                             except: pass
                     else:
-                        xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq/movies/add_to_library/tmdb/%s)" % item_id)
+                        xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq-forqed/movies/add_to_library/tmdb/%s)" % item_id)
                         xbmc.executebuiltin("RunScript(script.extendedinfo,info=afteradd)")
                 else:
                     if dbid:
-                        movie_path = xbmc.translatePath("special://profile/addon_data/plugin.video.metalliq/Movies/%s" % imdb)
+                        movie_path = xbmc.translatePath("special://profile/addon_data/plugin.video.metalliq-forqed/Movies/%s" % imdb)
                         if os.path.exists(movie_path):
                             try:
                                 shutil.rmtree(movie_path)
@@ -133,7 +133,7 @@ class DialogBaseInfo(object):
                                 xbmc.executebuiltin("CleanLibrary(video)")
                             except: pass
                     else:
-                        xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq/movies/add_to_library/tmdb/%s)" % item_id)
+                        xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq-forqed/movies/add_to_library/tmdb/%s)" % item_id)
                         xbmc.executebuiltin("RunScript(script.extendedinfo,info=afteradd)")
             if selection == 2:
                 change_fav_status(media_id=item_id, media_type="movie", status=str(not bool(self.account_states["favorite"])).lower())

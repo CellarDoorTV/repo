@@ -579,7 +579,7 @@
                                 <visible>!Stringcompare(Window.Property(Type),tvshow) + !Stringcompare(Window.Property(Type),movie) + !Stringcompare(Window.Property(Type),season)</visible>
                             </control>-->
                             <control type="radiobutton" id="120">
-                                <label>MetalliQ</label>
+                                <label>[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed</label>
                                 <textureradioonfocus colordiffuse="FFFAFAFA">icons/browse.png</textureradioonfocus>
                                 <textureradioofffocus colordiffuse="FFFAFAFA">icons/browse.png</textureradioofffocus>
                                 <textureradiooffnofocus colordiffuse="FF999999">icons/browse.png</textureradiooffnofocus>
@@ -606,7 +606,7 @@
                                 <visible>Stringcompare(Window.Property(Type),tvshow) | Stringcompare(Window.Property(Type),movie)</visible>
                             </control>
                             <control type="radiobutton" id="121">
-                                <label>MetalliQ</label>
+                                <label>MeatlliQ 4Qed</label>
                                 <textureradioonfocus colordiffuse="FFFAFAFA">icons/browse.png</textureradioonfocus>
                                 <textureradioofffocus colordiffuse="FFFAFAFA">icons/browse.png</textureradioofffocus>
                                 <textureradiooffnofocus colordiffuse="FF999999">icons/browse.png</textureradiooffnofocus>

@@ -103,15 +103,15 @@ def get_movie_window(window_type):
                 for item in movies_list:
                     if item != "":
                         ids = ids + str(item[1]) + '\n'
-                batch_add_file_path = "special://profile/addon_data/plugin.video.metalliq/movies_to_add.txt"
+                batch_add_file_path = "special://profile/addon_data/plugin.video.metalliq-forqed/movies_to_add.txt"
                 if not xbmcvfs.exists(batch_add_file_path):
                     batch_add_file = xbmcvfs.File(batch_add_file_path, 'w')
                     batch_add_file.write(ids)
                     batch_add_file.close()
-                xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq/movies/batch_add_to_library)")
+                xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq-forqed/movies/batch_add_to_library)")
                 xbmc.executebuiltin("Dialog.Close(busydialog)")
             elif selection > 0:
-                xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq/movies/add_to_library/tmdb/%s)" % str(movies_list[selection][1]))
+                xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq-forqed/movies/add_to_library/tmdb/%s)" % str(movies_list[selection][1]))
 
         @ch.click(1000)
         @ch.click(750)
@@ -220,7 +220,7 @@ def get_movie_window(window_type):
 
         @ch.click(120)
         def search_in_metalliq_by_title(self):
-            url = "plugin://plugin.video.metalliq/movies/tmdb/search_term/%s/1" % self.info.get("title", "")
+            url = "plugin://plugin.video.metalliq-forqed/movies/tmdb/search_term/%s/1" % self.info.get("title", "")
             self.close()
             xbmc.executebuiltin("ActivateWindow(videos,%s,return)" % url)
 
@@ -286,7 +286,7 @@ def get_movie_window(window_type):
                 url = "temp"
             else:
                 dbid = 0
-                url = "plugin://plugin.video.metalliq/movies/play/tmdb/%s/%s" % (self.info.get("id", ""), SETTING("player_main_movie"))
+                url = "plugin://plugin.video.metalliq-forqed/movies/play/tmdb/%s/%s" % (self.info.get("id", ""), SETTING("player_main_movie"))
             PLAYER.qlickplay(url,
                              listitem=None,
                              window=self,
@@ -296,7 +296,7 @@ def get_movie_window(window_type):
         def show_manage_dialog(self):
             manage_list = []
             manage_list.append([xbmc.getInfoLabel('System.AddonTitle(%s)' % ADDON_ID) + " " + LANG(10004), 'Addon.OpenSettings(%s)' % ADDON_ID])
-            manage_list.append([xbmc.getInfoLabel('System.AddonTitle(%s)' % 'plugin.video.metalliq') + " " + LANG(10004), 'Addon.OpenSettings(%s)' % 'plugin.video.metalliq'])
+            manage_list.append([xbmc.getInfoLabel('System.AddonTitle(%s)' % 'plugin.video.metalliq-forqed') + " " + LANG(10004), 'Addon.OpenSettings(%s)' % 'plugin.video.metalliq-forqed'])
             addons = get_addons("movies")
             if len(addons) > 0:
                 for addon in addons: manage_list.append([xbmc.getInfoLabel('System.AddonTitle(%s)' % addon[0]) + " " + LANG(10004), 'Addon.OpenSettings(%s)' % addon[1]])
@@ -396,7 +396,7 @@ def get_movie_window(window_type):
         @ch.click(1900)
         def pick_and_mix(self):
             dbid = 0
-            url = "plugin://plugin.video.metalliq/movies/play/tmdb/%s/%s" % (self.info.get("id", ""), self.listitem.getProperty("qid"))
+            url = "plugin://plugin.video.metalliq-forqed/movies/play/tmdb/%s/%s" % (self.info.get("id", ""), self.listitem.getProperty("qid"))
             PLAYER.qlickplay(url, listitem=None, window=self, dbid=dbid)
 
         def sort_lists(self, lists):
@@ -426,7 +426,7 @@ def get_movie_window(window_type):
             MovieLibrary = METALLIQ.getSetting("movies_library_folder")
             imdb_id = self.info["imdb_id"]
             if not os.path.exists(xbmc.translatePath("%s%s/" % (MovieLibrary, imdb_id))):
-                xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq/movies/add_to_library/tmdb/%s)" % self.info.get("id", ""))
+                xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq-forqed/movies/add_to_library/tmdb/%s)" % self.info.get("id", ""))
                 notify(header='Added "%s" to library' % self.info.get("title", ""), message="Starting library scan now", icon=self.info["poster"], time=5000, sound=False)
                 after_add(type="movie")
             else:
