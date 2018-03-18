@@ -6,17 +6,9 @@ from meta import plugin, LANG
 from settings import *
 from language import get_string as _
 
-LAK = plugin.get_setting(SETTING_LASTFM_API_KEY, str)
-LASS = plugin.get_setting(SETTING_LASTFM_API_SHARED_SECRET, str)
-
-if len(LAK) == 32 and len(LASS) == 32:
-    API_KEY = LAK
-    SHARED_SECRET = LASS
-else:
-    API_KEY = ""
-    SHARED_SECRET = ""
-
 API_ENDPOINT = "http://ws.audioscrobbler.com/2.0/"
+API_KEY = "3e6ac91a3cb5fa63cc1571de42f22167"
+SHARED_SECRET = "c34f3859900b4511a27f051e198a39f3"
 
 
 def call_last_fm(params={}, data=None, result_format = "json"):

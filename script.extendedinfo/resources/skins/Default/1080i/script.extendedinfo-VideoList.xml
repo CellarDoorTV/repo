@@ -201,7 +201,7 @@
                         <control type="image">
                             <width>55</width>
                             <height>55</height>
-                            <posy>30</posy>
+                            <posy>35</posy>
                             <posx>11</posx>
                             <texture flipx="true" colordiffuse="$INFO[Skin.String(WindowColorThemed)]">flags/marked.png</texture>
                             <visible>!IsEmpty(ListItem.Property(DBID))</visible>
@@ -209,8 +209,8 @@
                         <control type="image">
                             <width>55</width>
                             <height>55</height>
-                            <posy>30</posy>
-                            <posx>11</posx>
+                            <posy>26</posy>
+                            <posx>20</posx>
                             <texture flipx="true">flags/local.png</texture>
                             <visible>!IsEmpty(ListItem.Property(DBID))</visible>
                         </control>
@@ -276,7 +276,7 @@
                         <control type="image">
                             <width>55</width>
                             <height>55</height>
-                            <posy>30</posy>
+                            <posy>35</posy>
                             <posx>11</posx>
                             <texture flipx="true" colordiffuse="$INFO[Skin.String(WindowColorThemed)]">flags/marked.png</texture>
                             <visible>!IsEmpty(ListItem.Property(DBID))</visible>
@@ -284,8 +284,8 @@
                         <control type="image">
                             <width>55</width>
                             <height>55</height>
-                            <posy>30</posy>
-                            <posx>11</posx>
+                            <posy>26</posy>
+                            <posx>20</posx>
                             <texture flipx="true">flags/local.png</texture>
                             <visible>!IsEmpty(ListItem.Property(DBID))</visible>
                         </control>

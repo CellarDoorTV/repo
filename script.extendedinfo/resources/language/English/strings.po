@@ -1,5 +1,5 @@
 # XBMC Media Center language file
-# Addon Name: [COLOR ff0084ff]E[/COLOR]xtended [COLOR ff0084ff]I[/COLOR]nfo [COLOR ff0084ff]M[/COLOR]od
+# Addon Name: [COLOR limegreen]EIM[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed
 # Addon id: script.extendedinfo
 # Addon version: 5.0.0
 # Addon Provider: phil65
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 msgctxt "Addon Summary"
-msgid "[COLOR ff0084ff]E[/COLOR]xtended [COLOR ff0084ff]I[/COLOR]nfo [COLOR ff0084ff]M[/COLOR]od"
+msgid "Modded for [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed"
 msgstr ""
 
 msgctxt "Addon Description"
