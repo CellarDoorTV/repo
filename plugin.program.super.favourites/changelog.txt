@@ -1,4 +1,51 @@
-[B][COLOR chartreuse]This file contains ALOT of useful information regarding the functionality of Super Favourites - PLEASE READ IT!![/COLOR][/B]
+[B][COLOR chartreuse]This file contains ALOT of useful information regarding the functionality of Super Favourites[CR]
+PLEASE READ IT!![/COLOR][/B]
+
+
+[COLOR chartreuse]1.0.48: 15th February 2016[/COLOR]
+    - this release will be forever known as [COLOR cyan][B]THE DKPLAYACLUB-DICK-MOVE RELEASE[/B][/COLOR]
+    - the Super Favourite menu item on the standard context menu can now be disabled
+        - not as easy as you would think!
+    - whitelisted addons will not show the global menu regardless of the global menu setting
+
+
+[COLOR chartreuse]1.0.47.1: 13th February 2016[/COLOR]
+    - linked Super Folders that use the 'folder=' format now maintain the navigation history 
+    - linked Super Folder are now created using the 'folder=' format (instead of 'path=')
+    - fixed 'Super_Favourites_Folder' infolabel when displaying numeric labels
+    - locked Super Folders no longer appear on quick launch dialog
+
+
+[COLOR chartreuse]1.0.47: 12th February 2016[/COLOR]
+    - linked Super Folders now maintain the navigation history
+    - fixed missing Super Folder names in certain views/skins
+    - removed sfOption parameter when manually editing Super Favourites
+    - fixed iRecommend functionality when displaying numeric labels
+
+
+[COLOR chartreuse]1.0.46.1: 3rd February 2016[/COLOR]
+    - removed spurious window ID from favourites
+
+
+[COLOR chartreuse]1.0.46: 2nd February 2016[/COLOR]
+    - remove numeric label when adding to Kodi favourites
+    - fixed moving favourites up and down when items are hidden
+    - fixed images for some iSearch items
+    - fixed launching from widgets - tested in Arctic: Zephyr
+    - infolabels in favourites are now parsed correctly, eg $ INFO[Skin.String(MovieQuery)]
+    - localized strings in favourites are now parsed correctly,  eg $ LOCALIZE[342]
+
+
+[COLOR chartreuse]1.0.45: 14th January 2016[/COLOR]
+    - fixed adding to Kodi favourites
+    - fixed iSearch from file manager window
+    - fixed global menu behaviour in WindowXML windows
+    - added download functionality to global menu 
+        - available if Super Favourites *may* be able to download the current playing video
+
+
+[COLOR chartreuse]1.0.44: 17th December 2015[/COLOR]
+    - version bump
 
 
 [COLOR chartreuse]1.0.43: 16th December 2015[/COLOR]

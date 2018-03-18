@@ -74,8 +74,8 @@ DISPLAYNAME = 'Kodi'
 # -----Addon Modes ----- #
 _IGNORE                = -10
 _MAIN                  = -2
-_SUPERSEARCH           = 0
-_SUPERSEARCHDEF        = 10
+_SUPERSEARCH           = 0  #also in capture.py
+_SUPERSEARCHDEF        = 10 #also in capture.py
 _EXTSEARCH             = 25 #used to trigger new Super Search from outside of addon
 _SEPARATOR             = 50
 _SETTINGS              = 100
@@ -103,7 +103,7 @@ _UNSECURE              = 2300
 _PLAYLIST              = 2400
 _COLOURFOLDER          = 2500
 _COLOURFAVE            = 2600
-_RECOMMEND_KEY         = 2700
+_RECOMMEND_KEY         = 2700 #also in capture.py
 _RECOMMEND_KEY_A       = 2710
 _RECOMMEND_IMDB        = 2800
 _PLAYTRAILER           = 2900
@@ -368,19 +368,34 @@ def getCurrentWindowId():
     return winID if winID != 10000 else 10025
 
 
+def removeNumeric(text):
+    if not LABEL_NUMERIC:
+        return text
+
+    root = text.split(NUMBER_SEP, 1)[0]
+    if root.startswith('['):
+        root = root.rsplit(']', 1)[0] + ']'
+    else:
+        root = ''
+        
+    return root + text.split(NUMBER_SEP, 1)[-1]
+
+
 def addToXBMC(name, thumb, cmd,  keyword):
     p = get_params(cmd.replace('?', '&'))
 
-    if LABEL_NUMERIC:
-        name = name.split(NUMBER_SEP, 1)[-1]
+    name = removeNumeric(name)
 
     try: 
         mode = int(p['mode'])
         if mode == _FOLDER:
             label = urllib.unquote_plus(p['label'])
             path  = urllib.unquote_plus(p['path'])
-            path  = utils.convertToHome(path)
-            cmd   = '%s?label=%s&mode=%d&path=%s' % (sys.argv[0], label, _FOLDER, urllib.quote_plus(path))
+            path  = utils.convertToHome(path)            
+
+            label = removeNumeric(label)
+
+            cmd = '%s?label=%s&mode=%d&path=%s' % (sys.argv[0], label, _FOLDER, urllib.quote_plus(path))
     except:
         mode = _IGNORE
 
@@ -464,7 +479,6 @@ def addToXBMC(name, thumb, cmd,  keyword):
 
 def refresh():
     xbmc.executebuiltin('Container.Refresh')
-    #xbmc.executebuiltin('Container.Refresh(%s)' % (sys.argv[0] + sys.argv[2]))
 
 
 def removeAutoplay(path):
@@ -641,9 +655,45 @@ def parseFile(file, sortorder=0, label_numeric=None, index=0):
 
         label, index = addPrefixToLabel(index, label, label_numeric)
 
-        addDir(label, type, cmd=cmd, thumbnail=thumb, isFolder=isFolder, menu=menu, fanart=fanart, infolabels=infolabel)
+        path = checkForSuperFolderLink(cmd)
+
+        if path:    
+            addDir(label, _FOLDER, path=path, thumbnail=thumb, isFolder=True, menu=menu, fanart=fanart, infolabels=infolabel)
+        else:           
+            addDir(label, type, cmd=cmd, thumbnail=thumb, isFolder=isFolder, menu=menu, fanart=fanart, infolabels=infolabel)
 
     separator = len(faves) > 0
+
+
+def checkForSuperFolderLink(cmd):
+    try:
+        if not cmd.startswith('ActivateWindow'):
+            return None
+
+        if 'plugin://plugin.program.super.favourites' not in cmd:
+            return None
+
+        params = get_params(cmd)
+
+        mode = int(params['mode'])
+
+        if mode <> _FOLDER:
+            return None
+
+        if 'path' in params:
+            path = params['path'].replace('\\', '/')
+            if path.replace('\\', '/').startswith(PROFILE):
+                return path
+
+        if 'folder' in params:
+            folder = params['folder'].replace('\\', '/')
+            folder = os.path.join(PROFILE, folder)
+            return folder
+
+    except:
+        pass
+
+    return None
 
 
 def getPrefix(index):
@@ -931,9 +981,9 @@ def parseFolder(folder):
 
         if label_numeric:
             prefix, index = getPrefix(index)
-            dir = prefix + dir
+            dir = prefix + dir       
 
-        if colour:
+        if colour and colour.lower() <> 'none':
             dir = '[COLOR %s]%s[/COLOR]' % (colour, dir)
         
         mode       = _PLAY_SUPER_FOLDER if autoplay else _FOLDER
@@ -1617,6 +1667,9 @@ def manualEdit(file, _cmd, name='', thumb='', editName=True):
     manualUnset = MANUAL_CMD in cmd
 
     title = GETTEXT(30170) % name
+
+    sfOptions = ''
+    prefix    = ''
  
     if manualUnset:
         newCmd = getText(title, '', allowEmpty=True)
@@ -1625,9 +1678,7 @@ def manualEdit(file, _cmd, name='', thumb='', editName=True):
             cmd = cmd.split('ExecuteBuiltin("', 1)[-1]
             cmd = cmd.rsplit('")')[0]
         else:
-            cmd = re.compile('\((.+?)\)').search(cmd).group(1)
-
-        cmd = cmd.lower()
+            cmd = cmd.split('(', 1)[-1].rsplit(')', 1)[0] #split only on very outer brackets
 
         if _cmd.lower().startswith('activatewindow'):
             if cmd == originalID:
@@ -1652,10 +1703,21 @@ def manualEdit(file, _cmd, name='', thumb='', editName=True):
 
         cmd = cmd.replace('"', '')
 
+        if '?sf_options' in cmd:
+            prefix = '?sf_options'
+            cmd, sfOptions = cmd.split(prefix)            
+
+        elif '&sf_options' in cmd:
+            prefix = '&sf_options'
+            cmd, sfOptions = cmd.split(prefix)
+
         newCmd = getText(title, cmd, allowEmpty=True)
 
     if newCmd == None:
         return False
+
+    if len(prefix) > 0 and len(sfOptions) > 0:
+        newCmd += prefix + sfOptions
 
     newCmd = buildManualFave(type, newCmd, windowID)
 
@@ -2050,7 +2112,7 @@ def hasIMDBRecommendations(imdb):
     return len(items) > 0
 
 
-def recommendIMDB(imdb, keyword, fallback=True):
+def recommendIMDB(imdb, keyword, fallback=True):    
     grabber = None
     if METARECOMMEND:
         try:
@@ -2095,9 +2157,9 @@ def recommendIMDB(imdb, keyword, fallback=True):
             menu = getMovieMenu(infolabels)
             getHistoryItem(menu, name, thumbnail, fanart, False)
 
-            name, count = addPrefixToLabel(count, name)
+            label, count = addPrefixToLabel(count, name)
 
-            addDir(name, _SUPERSEARCH, thumbnail=thumbnail, isFolder=True, menu=menu, fanart=fanart, keyword=name, imdb=imdb, infolabels=infolabels, totalItems=len(items))
+            addDir(label, _SUPERSEARCH, thumbnail=thumbnail, isFolder=True, menu=menu, fanart=fanart, keyword=name, imdb=imdb, infolabels=infolabels, totalItems=len(items))
 
         except:
             pass
@@ -2527,7 +2589,7 @@ def superSearch(keyword='', image=SEARCH, fanart=FANART, imdb=''):
                 mode = _SUPERSEARCH
                 cmd  = '%s?mode=%d&keyword=%s&image=%s&fanart=%s' % (sys.argv[0], mode, keyword, image, fanart)
                 xbmc.executebuiltin('XBMC.Container.Update(%s)' % cmd)
-                return False
+                return
 
     if len(keyword) < 1:
         return
@@ -2704,7 +2766,7 @@ def paste(folder):
 
 
 def pasteFolder(dst):
-    if len(dst) < 1:
+    if len(dst) == 0:
         return False
 
     src = xbmcgui.Window(10000).getProperty('SF_FILE')
@@ -2758,9 +2820,14 @@ def pasteFolderLink(src, dst, folderName):
     if colour:
         folderName = '[COLOR %s]%s[/COLOR]' % (colour, folderName)
 
-    path  = utils.convertToHome(src)
+    path = utils.convertToHome(src)
+    path = path.replace(PROFILE, '')
+    path = path.replace('\\', '/')
+    if path.startswith('/'):
+        path = path[1:]
 
-    cmd = '%s?label=%s&mode=%d&path=%s' % (sys.argv[0], folderName, _FOLDER, urllib.quote_plus(path))
+    #cmd = '%s?label=%s&mode=%d&path=%s' % (sys.argv[0], folderName, _FOLDER, urllib.quote_plus(path))
+    cmd = '%s?label=%s&mode=%d&folder=%s' % (sys.argv[0], folderName, _FOLDER, urllib.quote_plus(path))
     cmd = '"%s"' % cmd  
     cmd = cmd.replace('+', '%20')
     cmd = 'ActivateWindow(%d,%s)' % (getCurrentWindowId(), cmd) 
@@ -2805,10 +2872,6 @@ def pasteCopy(file, cmd, folder):
 
     file = os.path.join(folder, FILENAME)
 
-    #xbmc = os.path.join('special://profile', FILENAME)  
-    #if xbmc == file:
-    #    return addToXBMC(copy[0], copy[1], copy[2], '')
-
     return favourite.copyFave(file, copy)
 
 
@@ -2839,7 +2902,7 @@ def addArtwork(setting, thumbnail, fanart):
     
 def addDir(label, mode, index=-1, path = '', cmd = '', thumbnail='', isFolder=True, menu=None, fanart=FANART, keyword='', imdb='', infolabels={}, totalItems=0, isPlayable=False):
     global separator
-
+   
     u  = sys.argv[0]
 
     u += '?label='
@@ -2874,11 +2937,19 @@ def addDir(label, mode, index=-1, path = '', cmd = '', thumbnail='', isFolder=Tr
 
     if CONTENTMODE:
         u += '&contentMode=true'
+ 
+    u += '&content_type=' + urllib.quote_plus(launchMode)
 
     if len(thumbnail) == 0:
         thumbnail = BLANK
        
     label = label.replace('&apos;', '\'')
+
+    #sanity check on empty [COLOR] block
+    if label.startswith('[COLOR ]'):
+        label = label.split('[COLOR ]', 1)[-1]
+        if label.endswith('[/COLOR]'):
+            label = label.rsplit('[/COLOR]', 1)[0]
 
     liz = xbmcgui.ListItem(label, iconImage='Default', thumbnailImage=thumbnail)
 
@@ -2903,9 +2974,9 @@ def addDir(label, mode, index=-1, path = '', cmd = '', thumbnail='', isFolder=Tr
         if len(art) > 0:
             liz.setArt(art) 
 
-    #this propery can be accessed in a skin via: $INFO[ListItem.Property(Super_Favourites_Folder)]
+    #this property can be accessed in a skin via: $INFO[ListItem.Property(Super_Favourites_Folder)]
     #or in Python via: xbmc.getInfoLabel('ListItem.Property(Super_Favourites_Folder)')
-    liz.setProperty('Super_Favourites_Folder', theFolder)
+    liz.setProperty('Super_Favourites_Folder', removeNumeric(theFolder))
 
     if not menu:
         menu = []   
@@ -2947,17 +3018,36 @@ def get_params(path):
    
 params = get_params(sys.argv[2])
 
+
 theFolder = ''
 thepath   = ''
+
 
 try:    mode = int(params['mode'])
 except: mode = _MAIN
 
+try:    cmd = params['cmd']
+except: cmd = None
+
+#----------------------------------------------------------------
+#if mode == _ACTIVATEWINDOW:
+#    #if cmd is a SF cmd then pull out params from cmd and use them
+#    inSF = xbmc.getInfoLabel('Container.FolderName') == TITLE
+#    isSF = 'plugin://%s' % ADDONID in cmd
+#    if inSF and isSF:
+#        params = get_params(cmd)
+#
+#        try:    mode = int(params['mode'])
+#        except: mode = _MAIN
+#
+#        try:    cmd = params['cmd']
+#        except: cmd = None
+#----------------------------------------------------------------
+
+
 try:    file = params['file']
 except: file = None
 
-try:    cmd = params['cmd']
-except: cmd = None
 
 try:    path = params['path']
 except: path = None
@@ -3031,6 +3121,15 @@ if len(folder) > 0:
     path = os.path.join(PROFILE, folder)
 
 
+isHome = False
+try:    
+    if cmd.startswith('HOME:'):
+        cmd    = cmd.split(':', 1)[-1]
+        isHome = True
+except: 
+    pass
+
+
 utils.log('------------------ Launch Parameters ------------------')
 utils.log(sys.argv[2])
 utils.log(sys.argv)
@@ -3041,6 +3140,7 @@ utils.log('params      = %s' % params)
 utils.log('launchMode  = %s' % launchMode)
 utils.log('contentType = %s' % contentType)
 utils.log('viewType    = %s' % VIEWTYPE)
+utils.log('isHome      = %s' % str(isHome))
 utils.log('-------------------------------------------------------')
 
 
@@ -3051,29 +3151,30 @@ if mode == _PLAYMEDIA:
 
  
 elif mode == _ACTIVATEWINDOW:
-    if not contentMode:
-        doEnd = False
+    if not contentMode and not isHome:
         mode  = _IGNORE
+        doEnd = False
         playCommand(cmd)
 
 
-elif mode == _ACTIVATEWINDOW_XBMC:
-    doEnd = True
+elif mode  == _ACTIVATEWINDOW_XBMC:
     mode  = _IGNORE
 
-    if PLAY_PLAYLISTS and player.isPlaylist(cmd):        
+    import playlist
+    if PLAY_PLAYLISTS and playlist.isPlaylist(cmd):        
         playCommand(cmd)
 
         #Container.Update removes current item from history to stop looping
         update = '%s' % (sys.argv[0])
         update = 'Container.Update(%s,replace)' % update
+
         xbmc.executebuiltin(update)
 
         xbmc.executebuiltin('Dialog.Close(busydialog)') #Isengard fix
         xbmc.executebuiltin('ActivateWindow(Home)')
     else:
         script = os.path.join(HOME, 'cmdLauncher.py')
-        cmd    = 'AlarmClock(%s,RunScript(%s,%s),%d,True)' % ('changelog', script, cmd, 0)
+        cmd    = 'AlarmClock(%s,RunScript(%s,%s),%d,True)' % ('SF_CMDLAUNCHER', script, cmd, 0)
         xbmc.executebuiltin(cmd)
 
 
@@ -3446,13 +3547,17 @@ elif mode == _ACTIVATESEARCH:
         pass
     else:
         xbmc.sleep(250)
-        doEnd = False
         playCommand(cmd)
 
 
 elif mode == _ACTIVATEWINDOW:
-    xbmc.sleep(250)
-    playCommand(cmd)
+    if len(launchMode) == 0:
+        script = os.path.join(HOME, 'cmdLauncher.py')
+        cmd    = 'AlarmClock(%s,RunScript(%s,%s),%d,True)' % ('SF_CMDLAUNCHER', script, cmd.replace('"', ''), 0)
+        xbmc.executebuiltin(cmd)
+    else:
+        xbmc.sleep(250)
+        playCommand(cmd)
 
 
 elif mode == _SUPERSEARCHDEF:

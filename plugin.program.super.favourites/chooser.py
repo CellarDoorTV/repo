@@ -56,7 +56,7 @@ def getFolderThumb(path):
         #return 'DefaultFolder.png'
         return ICON
 
-    faves = favourite.getFavourites(os.path.join(path, FILENAME), 1)   
+    faves = favourite.getFavourites(os.path.join(path, FILENAME), 1, chooser=True)   
 
     if len(faves) < 1:
         return ICON
@@ -144,8 +144,7 @@ class Main:
 
                 
     def getFaves(self):
-        file     = os.path.join(self.FULLPATH, FILENAME).decode('utf-8')
-        
+        file  = os.path.join(self.FULLPATH, FILENAME).decode('utf-8')        
         faves = []        
 
         if self.MODE != 'xbmc':        
@@ -156,10 +155,14 @@ class Main:
 
                 for dir in dirs:
                     path = os.path.join(self.FULLPATH, dir)
+                   
                 
                     folderCfg = os.path.join(path, FOLDERCFG)
+                    lock      = getParam('LOCK',   folderCfg)
+                    if lock:
+                        continue
                     colour    = getParam('COLOUR', folderCfg)
-                    thumb     = getFolderThumb(path)
+                    thumb     = getFolderThumb(path)               
 
                     label = dir
                 
@@ -172,7 +175,7 @@ class Main:
             except Exception, e:
                 pass
             
-        faves.extend(favourite.getFavourites(file))
+        faves.extend(favourite.getFavourites(file, chooser=True))
         
         return faves
             
@@ -250,7 +253,7 @@ class MainGui(xbmcgui.WindowXMLDialog):
 
             thumb = getParam('ICON', os.path.join(PROFILE, FOLDERCFG))
             if len(thumb) < 1:
-                thumb = 'icon_favourites.png'
+                thumb = os.path.join(HOME, 'resources', 'media', 'icon_favourites.png')
 
             label    = GETTEXT(30106) % DISPLAYNAME
             listitem = xbmcgui.ListItem(label) 
@@ -366,6 +369,10 @@ class MainGui(xbmcgui.WindowXMLDialog):
                     keyboard.doModal()
                     if (keyboard.isConfirmed()):
                         favLabel = keyboard.getText()
+
+                if favPath.lower().startswith('activatewindow') and '?' in favPath:
+                    text    = '?content_type=%s&' % urllib.quote_plus('Chooser')
+                    favPath = favPath.replace('?', text)
                         
                 xbmc.executebuiltin('Skin.SetString(%s,%s)' % ( '%s.%s' % ( self.property, 'Path'),   favPath.decode('string-escape')))
                 xbmc.executebuiltin('Skin.SetString(%s,%s)' % ( '%s.%s' % ( self.property, 'Label'), favLabel))

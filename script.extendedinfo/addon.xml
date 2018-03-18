@@ -2,7 +2,7 @@
 <addon id="script.extendedinfo" name="[COLOR limegreen]EIM[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed" version="6.0.4" provider-name="[COLOR lime][B]Serious Fork[/B][/COLOR], original by phil65">
   <requires>
     <import addon="xbmc.python"                     version="2.19.0"/>
-    <import addon="plugin.program.super.favourites"/>
+    <import addon="plugin.program.super.favourites" version="1.0.48"/>
     <import addon="plugin.video.metalliq-forqed"/>
     <import addon="plugin.video.youtube"            version="5.3.10"/>
     <import addon="repository.cdrepo" version="1.2"/>
