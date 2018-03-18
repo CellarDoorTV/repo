@@ -21,7 +21,7 @@
   </extension>
   <extension point="xbmc.addon.metadata">
     <language/>
-    <summary lang="en">Mod for [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed</summary>
+    <summary lang="en">[COLOR limegreen]EIM[/COLOR] for [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed</summary>
     <description lang="en">This script offers various possibilities to display online content inside skins as well as a complete MovieDB browser including info dialogs for various media types. Used services are themoviedb.org, theaudiodb.org, Trakt.TV, omdbapi.com and a lot more. Needs skin implementation for lot of functions. Uses [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed for playback and library functions.</description>
     <summary lang="nl">[COLOR ff0084ff]E[/COLOR]xtended [COLOR ff0084ff]I[/COLOR]nfo [COLOR ff0084ff]M[/COLOR]od</summary>
     <description lang="nl">Dit script biedt meerdere mogelijkheden om online content weer te geven in skins en bevat ook een complete MovieDB browser inclusief info dialogen voor verscheidene media types. Gebruikte diensten zijn themoviedb.org, theaudiodb.org, Trakt.TV, omdbapi.com en nog veel meer. Vereist skin implementatie voor de meeste functies. Gebruikt [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed voor afspeel en bibliotheek functies.</description>
