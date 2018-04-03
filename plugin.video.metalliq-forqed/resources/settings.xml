@@ -17,9 +17,9 @@
         <setting label="Rerun TotalSetup" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq-forqed/setup/total)" visible="eq(-2,true)" />
         <setting label="Players Setup" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq-forqed/setup/player)" visible="eq(-3,true)"/>
         <setting label="Sources Setup" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq-forqed/setup/sources)" visible="eq(-4,true)"/>
-        <setting label="30010" id="players_update_url" type="text" default="http://cellardoortv.com/players/" />
+        <setting label="30010" id="players_update_url" type="text" default="http://cellardoortv.com/metalliq/players/" />
         <setting subsetting="true" option="close" label="30012" type="action" action="RunPlugin(plugin://plugin.video.metalliq-forqed/update_players)"/>
-        <setting subsetting="true" label="Install custom players from http://cellardoortv.com/players/custom-metalliq-players/zipball" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq-forqed/update_players/https%3a%2f%2fhttp://cellardoortv.com%2fcustom-metalliq-players%2fzipball)"/>
+        <setting subsetting="true" label="Install custom players from http://cellardoortv.com/metalliq/players/custom-metalliq-players/zipball" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq-forqed/update_players/https%3a%2f%2fhttp://cellardoortv.com%2fcustom-metalliq-players%2fzipball)"/>
         <setting option="close" label="Clear Trakt account settings" type="action" action="RunPlugin(plugin://plugin.video.metalliq-forqed/cleartrakt)"/>
         <!--<setting label = "30417" type="action" action="RunPlugin(plugin://plugin.video.metalliq-forqed/authenticate_trakt)" />-->
         <setting label="trakt access token" id="trakt_access_token" type="text" visible="false" />
@@ -102,7 +102,7 @@
         <setting label="Primary skin" type="text" id="primary_skin" />
         <setting label="Alternate skin" type="text" id="alternate_skin" />
         <setting label="30901" id="random_pages" type="number" default="1"/>
-        <setting label="30402" type="bool" id="use_simple_selector" default="false"/>
+        <setting label="30402" type="bool" id="use_simple_selector" default="true"/>
         <setting label="30410" type="bool" id="auto_hide_dialogs" default="true" enable="eq(-1,false)"/>
             <setting subsetting="true" label="30411" type="bool" id="auto_hide_dialogs_progress" default="true" enable="eq(-1,true)"/>
             <setting subsetting="true" label="30412" type="bool" id="auto_hide_dialogs_info" default="true" enable="eq(-2,true)"/>
