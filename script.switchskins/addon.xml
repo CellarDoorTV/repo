@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.skinswitch" 
-	     name="Switch CDTV Skins" 
-	     version="1.1.5" 
-	     provider-name="CellarDoorTV">
+<addon id="script.switchskins" 
+	     name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Skin Swap[/COLOR]" 
+	     version="2.0.0" 
+	     provider-name="CDTV Builds">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
@@ -12,7 +12,7 @@
   <extension point="xbmc.addon.metadata">
     <platform>all</platform>
     <summary lang="en">-</summary>
-    <description lang="en">Small Simple Script for Switching Skins</description>
+    <description lang="en">Small Simple Script for Switching Between 39 Skins</description>
     <disclaimer lang="en">.</disclaimer>
     <language></language>
     <platform>all</platform>
