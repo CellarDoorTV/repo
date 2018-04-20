@@ -84,6 +84,17 @@ ACTION_GESTURE_SWIPE_RIGHT_TEN = 530
 ACTION_GESTURE_SWIPE_UP = 531
 ACTION_GESTURE_SWIPE_UP_TEN = 540
 
+REMOTE_0 = 58
+REMOTE_1 = 59
+REMOTE_2 = 60
+REMOTE_3 = 61
+REMOTE_4 = 62
+REMOTE_5 = 63
+REMOTE_6 = 64
+REMOTE_7 = 65
+REMOTE_8 = 66
+REMOTE_9 = 67
+
 KEY_BUTTON_X =  258
 KEY_NAV_BACK = 92
 KEY_CONTEXT_MENU = 117
@@ -277,11 +288,13 @@ class TVGuide(xbmcgui.WindowXML):
         self.streamingService = streaming.StreamsService(ADDON)
         self.player = xbmc.Player()
         self.database = None
-
         self.mode = MODE_EPG
         self.currentChannel = None
         self.category = ADDON.getSetting('category')
+        self.osdCategory = self.category
         self.lastchan_file = xbmc.translatePath(os.path.join(ADDON.getAddonInfo('profile'), 'lastchannel'))
+        self.lastPlayed = None
+        self.osdLastProg = None
 
         f = utils.xbmcvfs.File(utils.CatFile,'rb')
         lines = f.read().splitlines()
@@ -345,7 +358,7 @@ class TVGuide(xbmcgui.WindowXML):
         if control:
             (left, top) = control.getPosition()
             self.focusPoint.x = left
-            self.focusPoint.y = top
+
             self.epgView.left = left
             self.epgView.top = top
             self.epgView.right = left + control.getWidth()
@@ -353,6 +366,7 @@ class TVGuide(xbmcgui.WindowXML):
             self.epgView.width = control.getWidth()
             self.epgView.cellHeight = control.getHeight() \
                 / CHANNELS_PER_PAGE
+            self.focusPoint.y = top
 
         if self.database:
             self.onRedrawEPG(self.channelIdx, self.viewStartDate)
@@ -391,17 +405,30 @@ class TVGuide(xbmcgui.WindowXML):
         elif action.getId() == ACTION_PAGE_DOWN:
             self._channelDown()
 
+        elif action.getId() in [ACTION_GESTURE_SWIPE_LEFT, ACTION_LEFT, KEY_CONTEXT_MENU]:
+            self.osdEpg(self.database.getCategory())
+
+        elif action.getId() in [ACTION_GESTURE_SWIPE_UP, REMOTE_0]:
+            if self.lastPlayed:
+                channel = self.lastPlayed
+                program = self.database.getCurrentProgram(channel)
+                self.osdProgram = program
+                self.play(program)
+
+        elif action.getId() in [ACTION_GESTURE_SWIPE_RIGHT, REMOTE_1, REMOTE_2, REMOTE_3, REMOTE_4, REMOTE_5, REMOTE_6, REMOTE_7, REMOTE_8, REMOTE_9]:
+            self.playByNumOSD(action.getId())
+
         elif not self.osdEnabled:
             pass  # skip the rest of the actions
 
-        elif action.getId() in [ACTION_PARENT_DIR, KEY_NAV_BACK, KEY_CONTEXT_MENU, ACTION_PREVIOUS_MENU,KEY_BUTTON_X, ACTION_STOP]:
+        elif action.getId() in [ACTION_PARENT_DIR, KEY_NAV_BACK, ACTION_PREVIOUS_MENU,KEY_BUTTON_X, ACTION_STOP]:
             self.viewStartDate = datetime.datetime.today()
             self.viewStartDate -= \
                 datetime.timedelta(minutes=self.viewStartDate.minute % 30,
                                    seconds=self.viewStartDate.second)
             self.onRedrawEPG(self.channelIdx, self.viewStartDate)
 
-        elif action.getId() in [ACTION_SHOW_INFO, ACTION_UP, ACTION_DOWN, ACTION_MOUSE_WHEEL_UP, ACTION_MOUSE_WHEEL_DOWN,ACTION_GESTURE_SWIPE_DOWN_TEN]:
+        elif action.getId() in [ACTION_SHOW_INFO, ACTION_UP, ACTION_DOWN, ACTION_MOUSE_WHEEL_UP, ACTION_MOUSE_WHEEL_DOWN,ACTION_GESTURE_SWIPE_DOWN]:
             self.osdChannel = self.currentChannel
             self.osdProgram = self.database.getCurrentProgram(self.osdChannel)
             self._showOsd()
@@ -420,6 +447,16 @@ class TVGuide(xbmcgui.WindowXML):
                                    seconds=self.viewStartDate.second)
             self.onRedrawEPG(self.channelIdx, self.viewStartDate)
 
+        elif action.getId() == REMOTE_0:
+            if self.lastPlayed:
+                channel = self.lastPlayed
+                program = self.database.getCurrentProgram(channel)
+                self.osdProgram = program
+                self.play(program)
+
+        elif action.getId() in [REMOTE_1, REMOTE_2, REMOTE_3, REMOTE_4, REMOTE_5, REMOTE_6, REMOTE_7, REMOTE_8, REMOTE_9]:
+            self.playByNumOSD(action.getId())
+
         #elif action.getId() in [KEY_CONTEXT_MENU]:
             #self._showosdContextMenu(self.osdProgram)
             
@@ -435,27 +472,27 @@ class TVGuide(xbmcgui.WindowXML):
             self._channelDown()
             self._hideOsd()
             
-        elif action.getId() == ACTION_LEFT:
+        elif action.getId() in [ACTION_LEFT, ACTION_GESTURE_SWIPE_LEFT]:
             previousProgram = self.database.getPreviousProgram(self.osdProgram)
             if previousProgram:
                 self.osdProgram = previousProgram
                 self._showOsd()
             self.osdActive = True
                 
-        elif action.getId() == ACTION_RIGHT:
+        elif action.getId() in [ACTION_RIGHT, ACTION_GESTURE_SWIPE_RIGHT]:
             nextProgram = self.database.getNextProgram(self.osdProgram)
             if nextProgram:
                 self.osdProgram = nextProgram
                 self._showOsd()
             self.osdActive = True
 
-        elif action.getId() in [ACTION_UP, ACTION_MOUSE_WHEEL_UP]:           
+        elif action.getId() in [ACTION_UP, ACTION_MOUSE_WHEEL_UP, ACTION_GESTURE_SWIPE_UP]:           
             self.osdChannel = self.database.getPreviousChannel(self.osdChannel)
             self.osdProgram = self.database.getCurrentProgram(self.osdChannel)
             self._showOsd()
             self.osdActive = True
 
-        elif action.getId() in [ACTION_DOWN, ACTION_MOUSE_WHEEL_DOWN]:
+        elif action.getId() in [ACTION_DOWN, ACTION_MOUSE_WHEEL_DOWN, ACTION_GESTURE_SWIPE_DOWN]:
             self.osdChannel = self.database.getNextChannel(self.osdChannel)
             self.osdProgram = self.database.getCurrentProgram(self.osdChannel)
             self._showOsd()
@@ -531,10 +568,20 @@ class TVGuide(xbmcgui.WindowXML):
             self.viewStartDate -= datetime.timedelta(minutes=self.viewStartDate.minute % 30,
                                                      seconds=self.viewStartDate.second)
             self.onRedrawEPG(self.channelIdx, self.viewStartDate)
+
         elif action.getId() in [KEY_CONTEXT_MENU, ACTION_PREVIOUS_MENU] and controlInFocus is not None:
             program = self._getProgramFromControl(controlInFocus)
             if program is not None:
                 self._showContextMenu(program)
+
+        elif action.getId() in [ACTION_GESTURE_SWIPE_DOWN, REMOTE_1, REMOTE_2, REMOTE_3, REMOTE_4, REMOTE_5, REMOTE_6, REMOTE_7, REMOTE_8, REMOTE_9]:
+            self.playByNum(action.getId())
+
+        elif action.getId() == REMOTE_0:
+            if self.lastPlayed:
+                channel = self.lastPlayed
+                program = self.database.getCurrentProgram(channel)
+                self.play(program)
         else:
             xbmc.log('[script.ivueguide] Unhandled ActionId: '
                      + str(action.getId()), xbmc.LOGDEBUG)
@@ -573,40 +620,41 @@ class TVGuide(xbmcgui.WindowXML):
             program = self._getProgramFromControl(self.getControl(controlId))
             self.play(program)
 
-    def play(self,program):
+    def play(self,program, demand=True):
 
         if program is None:
             return
 
         playChannel = True
-        if program.startDate and program.endDate:
-            if program.endDate < datetime.datetime.now():
-                playChannel = False
-                self.checkAddons(program)
-            elif program.startDate > datetime.datetime.now():
-                playChannel = False
-                if program.notificationScheduled:
-                    yes_pressed=utils.dialog.yesno('[COLOR ffff7e14][B]IVUE REMINDER[/B][/COLOR]', 'Remove reminder for ', '[COLOR ffff7e14]'+program.title+'[/COLOR]  '+self.formatTime(program.startDate),nolabel='Cancel',yeslabel='Remove')
+        if demand == True:
+            if program.startDate and program.endDate:
+                if program.endDate < datetime.datetime.now():
+                    playChannel = False
+                    self.checkAddons(program)
+                elif program.startDate > datetime.datetime.now():
+                    playChannel = False
+                    if program.notificationScheduled:
+                        yes_pressed=utils.dialog.yesno('[COLOR ffff7e14][B]IVUE REMINDER[/B][/COLOR]', 'Remove reminder for ', '[COLOR ffff7e14]'+program.title+'[/COLOR]  '+self.formatTime(program.startDate),nolabel='Cancel',yeslabel='Remove')
 
-                    if yes_pressed:
-                        xbmc.executebuiltin('XBMC.Notification(%s removed from planner, 2000, %s)' % (program.title, ICON))
-                        self.notification.removeNotification(program)
-                        if not xbmc.Player().isPlaying():
-                            self.onRedrawEPG(self.channelIdx, self.viewStartDate)
+                        if yes_pressed:
+                            xbmc.executebuiltin('XBMC.Notification(%s removed from planner, 2000, %s)' % (program.title, ICON))
+                            self.notification.removeNotification(program)
+                            if not xbmc.Player().isPlaying():
+                                self.onRedrawEPG(self.channelIdx, self.viewStartDate)
+                        else:
+                            return
                     else:
-                        return
+                        yes_pressed=utils.dialog.yesno('[COLOR ffff7e14][B]IVUE REMINDER[/B][/COLOR]', 'Set reminder for ', '[COLOR ffff7e14]'+program.title+'[/COLOR]  '+self.formatTime(program.startDate),nolabel='Cancel',yeslabel='Set')
+
+                        if yes_pressed:
+                            xbmc.executebuiltin('XBMC.Notification(%s added to planner, 2000, %s)' % (program.title, ICON))
+                            self.notification.addNotification(program)
+                            if not xbmc.Player().isPlaying():
+                                self.onRedrawEPG(self.channelIdx, self.viewStartDate)
+                        else:
+                            return
                 else:
-                    yes_pressed=utils.dialog.yesno('[COLOR ffff7e14][B]IVUE REMINDER[/B][/COLOR]', 'Set reminder for ', '[COLOR ffff7e14]'+program.title+'[/COLOR]  '+self.formatTime(program.startDate),nolabel='Cancel',yeslabel='Set')
-
-                    if yes_pressed:
-                        xbmc.executebuiltin('XBMC.Notification(%s added to planner, 2000, %s)' % (program.title, ICON))
-                        self.notification.addNotification(program)
-                        if not xbmc.Player().isPlaying():
-                            self.onRedrawEPG(self.channelIdx, self.viewStartDate)
-                    else:
-                        return
-            else:
-                playChannel = True                
+                    playChannel = True                
         if playChannel:
             if not self.playChannel(program.channel):
                 result = self.streamingService.detectStream(program.channel)
@@ -632,6 +680,7 @@ class TVGuide(xbmcgui.WindowXML):
                         self.database.setCustomStreamUrl(program.channel,
                             d.stream)
                         self.playChannel(program.channel, program)
+                    
 
                         # Custom ignore stream in database
 
@@ -640,6 +689,71 @@ class TVGuide(xbmcgui.WindowXML):
                             # self.database.deleteCustomStreamUrl(program.channel, program)
 
                             self.database.deleteCustomStreamUrl(program.channel)
+
+                                          
+
+    def playByNum(self, num):
+        default = int(num) - 58
+        validInput = self.database.getChannelList(onlyVisible=True,all=True)
+        chanNum = utils.dialog.numeric(0,"Channel Number", str(default))
+
+        if chanNum:
+            if int(chanNum) -1 < int(len(validInput)) and int(chanNum) !=0:
+                getNum = int(chanNum) -1
+                for chan in range(0,1200,8):
+                    if int(chanNum ) == chan and chan !=0:
+                        self.focusPoint.y = self.epgView.top + self.epgView.cellHeight*7
+                        getNum = int(chanNum) -8
+                    if int(chanNum ) == (chan +1):
+                        self.focusPoint.y = self.epgView.top
+                        getNum = int(chanNum) -1
+                    elif int(chanNum ) == (chan +2):
+                        self.focusPoint.y = self.epgView.top + self.epgView.cellHeight*1
+                        getNum = int(chanNum) -2
+                    elif int(chanNum) == (chan +3):
+                        self.focusPoint.y = self.epgView.top + self.epgView.cellHeight*2
+                        getNum = int(chanNum) -3
+                    elif int(chanNum) == (chan +4):
+                        self.focusPoint.y = self.epgView.top + self.epgView.cellHeight*3
+                        getNum = int(chanNum) -4
+                    elif int(chanNum) == (chan +5):
+                        self.focusPoint.y = self.epgView.top + self.epgView.cellHeight*4
+                        getNum = int(chanNum) -5
+                    elif int(chanNum) == (chan +6):
+                        self.focusPoint.y = self.epgView.top + self.epgView.cellHeight*5
+                        getNum = int(chanNum) -6
+                    elif int(chanNum) == (chan +7):
+                        self.focusPoint.y = self.epgView.top + self.epgView.cellHeight*6
+                        getNum = int(chanNum) -7
+
+                self.onRedrawEPG(getNum, self.viewStartDate)
+                try:
+                    controlInFocus = self.getFocus()
+                except:
+                    controlInFocus = None
+                program = self._getProgramFromControl(controlInFocus)
+                if program is not None and ADDON.getSetting('play.number')=='true':
+                    self.play(program, demand=False)
+            else:
+                xbmc.executebuiltin('XBMC.Notification([B]%s[/B], invalid channel, 2000, %s)' % (chanNum,ICON))
+
+
+    def playByNumOSD(self, num):
+        default = int(num) - 58
+        validInput = self.database.getChannelList(onlyVisible=True,all=True)
+        chanNum = utils.dialog.numeric(0,"Channel Number", str(default))
+
+        if chanNum:
+            if int(chanNum) -1 < int(len(validInput)) and int(chanNum) !=0:
+                self.osdChannel = self.database.getChannel(int(chanNum) -1)
+                self.osdProgram = self.database.getCurrentProgram(self.osdChannel)
+                self._showOsd()
+                self.osdActive = True
+
+                if self.osdProgram is not None:
+                    self.play(self.osdProgram, demand=False)
+            else:
+                xbmc.executebuiltin('XBMC.Notification([B]%s[/B], invalid channel, 2000, %s)' % (chanNum,ICON))
 
 
     def checkAddons(self, program):
@@ -695,7 +809,7 @@ class TVGuide(xbmcgui.WindowXML):
                         utils.dialog.ok('[COLOR fffea800]ITV Hub[/COLOR]', program.title, 'Is not available for on demand right now', '')
                         return
 
-            link = addons[addon_name].replace('ivueProgram',programTitle).replace('ivueAdd+', programAdd).replace('ivueAdd-', programDash).replace('ivueEncode', programEncode).replace('ivueItv', programItv).replace('ivueItvName', programItvName)
+            link = addons[addon_name].replace('ivueProgram',programTitle).replace('ivueAdd+', programAdd).replace('ivueAdd-', programDash).replace('ivueEncode', programEncode).replace('ivueItv', programItv).replace('ivueItvName', programItvName).replace('ivueflashshow', str(program.title.replace("'","!quote!"))).replace('ivueflashchan', str(program.channel.title))
             xbmc.executebuiltin(''+ link +'')
 
     def _showosdContextMenu(self, program):
@@ -1147,6 +1261,24 @@ class TVGuide(xbmcgui.WindowXML):
             if index > -1:
                 self.play(programList[index])
 
+    def osdEpg(self, category):
+        if category == '':
+            category = 'All Channels'        
+        d = osdOnNowDialog(self.database, category)
+        d.doModal()
+        index = d.index
+        action = d.action
+        channel = d.channel
+        cat = d.cat
+        if action == KEY_CONTEXT_MENU:
+            if index > -1:
+                self._showContextMenu(channel[index])
+        else:
+            if index > -1:
+                self.osdCategory = cat
+                program = channel[index]
+                self.play(program)
+
 
     def setFocusId(self, controlId):
         control = self.getControl(controlId)
@@ -1205,7 +1337,7 @@ class TVGuide(xbmcgui.WindowXML):
         if program is None:
             return
 
-        self.setControlLabel(self.C_MAIN_TITLE, '[B]%s[/B]' % program.title.replace(' (?)', ''))
+        self.setControlLabel(self.C_MAIN_TITLE, '[B]%s[/B]' % program.title.replace(' (?)', '').replace('&amp;','&'))
         progresspercent = self.getControl(self.C_MAIN_PROGRESS)
         if program.startDate or program.endDate:
             self.setControlLabel(self.C_MAIN_TIME,
@@ -1231,7 +1363,7 @@ class TVGuide(xbmcgui.WindowXML):
             pass
 
         if program.description:
-            description = program.description
+            description = program.description.replace('&amp;','&')
         else:
             description = strings(NO_DESCRIPTION)
         if ADDON.getSetting('skin.colours')=='true' and os.path.exists(SKINCOLOURS):
@@ -1343,8 +1475,13 @@ class TVGuide(xbmcgui.WindowXML):
         self.playChannel(channel, program)
 
     def playChannel(self, channel, program=None):
+        if self.currentChannel:
+            if self.lastPlayed:
+                if not channel == self.currentChannel:
+                    self.lastPlayed = self.currentChannel
+            else:
+                self.lastPlayed = self.currentChannel
         self.currentChannel = channel
-        wasPlaying = self.player.isPlaying()
         url = self.database.getStreamUrl(channel)
         if url:
             stream = str(url).split('plugin://')[1].split('/?')[0]
@@ -1406,7 +1543,7 @@ class TVGuide(xbmcgui.WindowXML):
             self.osdChannel = self.currentChannel
         progresspercent = self.getControl(self.C_MAIN_OSD_PROGRESS)
         if self.osdProgram is not None:
-            self.setControlLabel(self.C_MAIN_OSD_TITLE, '[B]%s[/B]' % self.osdProgram.title.replace(' (?)', ''))
+            self.setControlLabel(self.C_MAIN_OSD_TITLE, '[B]%s[/B]' % self.osdProgram.title.replace(' (?)', '').replace('&amp;','&'))
             if self.osdProgram.startDate or self.osdProgram.endDate:
                 self.setControlLabel(self.C_MAIN_OSD_TIME, '[B]%s - %s[/B]' % (
                     self.formatTime(self.osdProgram.startDate), self.formatTime(self.osdProgram.endDate)))
@@ -1426,7 +1563,7 @@ class TVGuide(xbmcgui.WindowXML):
             else:
                 self.setControlLabel(self.C_MAIN_OSD_TIME, '')
 
-            self.setControlText(self.C_MAIN_OSD_DESCRIPTION, self.osdProgram.description)
+            self.setControlText(self.C_MAIN_OSD_DESCRIPTION, self.osdProgram.description.replace('&amp;','&'))
             self.setControlLabel(self.C_MAIN_OSD_CHANNEL_TITLE, self.osdChannel.title)
             if self.osdProgram.channel.logo is not None:
                 self.setControlImage(self.C_MAIN_OSD_CHANNEL_LOGO, self.osdProgram.channel.logo)
@@ -1448,7 +1585,7 @@ class TVGuide(xbmcgui.WindowXML):
 
         prevOsdProgram = self.database.getPreviousProgram(self.osdProgram)
         if prevOsdProgram:
-            self.setControlLabel(self.C_PREV_OSD_TITLE, prevOsdProgram.title.replace(' (?)', ''))
+            self.setControlLabel(self.C_PREV_OSD_TITLE, prevOsdProgram.title.replace(' (?)', '').replace('&amp;','&'))
             if prevOsdProgram.startDate or prevOsdProgram.endDate:
                 self.setControlLabel(self.C_PREV_OSD_TIME, '%s - %s' % (
                     self.formatTime(prevOsdProgram.startDate), self.formatTime(prevOsdProgram.endDate)))
@@ -1457,7 +1594,7 @@ class TVGuide(xbmcgui.WindowXML):
 
         nextOsdProgram = self.database.getNextProgram(self.osdProgram)
         if nextOsdProgram:
-            self.setControlLabel(self.C_NEXT_OSD_TITLE, nextOsdProgram.title.replace(' (?)', ''))
+            self.setControlLabel(self.C_NEXT_OSD_TITLE, nextOsdProgram.title.replace(' (?)', '').replace('&amp;','&'))
             if nextOsdProgram.startDate or nextOsdProgram.endDate:
                 self.setControlLabel(self.C_NEXT_OSD_TIME, '%s - %s' % (
                     self.formatTime(nextOsdProgram.startDate), self.formatTime(nextOsdProgram.endDate)))
@@ -1523,8 +1660,16 @@ class TVGuide(xbmcgui.WindowXML):
                 self.setControlImage(4110 + idx, ' ')
                 self.setControlLabel(4010 + idx, ' ')
             else:
-                
+                channelStart += 1
                 channel = channels[idx]
+
+                try:
+                    chanList = self.database.getChannelList()
+                    chanidx = chanList.index(channel)
+                    chanidx += 1
+                except:
+                    chanidx = ''
+
                 if ADDON.getSetting('skin.colours')=='true' and os.path.exists(SKINCOLOURS):
                     with open(SKINCOLOURS ,'rb') as file:
                         lines = file.read().splitlines()
@@ -1535,7 +1680,12 @@ class TVGuide(xbmcgui.WindowXML):
                                 color = line.strip().split(' = ')[1]
                 else:
                     color = utils.remove_formatting(ADDON.getSetting('channel.color'))
-                self.setControlLabel(4010 + idx, '[COLOR %s]%s[/COLOR]' % (color, channel.title))#CHANGES COLOUR OF CHANNEL TITLES
+
+                if ADDON.getSetting('channel.num')=='true' and chanidx !='':
+                    self.setControlLabel(4010 + idx, '[COLOR %s]%s. %s[/COLOR]' % (color, chanidx,channel.title))
+                else:
+                    self.setControlLabel(4010 + idx, '[COLOR %s]%s[/COLOR]' % (color, channel.title))
+
                 if channel.logo is not None and showLogo == True:
                     self.setControlImage(4110 + idx, channel.logo)
                 else:
@@ -1600,7 +1750,7 @@ class TVGuide(xbmcgui.WindowXML):
                 if cellWidth < 25:
                     title = ''
                 else:
-                    title = program.title.replace(' (?)', '')
+                    title = program.title.replace(' (?)', '').replace('&amp;','&')
 
                 control = xbmcgui.ControlButton(
                     cellStart,
@@ -2345,12 +2495,16 @@ class ChannelsMenu(xbmcgui.WindowXMLDialog):
 
         super(ChannelsMenu, self).__init__()
         self.database = database
-        self.channelList = database.getChannelList(onlyVisible=False)
+        self.channelList = database.getChannelList(onlyVisible=True, all=True, notVisible=False)
         self.swapInProgress = False
-
+        self.Hidden = True
         self.selectedChannel = 0
 
-    def onInit(self):
+    def onInit(self, hidden=False):
+        if hidden == True:
+            self.channelList= self.database.getChannelList(onlyVisible=False, all=True, notVisible=True)
+        else:
+            self.channelList= self.database.getChannelList(onlyVisible=True, all=True, notVisible=False)
         self.updateChannelList()
         self.setFocusId(self.C_CHANNELS_LIST)
 
@@ -2359,12 +2513,12 @@ class ChannelsMenu(xbmcgui.WindowXMLDialog):
             self.close()
             return
 
-        if self.getFocusId() == self.C_CHANNELS_LIST and action.getId() in [ACTION_PREVIOUS_MENU, KEY_CONTEXT_MENU, ACTION_LEFT]:
+        if self.getFocusId() == self.C_CHANNELS_LIST and action.getId() in [ACTION_PREVIOUS_MENU, ACTION_LEFT,ACTION_GESTURE_SWIPE_LEFT] and self.Hidden != False:
             listControl = self.getControl(self.C_CHANNELS_LIST)
             idx = listControl.getSelectedPosition()
             self.selectedChannel = idx
             buttonControl = self.getControl(self.C_CHANNELS_SELECTION)
-            buttonControl.setLabel('[B]%s[/B]' % self.channelList[idx].title)
+            buttonControl.setLabel('[B]%s[/B]' % (self.channelList[idx].title))
 
             self.getControl(self.C_CHANNELS_SELECTION_VISIBLE).setVisible(False)
             self.setFocusId(self.C_CHANNELS_SELECTION)
@@ -2374,7 +2528,14 @@ class ChannelsMenu(xbmcgui.WindowXMLDialog):
             xbmc.sleep(350)
             self.setFocusId(self.C_CHANNELS_LIST)
             
-        elif self.getFocusId() == self.C_CHANNELS_SELECTION and action.getId() in [ACTION_PREVIOUS_MENU, KEY_CONTEXT_MENU]:
+        elif self.getFocusId() == self.C_CHANNELS_LIST and action.getId() in [KEY_CONTEXT_MENU]:
+            if self.Hidden == True:
+                self.Hidden = False
+                self.onInit(hidden=True)
+            else:
+                self.onInit()
+                self.Hidden = True
+        elif self.getFocusId() == self.C_CHANNELS_SELECTION and action.getId() in [ACTION_PREVIOUS_MENU,KEY_CONTEXT_MENU]:
             listControl = self.getControl(self.C_CHANNELS_LIST)
             idx = listControl.getSelectedPosition()
             self.swapChannels(self.selectedChannel, idx)
@@ -2426,7 +2587,8 @@ class ChannelsMenu(xbmcgui.WindowXMLDialog):
                 iconImage = 'tvguide-channel-visible.png'
             else:
                 iconImage = 'tvguide-channel-hidden.png'
-
+            #if self.Hidden == False:
+                #idx = channel.weight + 1
             item = xbmcgui.ListItem('%3d. %s' % (idx + 1,
                                     channel.title), iconImage=iconImage)
             item.setProperty('idx', str(idx))
@@ -2960,6 +3122,184 @@ class ProgramListDialog(xbmcgui.WindowXMLDialog):
 
     def close(self):
         super(ProgramListDialog, self).close()
+
+
+class osdOnNowDialog(xbmcgui.WindowXMLDialog):
+    C_OSD_EPG_LISTINGS = 1005
+    C_OSD_EPG_LIST = 1002
+    C_OSD_EPG_TITLE = 1001
+
+
+    def __new__(
+        cls,
+        database,
+        category,
+        sort_time=False,
+        ):
+
+        return super(osdOnNowDialog, cls).__new__(cls,
+                'script-tvguide-osdEpg.xml',
+                SKINFOLDER, SKIN)
+
+    def __init__(
+        self,
+        database,
+        category,
+        sort_time=False,
+        ):
+        """
+
+........@type database: source.Database
+........@param program:
+........@type program: source.Program
+........@param showRemind:
+........"""
+
+        super(osdOnNowDialog, self).__init__()
+        self.database = database
+        self.program = self.database.onNowEpg(category)
+        self.index = -1
+        self.osdCategory = category
+        self.cat = None
+        self.action = None
+        self.channel = None
+        self.buttonClicked = None
+        self.sort_time = sort_time
+
+    def onInit(self, cat=None):
+        if cat is not None:        
+            self.program = self.database.onNowEpg(cat)
+            self.osdCategory = cat
+
+        items = list()
+        index = 0
+        item = xbmcgui.ListItem()
+
+        control = self.getControl(osdOnNowDialog.C_OSD_EPG_TITLE)
+        control.setLabel('[B]'+self.osdCategory+'[/B]')
+
+        for program in self.program:
+
+            label = program.title.replace(' (?)', '')
+            se_label = ""
+
+            label = label + se_label
+            name = ""
+            icon = program.channel.logo
+            item = xbmcgui.ListItem(label, name, icon)
+
+            item.setProperty('index', str(index))
+            index = index + 1
+
+            item.setProperty('ChannelName', program.channel.title)
+
+            start = program.startDate
+            end = program.endDate
+            duration = end - start
+            now = datetime.datetime.now()
+
+            if now > start:
+                when = datetime.timedelta(-1)
+                elapsed = now - start
+            else:
+                when = start - now
+                elapsed = datetime.timedelta(0)
+
+            hours, remainder = divmod(when.seconds, 3600)
+            minutes, seconds = divmod(remainder, 60)
+
+            if elapsed.seconds > 0:
+                progress = 100.0 * float(timedelta_total_seconds(elapsed)) / float(duration.seconds+0.001)
+                progress = str(int(progress))
+            else:
+                #TODO hack for progress bar with 0 time
+                progress = "0"
+
+            if progress and (int(progress) < 100):
+                item.setProperty('Completed', progress)
+
+
+            items.append(item)
+
+        if self.sort_time == True:
+            items = sorted(items, key=lambda x: x.getProperty('startDate'))
+
+        listControl = self.getControl(osdOnNowDialog.C_OSD_EPG_LIST)
+        listControl.addItems(items)
+
+        self.setFocusId(self.C_OSD_EPG_LIST)
+
+    def onAction(self, action):
+        filter = []
+        with open(utils.CatFile ,'rb') as file:
+            lines = file.read().splitlines()
+
+            file.close()
+            for line in lines:
+                if '=' in line:
+                    name = line.strip().split('=')[1]
+                    if name not in filter:
+                        filter.append(name)
+        filter.insert(0, "All Channels")
+        filter = sorted(filter, key=lambda x: x.lower())
+        if action.getId() in [KEY_CONTEXT_MENU]:
+            listControl = self.getControl(self.C_OSD_EPG_LIST)
+            self.id = self.getFocusId(self.C_OSD_EPG_LIST)
+            item = listControl.getSelectedItem()
+            if item:
+                self.index = int(item.getProperty('index'))
+            else:
+                self.index = -1
+            if action.getId() in [KEY_CONTEXT_MENU]:
+                self.close()
+                self.action = KEY_CONTEXT_MENU
+        if action.getId() in [ACTION_RIGHT]:
+            nextItem = filter.index(self.osdCategory)
+            nextCat = nextItem + 1
+            #if int(nextItem) == filter[-1]:
+                #nextCat = "All Channels"
+            listControl = self.getControl(self.C_OSD_EPG_LIST)
+            listControl.reset()
+            try:
+                self.onInit(cat=filter[nextCat])
+            except:
+                self.onInit(cat='All Channels')
+
+        if action.getId() in [ACTION_LEFT]:
+            prevItem = filter.index(self.osdCategory)
+            prevCat = prevItem - 1
+            if prevItem == filter[0]:
+                prevCat = filter[-1]
+            listControl = self.getControl(self.C_OSD_EPG_LIST)
+            listControl.reset()
+            self.onInit(cat=filter[prevCat])
+
+        if action.getId() in [ACTION_PARENT_DIR, ACTION_PREVIOUS_MENU, KEY_NAV_BACK]:
+            self.index = -1
+            self.close()         
+
+    def onClick(self, controlId):
+        if controlId == self.C_OSD_EPG_LIST:
+            listControl = self.getControl(self.C_OSD_EPG_LIST)
+            self.id = self.getFocusId(self.C_OSD_EPG_LIST)
+            item = listControl.getSelectedItem()
+            if item:
+                self.channel = self.program
+                self.index = int(item.getProperty('index'))
+            else:
+                self.index = -1
+            self.close()
+        else:       
+           self.buttonClicked = controlId
+           self.close()
+
+
+
+    def onFocus(self, controlId):
+        pass
+
+    def close(self):
+        super(osdOnNowDialog, self).close()
 
 class ExitDialog(xbmcgui.WindowXMLDialog):
 

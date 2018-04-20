@@ -30,7 +30,6 @@ ADDON     = utils.ADDON
 ADDONID   = utils.ADDONID
 GETTEXT   = utils.GETTEXT
 
-XBMCHOME  = os.path.join('special://home', 'addons')
 
 SEPARATOR = '%SF%'
 
@@ -47,7 +46,7 @@ def main(toAdd):
 
 
 def doAdd():
-    root, folders, files = sfile.walk(XBMCHOME)
+    root, folders, files = utils.GetAddons()
 
     list = []
 
@@ -70,6 +69,9 @@ def doAdd():
 
 def doRemove():
     list = tidy(WHITELIST).split(SEPARATOR)
+
+    if len(list) == 1 and len(list[0]) == 0:
+        return
 
     option = xbmcgui.Dialog().select(GETTEXT(35042), list)
     if option < 0:

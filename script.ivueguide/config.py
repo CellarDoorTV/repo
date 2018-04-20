@@ -10,6 +10,9 @@ ICON = os.path.join(HOME, 'icon.png')
 PACKAGES       = xbmc.translatePath(os.path.join('special://home', 'addons', 'packages'))
 TEMP =	  addon_name.getSetting('tempskin')
 USER_AGENT     = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3'
+
+#Karls changes
+
 ivue = utils.folder()
 d = xbmcgui.Dialog()
 dp = xbmcgui.DialogProgress()
@@ -32,7 +35,6 @@ try:
     prnum= sys.argv[ 1 ]
 except:
     pass
-
 
 def openURL(url):
 	  req = urllib2.Request(url)
@@ -119,6 +121,10 @@ def listskins():
         else:
             selected = files[skin]
             addon_name.setSetting('skin', selected)
+            if selected == 'Transparent Vue':
+                addon_name.setSetting('transparent.enabled', 'true')
+            else:
+                addon_name.setSetting('transparent.enabled', 'false')
     else:
         d.ok('Ivue', 'Skin Folder Missing', '',"Please run iVue to complete setup")
 
@@ -149,7 +155,10 @@ def getskins():
         if os.path.exists(path + "/%s" % selected): 
             addon_name.setSetting('skin', '%s' % selected)
             addon_name.setSetting('download.skin', '')
-
+            if selected == 'Transparent Vue':
+                addon_name.setSetting('transparent.enabled', 'true')
+            else:
+                addon_name.setSetting('transparent.enabled', 'false')
             d.ok('Ivue', 'Download complete', '', '%s is now set as current skin' % selected)
         else:
             d.ok('Ivue', 'Download failed', 'Please try downloading again')
@@ -172,6 +181,70 @@ def delskins():
                 d.ok("iVue", '','%s was not removed' % selected, " [COLOR gold]Please try again[/COLOR]")
     else:
         d.ok('Ivue', 'No skins installed', '',"Please run iVue to complete setup")
+
+def customiseSkin():
+        skin = d.select('Skin Colours',  ['Main Colour', 'Focus Colour', 'Reminder Colour (no focus)', 'Reminder Colour (focus)'])
+        if skin == -1:
+            return
+        if skin == 0:
+            customiseColours('Main')
+
+        if skin == 1:
+            customiseColours('Focus')
+
+        if skin == 2:
+            customiseColours('Reminder')
+
+        if skin == 3:
+            customiseColours('RemFocus')
+
+def customiseColours(texture):
+        if texture == 'focusTexture':
+            header = 'Select focus texture colour'
+            destination = 'tvguide-program-grey-focus.png'
+
+        if texture == 'remTexture':
+            header = 'Select reminder texture colour'
+            destination = 'tvguide-program-red.png'
+
+        if texture == 'remFocusTexture':
+            header = 'Select reminder focus texture colour'
+            destination = 'tvguide-program-red-focus.png'
+
+        if texture == 'backgroundTexture':
+            header = 'Select main background texture colour'
+            colourDialog = d.browseSingle(type=2, heading=header, shares='files', mask='.png', useThumbs=True, treatAsFolder=True, defaultt='special://profile/addon_data/script.ivueguide/resources/skins/Transparent Vue/media/colors/')
+            if colourDialog:
+                try:
+                    colour = str(colourDialog).split('colors/')[1].split('.png')[0]
+                    if not colour == '':
+                        customisebg(colour)
+                except:
+                    pass
+
+        else:
+            colourDialog = d.browse(type=2, heading=header, shares='files', mask='.png', useThumbs=True, treatAsFolder=False, defaultt='special://profile/addon_data/script.ivueguide/resources/skins/Transparent Vue/media/colors/')
+            if colourDialog > 0:
+                colour = str(colourDialog).split('colors/')[1].split('.png')[0]
+                shutil.copy(xbmc.translatePath(colourDialog), os.path.join(utils.SkinDir, 'Transparent Vue', 'media', destination))
+                addon_name.setSetting(texture, '[COLOR %s]%s[/COLOR]' % (colour, colour))
+
+
+def customisebg(colour):
+        if addon_name.getSetting('skin') == 'Transparent Vue':
+            dirs = os.listdir(os.path.join(utils.SkinDir, 'Transparent Vue', '720p'))
+            for file in dirs:
+                file = os.path.join(utils.SkinDir, 'Transparent Vue', '720p', file)
+                f1=open(file,'r').read()
+                match=re.compile('<texture colordiffuse="(.*?)"').findall(f1)
+                if match:
+                    f1=open(file,'r').read() 
+                    f2=open(file,'w') 
+                    m=f1.replace(str(match[0]),str(colour))
+                    f2.write(m)       
+                    f2.close()
+        d.ok("iVue", '',' SUCCESSFUL :)', " [COLOR gold]Brought To You By iVue[/COLOR]")
+        addon_name.setSetting('backgroundTexture', '[COLOR %s]%s[/COLOR]' % (colour, colour))
 
 def updater():
 	message = 'Checking addon Updates'
@@ -242,7 +315,9 @@ def setlogoUrl():
             link = subbedaddons[sub_name]
             addon_name.setSetting('sub.logos', sub_name)
             addon_name.setSetting('sub.logos.url', link)
+
    
+
 
 
 
@@ -270,8 +345,10 @@ if prnum == 'Custom':
 elif prnum == 'List':
     listskins()
 
+
 elif prnum == 'Get':
     getskins()
+
 
 elif prnum == 'Delete':
     delskins()
@@ -287,3 +364,18 @@ elif prnum == 'logo':
 
 elif prnum == 'setcat':
     setcat()
+
+elif prnum == 'customiseSkin':
+    customiseSkin()
+
+elif prnum == 'backgroundTexture':
+    customiseColours('backgroundTexture')
+
+elif prnum == 'focusTexture':
+    customiseColours('focusTexture')
+
+elif prnum == 'remTexture':
+    customiseColours('remTexture')
+
+elif prnum == 'remFocusTexture':
+    customiseColours('remFocusTexture')

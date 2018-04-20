@@ -1,8 +1,0 @@
-[B]Version 1.2[/B]
-- Fixed repo
-
-[B]Version 1.1[/B]
-- Added new icon and fanart
-
-[B]Version 1.0[/B]
-- Initial version

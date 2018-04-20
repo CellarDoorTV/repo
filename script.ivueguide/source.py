@@ -136,6 +136,7 @@ class Database(object):
         self.alreadyTriedUnlinking = False
         self.channelList = list()
         self.category = "All Channels" 
+        self.osdcategory = None
 
         profilePath = xbmc.translatePath(ADDON.getAddonInfo('profile'))
         if not os.path.exists(profilePath):
@@ -147,6 +148,9 @@ class Database(object):
     def setCategory(self,category):
         self.category = category
         self.channelList = None
+
+    def getCategory(self):
+        return self.category
 
     def eventLoop(self):
         print 'Database.eventLoop() >>>>>>>>>> starting...'
@@ -472,10 +476,6 @@ class Database(object):
         finally:
             self.updateInProgress = False
             c.close()
-            try:
-                os.remove(current_db)
-            except:
-                pass
 
     def getEPGView(self, channelStart, date=datetime.datetime.now(), progress_callback=None,
                    clearExistingProgramList=True,category=None):
@@ -592,6 +592,43 @@ class Database(object):
         c.close()
         return programList
 
+    def onNowEpg(self, category):
+        return self._invokeAndBlockForResult(self._onNowEpg, category)
+
+    def _onNowEpg(self, category):
+        self.osdcategory = category
+        programList = []
+        now = datetime.datetime.now()
+        channels = self._getChannelList(True, all=False, osdCat=True)
+        channelIds = [c.id for c in channels]
+        channelMap = dict()
+        for cc in channels:
+            if cc.id:
+                channelMap[cc.id] = cc
+
+        c = self.conn.cursor()
+        c.execute(
+            'SELECT DISTINCT p.*' +
+            'FROM programs p, channels c WHERE p.channel IN (\'' + ('\',\''.join(channelIds)) + '\') AND p.channel=c.id AND p.source=? AND p.end_date >= ? AND p.start_date <= ?' +
+            'ORDER BY c.weight',
+            [self.source.KEY, now, now])
+
+        for row in c:
+            notification_scheduled = ''
+            program = Program(channelMap[row['channel']], title=row['title'], startDate=row['start_date'], endDate=row['end_date'],
+                              description=row['description'], categories=row['categories'],
+                              imageLarge=row['image_large'], imageSmall=row['image_small'],
+                              notificationScheduled=notification_scheduled)
+            programList.append(program)
+        c.close()
+        return programList
+
+    def getChannel(self, idx):
+        channels = self.getChannelList()
+        if idx > len(channels) - 1:
+            idx = 0
+        return channels[idx]
+
 
     def getNextChannel(self, currentChannel):
         channels = self.getChannelList()
@@ -630,9 +667,9 @@ class Database(object):
         self.channelList = None
         self.conn.commit()
 
-    def getChannelList(self, onlyVisible=True, all=False):
+    def getChannelList(self, onlyVisible=True, all=False, notVisible=False, osdCat=False):
         if not self.channelList or not onlyVisible:
-            result = self._invokeAndBlockForResult(self._getChannelList, onlyVisible, all)
+            result = self._invokeAndBlockForResult(self._getChannelList, onlyVisible, all, notVisible, osdCat)
 
             if not onlyVisible:
                 return result
@@ -640,17 +677,25 @@ class Database(object):
             self.channelList = result
         return self.channelList
 
-    def _getChannelList(self, onlyVisible, all=False):
+
+    def _getChannelList(self, onlyVisible, all=False, notVisible=False, osdCat=False):
         c = self.conn.cursor()
         channelList = list()
-        if onlyVisible:
+        if notVisible == True:
+            c.execute('SELECT * FROM channels WHERE source=? AND visible=? ORDER BY weight', [self.source.KEY, False])
+        elif onlyVisible:
             c.execute('SELECT * FROM channels WHERE source=? AND visible=? ORDER BY weight', [self.source.KEY, True])
         else:
             c.execute('SELECT * FROM channels WHERE source=? ORDER BY weight', [self.source.KEY])
         for row in c:
             channel = Channel(row['id'], row['title'], row['logo'], row['stream_url'], row['visible'], row['weight'])
             channelList.append(channel)
-        if all == False and self.category and self.category != "All Channels":
+
+        if self.osdcategory is not None and osdCat == True:
+            setCat = self.osdcategory
+        else:
+            setCat = self.category
+        if all == False and self.category and setCat != "All Channels":
             f = xbmcvfs.File(utils.CatFile,'rb')
             lines = f.read().splitlines()
             f.close()
@@ -660,7 +705,7 @@ class Database(object):
                 if "=" not in line:
                     continue
                 name,cat = line.split('=')
-                if cat == self.category:
+                if cat == setCat:
                     if name not in seen:
                         filter.append(name)
                     seen.add(name)
@@ -686,7 +731,9 @@ class Database(object):
                     else:
                         channelList = new_channels
         c.close()
+                
         return channelList
+        #self.osdcategory = None
 
     def getChannelINI(self):
 	if not os.path.exists(xbmc.translatePath('special://profile/addon_data/plugin.video.IVUEcreator')):
@@ -1131,6 +1178,10 @@ class XMLTVSource(Source):
             raise SourceNotConfiguredException()
 
     def updateLocalFile(self, name, addon):
+        try:
+            os.remove(current_db)
+        except:
+            pass
         fetcher = FileFetcher(name, addon)
         if name == addon.getSetting('xmltv.url'):
             name = 'custom.xml'
@@ -1313,8 +1364,8 @@ class XMLTVSource(Source):
                                 season = int(match.group(1))
                                 episode = int(match.group(2))
 
-                    result = Program(channel, elem.findtext('title'), self.parseXMLTVDate(elem.get('start')),
-                                     self.parseXMLTVDate(elem.get('stop')), description, categories, imageSmall=icon,
+                    result = Program(channel, elem.findtext('title').replace('&amp;','&'), self.parseXMLTVDate(elem.get('start')),
+                                     self.parseXMLTVDate(elem.get('stop')), description.replace('&amp;','&'), categories, imageSmall=icon,
                                      season = season, episode = episode, is_movie = is_movie, date = date, language= language)
 
 
