@@ -3,7 +3,7 @@
 # Addon Provider: 56426
 msgid ""
 msgstr ""
-"Project-Id-Version: wrestlinginc\n"
+"Project-Id-Version: Wrestling iNC\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Language-Team: English\n"

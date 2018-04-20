@@ -1,9 +1,9 @@
-# Addon Name: Jen
-# Addon id: plugin.video.jen
-# Addon Provider: Team Jen
+# Addon Name: Duck Shit
+# Addon id: plugin.video.wrestlinginc
+# Addon Provider: 56426
 msgid ""
 msgstr ""
-"Project-Id-Version: Jen\n"
+"Project-Id-Version: DuckShit\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: 2017-11-04 18:56+0200\n"
 "Last-Translator: A. Dambledore\n"

@@ -1,12 +1,7 @@
 # -*- coding: utf-8 -*-
 """
     default.py --- Jen Addon entry point
-    Copyright (C) 2017, Jen
-###################################### Keep Youre Circle Closed. People Will   ###
-### Shit On You Its In There Nature.Respect###
-###Where ItsDue#######################
-###################################
-
+    Copyright (C) 2017
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,16 +16,17 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+import base64
 import __builtin__
 
 # CONFIGURATION VARIABLES
 # -----------------------
 # change these to suit your addons
 root_xml_url = "https://pastebin.com/raw/SKFZir50"  # url of the root xml file
-__builtin__.tvdb_api_key = ""  # tvdb api key
-__builtin__.tmdb_api_key = ""  # tmdb api key
-__builtin__.trakt_client_id = ""  # trakt client id
-__builtin__.trakt_client_secret = ""  # trakt client secret
+__builtin__.tvdb_api_key = "301109AD42360880"  # tvdb api key
+__builtin__.tmdb_api_key = "60025adb009edac1264b60622053a90f"  # tmdb api key
+__builtin__.trakt_client_id = "82aa9a0f569bdeb78d6c89e4feb26e25484c0baa82b501abe9dd9f7a68f4c403"  # trakt client id
+__builtin__.trakt_client_secret = "7489cf06b98f1c1f143490fe7d718d900ecabe53db1df086a0d385ed8497b5c8"  # trakt client secret
 __builtin__.search_db_location = ""  # location of search db
 
 import os
@@ -38,8 +34,6 @@ import sys
 
 import koding
 import koding.router as router
-from resources.lib.installa import Dialog_specific
-from resources.lib.news_window import Dialog_Example
 import resources.lib.search
 import resources.lib.sources
 import resources.lib.testings
@@ -61,15 +55,11 @@ home_folder = xbmc.translatePath('special://home/')
 addon_folder = os.path.join(home_folder, 'addons')
 art_path = os.path.join(addon_folder, addon_id)
 content_type = "files"
-ownAddon = xbmcaddon.Addon(id=addon_id)
-enable_installa = ownAddon.getSetting('dlimage')
-enable_newswin = ownAddon.getSetting('news_win')
+
 
 @route("main")
 def root():
     """root menu of the addon"""
-    if enable_newswin == 'true':
-        koding.Add_Dir(name='Latest News And Updates', url='{"my_text":"Latest News[CR]!!!","my_desc":""}', mode='dialog_example', folder=False, icon=os.path.join(art_path,'icon.png'), fanart=os.path.join(art_path,'fanart.jpg'))
     if not get_list(root_xml_url):
         koding.Add_Dir(
             name=_("Message"),
@@ -95,8 +85,6 @@ def root():
             icon=xbmcaddon.Addon().getAddonInfo("icon"),
             fanart=xbmcaddon.Addon().getAddonInfo("fanart"),
             content_type="")
-    if enable_installa =='true':
-        koding.Add_Dir(name='Download Backgrounds', url='{"my_text":"INSTALLA[CR]!!!","my_desc":""}', mode='dialog_specific', folder=False, icon=os.path.join(art_path,'icon.png'), fanart=os.path.join(art_path,'fanart.jpg'))
 
 
 @route(mode='get_list_uncached', args=["url"])

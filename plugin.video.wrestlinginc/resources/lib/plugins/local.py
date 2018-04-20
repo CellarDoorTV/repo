@@ -2,14 +2,13 @@ import os
 
 import xbmcaddon
 import xbmcvfs
-
-import resources.lib.plugin
+from ..plugin import Plugin
 
 
 PATH = xbmcaddon.Addon().getAddonInfo("path")
 
 
-class Local(resources.lib.plugin.Plugin):
+class Local(Plugin):
     name = "local"
 
     def get_xml(self, url):

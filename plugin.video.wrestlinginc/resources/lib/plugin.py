@@ -57,9 +57,6 @@ class Plugin():
     def clear_cache(self):
         pass
 
-    def get_context_items(self, item, context):
-        pass
-
 
 plugin_cache = {}
 
@@ -81,7 +78,6 @@ def run_hook(*args):
     plugins = get_plugins()
     function_name = args[0]
     other_args = args[1:]
-    plugins = sorted(plugins, key=lambda plugin: plugin.priority, reverse=True)
     for plugin in plugins:
         result = getattr(plugin, function_name)(*other_args)
         if result:
