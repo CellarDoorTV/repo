@@ -360,7 +360,7 @@ provider-name="Team IVUE">
 </addon>
 
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.wrestlinginc" name="[COLORgold]Wrestling [COLORred]iNC[/COLOR]" version="3.0" provider-name="56426">
+<addon id="plugin.video.duckshit" name="[COLORgold]Duck [COLORred]Shit[/COLOR]" version="3.1" provider-name="56426">
     <requires>
         <import addon="xbmc.python" version="2.19.0" />
         <import addon="script.module.universalscrapers" version="1.0.0" />
