@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.aptoide" version="2018.01.08" name="Aptoide for Kodi" provider-name="aenemapy">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.program.aptoide" version="2018.01.08" name="[COLOR darkorange]Aptoide[/COLOR] for Kodi" provider-name="aenemapy">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.requests" />		
