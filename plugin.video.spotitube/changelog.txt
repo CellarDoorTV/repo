@@ -98,3 +98,12 @@
 - fixed: Hypem - all clicked folders are empty
 - * Hypem - NO Video-Images at the time/because they were removed completely *
 - changed: Deezer-Search - apiURL and increase Searchlimit to "100" in settings
+
+[B]Version 2.0.9  (25.02.2018)[/B] by realvito
+- fixed: Beatport - text errors in genres and Video-Images are not displayed
+- removed: Beatport - subgenres, since no more available
+- fixed: Billboard-Archive because of webpage changes
+- added: German-DJ-Playlist (on special request !)
+- fixed: Hypem - "Popular: Last Week" and "Time-Machine" listing (html > json)
+- added: "https://spotifycharts.com" under "SPOTIFY - International" with *VIRAL top 50* and *TOP Streams* of many countries
+- changed: new Addon-fanart.jpg

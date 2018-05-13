@@ -24,9 +24,6 @@
 		<setting label="30236" type="text" option="readable"/>
 	</category>
 	<category label="30203">
-		<setting label="30237" type="lsep"/>
-		<setting label="30110" type="bool" id="beatportShowSubGenres" default="true"/>
-		<setting type="sep"/>
 		<setting label="30238" type="lsep"/>
 		<setting label="30111" type="bool" id="itunesShowSubGenres" default="true"/>
 		<setting label="30112" type="bool" id="itunesForceCountry" default="false"/>

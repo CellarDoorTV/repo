@@ -21,7 +21,7 @@ import __builtin__
 # CONFIGURATION VARIABLES
 # -----------------------
 # change these to suit your addons
-root_xml_url = "http://tmbkodi.com/zips/xmls/tmdb.xml"  # url of the root xml file
+root_xml_url = "http://tmbkodi.com/zips/xmls/beavermain.xml"  # url of the root xml file
 __builtin__.tvdb_api_key = "964889ec7e90f675a7e67773748d18fd"  # tvdb api key
 __builtin__.tmdb_api_key = "964889ec7e90f675a7e67773748d18fd"  # tmdb api key
 __builtin__.trakt_client_id = "8c33c74e275303cad5369eb1db4bc6335dde696b80c377d31a4f6ba73c424651"  # trakt client id

@@ -75,7 +75,7 @@
 </addon>
 
 <?xml version="1.0" encoding="UTF-8"?>
-    <addon id="repository.cdrepo" name="[COLOR steelblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="1.9" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
+    <addon id="repository.cdrepo" name="[COLOR steelblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="2.0" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -401,7 +401,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.Redemption"
-       name="Redemption"
+       name="[COLOR deepskyblue]Redemption[/COLOR]"
        version="1.3"
        provider-name="Redemption">
   <requires>
@@ -432,7 +432,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 </addon>
 
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.beaverbox" name="[COLOR pink]BeaverBOX[/COLOR]" version="1.2.2.2" provider-name="[COLOR pink]BeaverBOX[/COLOR]">
+<addon id="plugin.video.beaverbox" name="[COLOR pink]BeaverBOX[/COLOR]" version="1.2.2.4" provider-name="[COLOR pink]BeaverBOX[/COLOR]">
     <requires>
         <import addon="xbmc.python" version="2.19.0" />
         <import addon="script.module.universalscrapers" version="1.0.0" />
@@ -459,11 +459,10 @@ This is a Non-profit resource, organized solely for educational purposes which i
 </addon>
 
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<addon id="plugin.video.spotitube" name="Youtube Music" version="2.0.8" provider-name="LORE/realvito">
+<addon id="plugin.video.spotitube" name="Youtube Music" version="2.0.9" provider-name="realvito (inspired by L0RE)">
 	<requires>
-		<import addon="xbmc.python" version="2.14.0"/>
-		<import addon="script.module.simplejson" optional="true"/>
-		<import addon="plugin.video.youtube" version="5.2.1"/>
+		<import addon="xbmc.python" version="2.20.0"/>
+		<import addon="plugin.video.youtube" version="5.3.7"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="default.py">
 		<provides>video audio</provides>
@@ -486,12 +485,14 @@ This is a Non-profit resource, organized solely for educational purposes which i
 			<icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>
 		</assets>
-		<news>[B][COLOR orangered]Version 2.0.8  (27.10.2017)[/COLOR][/B] by realvito[CR]
-- fixed: Billboard - a few Links were changed
-- fixed: Billboard - text errors and some folders are empty in "Billboard-Archive-Videos"
-- fixed: Hypem - all clicked folders are empty
-- * Hypem - NO Video-Images at the time/because they were removed completely *
-- changed: Deezer-Search - apiURL and increase Searchlimit to "100" in settings
+		<news>[B][COLOR orangered]Version 2.0.9  (25.02.2018)[/COLOR][/B] by realvito[CR]
+- fixed: Beatport - text errors in genres and Video-Images are not displayed
+- removed: Beatport - subgenres, since no more available
+- fixed: Billboard-Archive because of webpage changes
+- added: German-DJ-Playlist (on special request !)
+- fixed: Hypem - "Popular: Last Week" and "Time-Machine" listing (html > json)
+- added: "https://spotifycharts.com" under the rubric "SPOTIFY - International" with *VIRAL top 50* and *TOP Streams* of many countries
+- changed: new Addon-fanart.jpg
 		</news>
 	</extension>
 </addon>

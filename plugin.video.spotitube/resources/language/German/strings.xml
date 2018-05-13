@@ -35,17 +35,18 @@
 	<string id="30236">     [COLOR orangered]Wenn in der Deezer-Suche nicht soviele Ergebnisse angezeigt werden, wie in den Einstellungen ausgewählt, dann wurden doppelte Einträge herausgefiltert !!![/COLOR]</string>
 	<string id="30237">[B][COLOR ff0099ff]BEATPORT[/COLOR][/B]</string>
 	<string id="30238">[B][COLOR ff0099ff]iTUNES[/COLOR][/B]</string>
-	<string id="30239">[B][COLOR ff0099ff]SPOTIFY[/COLOR][/B]</string>
+	<string id="30239">[B][COLOR ff0099ff]SPOTIFY - REGIONAL[/COLOR][/B]</string>
 	<string id="30240">[B][COLOR ff0099ff]ANSICHT[/COLOR][/B]</string>
 	
 	<string id="40101">Beatport</string>
 	<string id="40102">Billboard</string>
-	<string id="40103">Hype Machine</string>
-	<string id="40104">iTunes</string>
-	<string id="40105">Official Charts Company (UK)</string>
-	<string id="40106">Spotify</string>
-	<string id="40107">Hot 100</string>
-	<string id="40108">Billboard 200</string>
+	<string id="40103">Deutsche Dj Playlist</string>
+	<string id="40104">Hype Machine</string>
+	<string id="40105">iTunes</string>
+	<string id="40106">Official Charts Company (UK)</string>
+	<string id="40107">Spotify</string>
+	<string id="40108">Hot 100</string>
+	<string id="40109">Billboard 200</string>
 	<string id="40110">Billboard ARCHIVE</string>
 	<string id="40111">Genres</string>
 	<string id="40112">Länder</string>
@@ -62,6 +63,8 @@
 	<string id="40123">Aktuell im Radio</string>
 	<string id="40124">Direkt-Stream</string>
 	<string id="40125">Besonders beliebt</string>
+	<string id="40126">DEUTSCHE-DJ-PLAYLIST - International</string>
+	<string id="40127">DEUTSCHE-DJ-PLAYLIST - Schlager</string>
 	
 	<string id="40135">*Alle Genres*</string>
 	<string id="40136">Beliebt: Zurzeit</string>
@@ -81,20 +84,17 @@
 	<string id="40150">Klassik</string>
 	<string id="40151">Dance</string>
 	<string id="40152">Rock & Heavy Metal</string>
-	<string id="40153">Toplisten</string>
-	<string id="40154">Tägliche Themen</string>
-	<string id="40155">Genres</string>
-	<string id="40156">Mär</string>
-	<string id="40157">Mai</string>
-	<string id="40158">Okt</string>
-	<string id="40159">Dez</string>
-	
-	<string id="40170">[B][COLOR chartreuse]+ ALLES + Abspielen +[/COLOR][/B]</string>
-	<string id="40171">[B][COLOR chartreuse]10 Titel[/COLOR] >>> Abspielen[/B]</string>
-	<string id="40172">[B][COLOR chartreuse]20 Titel[/COLOR] >>> Abspielen[/B]</string>
-	<string id="40173">[B][COLOR chartreuse]30 Titel[/COLOR] >>> Abspielen[/B]</string>
-	<string id="40174">[B][COLOR chartreuse]40 Titel[/COLOR] >>> Abspielen[/B]</string>
-	<string id="40175">[B][COLOR chartreuse]50 Titel[/COLOR] >>> Abspielen[/B]</string>
+	<string id="40153">     VIRAL top 50 - täglich</string>
+	<string id="40154">     VIRAL top 50 - wöchentlich</string>
+	<string id="40155">     TOP Streams - täglich</string>
+	<string id="40156">     TOP Streams - wöchentlich</string>
+	<string id="40157">     Toplisten</string>
+	<string id="40158">     Tägliche Themen</string>
+	<string id="40159">     Genres</string>
+	<string id="40160">Mär</string>
+	<string id="40161">Mai</string>
+	<string id="40162">Okt</string>
+	<string id="40163">Dez</string>
 	
 	<string id="40202">Einstellungen</string>
 	<string id="40203">Suche ...</string>
@@ -103,4 +103,11 @@
 	<string id="40206">[COLOR orangered]Nächste Seite  >>>[/COLOR]</string>
 	<string id="40207">Jetzt läuft gerade:</string>
 	<string id="40208">[B][COLOR chartreuse]In Abspielliste einreihen[/COLOR][/B]</string>
+	
+	<string id="40231">[B][COLOR chartreuse]+ ALLES + Abspielen +[/COLOR][/B]</string>
+	<string id="40232">[B][COLOR chartreuse]10 Titel[/COLOR] >>> Abspielen[/B]</string>
+	<string id="40233">[B][COLOR chartreuse]20 Titel[/COLOR] >>> Abspielen[/B]</string>
+	<string id="40234">[B][COLOR chartreuse]30 Titel[/COLOR] >>> Abspielen[/B]</string>
+	<string id="40235">[B][COLOR chartreuse]40 Titel[/COLOR] >>> Abspielen[/B]</string>
+	<string id="40236">[B][COLOR chartreuse]50 Titel[/COLOR] >>> Abspielen[/B]</string>
 </strings>
