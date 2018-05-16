@@ -75,7 +75,7 @@
 </addon>
 
 <?xml version="1.0" encoding="UTF-8"?>
-    <addon id="repository.cdrepo" name="[COLOR steelblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="2.0" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
+    <addon id="repository.cdrepo" name="[COLOR steelblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="2.1" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -431,33 +431,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.beaverbox" name="[COLOR pink]BeaverBOX[/COLOR]" version="1.2.2.4" provider-name="[COLOR pink]BeaverBOX[/COLOR]">
-    <requires>
-        <import addon="xbmc.python" version="2.19.0" />
-        <import addon="script.module.universalscrapers" version="1.0.0" />
-        <import addon="script.module.python.koding.aio" version="0.9.6.6" />
-        <import addon="script.module.beautifulsoup" version="3.2.1" />
-        <import addon="script.module.requests" version="2.9.1" />
-        <import addon="script.module.addon.common" version="2.0.0" />
-        <import addon="script.module.xmltodict" version="0.9.0" />
-        <!--<import addon="script.module.web-pdb" version="1.0"/>-->
-        <import addon="script.module.resolveurl" version="5.0.08" />
-    </requires>
-    <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>audio video</provides>
-    </extension>
-    <extension point="xbmc.service" library="service.py" start="[login|startup]" />
-    <extension point="xbmc.addon.metadata">
-      <summary lang="en">MOVIES-TV SHOWS Powered By TMDB</summary>
-	  <description lang="en">MOVIES-TV SHOWS Powered By TMDB</description>
-	  <disclaimer lang="en">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
-      <platform>all</platform>
-        <website></website>
-        <video_guide></video_guide>
-    </extension>
-</addon>
-
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <addon id="plugin.video.spotitube" name="Youtube Music" version="2.0.9" provider-name="realvito (inspired by L0RE)">
 	<requires>
@@ -700,25 +673,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
     <summary lang="en">CDTV Easy to Pair Menu System</summary>
     <description lang="en">Small Simple Script for CDTV Menu System</description>
 	<disclaimer>.</disclaimer>
-  </extension>
-</addon>
-
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.hypersonic.easytopair"
-  name="[COLOR steelblue]Hypersonic [COLOR white]IPTV2[/COLOR] [COLOR gold]FREE WEEKDAY TRIAL[/COLOR]"
-  version="1.0" 
-  provider-name="CDTV Builds">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-  </requires>
-  <extension point="xbmc.python.script" library="addon.py">
-    <provides>executable</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <summary lang="en">Hypersonic Easy to Pair Menu System</summary>
-    <description lang="en">Access to exclusive HD content for your favorite TV Channels and more. Hypersonic IPTV is The Future of Home Entertainment.</description>
-	<disclaimer>Small Simple Script for CDTV Menu System</disclaimer>
   </extension>
 </addon>
 
