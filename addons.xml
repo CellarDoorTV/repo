@@ -677,7 +677,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 </addon>
 
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.extendedinfo" name="[COLOR limegreen]EIM[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed" version="5.5.9DisableAutoUpdate" provider-name="[COLOR lime][B]Serious Fork[/B][/COLOR], original by phil65">
+<addon id="script.extendedinfo" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ed" version="6.0.5DisableAutoUpdates" provider-name="[COLOR lime][B]Serious Fork[/B][/COLOR], original by phil65">
   <requires>
     <import addon="xbmc.python"                     version="2.19.0"/>
     <import addon="plugin.program.super.favourites"/>
@@ -699,8 +699,8 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
   <extension point="xbmc.addon.metadata">
     <language/>
-    <summary lang="en">[COLOR limegreen]EIM[/COLOR] for [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed</summary>
-    <description lang="en">This script offers various possibilities to display online content inside skins as well as a complete MovieDB browser including info dialogs for various media types. Used services are themoviedb.org, theaudiodb.org, Trakt.TV, omdbapi.com and a lot more. Needs skin implementation for lot of functions. Uses [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed for playback and library functions.</description>
+    <summary lang="en">[COLOR limegreen]EIM[/COLOR] for [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed. This version number is to be used with CDTV Builds only. DO NOT unistall nor reinstall it on another build. [COLOR limegreen]EIM[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed builder’s version is available from [COLOR steelblue]CellarDoorTV [COLOR white]Repo[/COLOR]</summary>
+    <description lang="en">[COLOR limegreen]EIM[/COLOR] for [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed.[CR]This version number is to be used with CDTV Builds only. DO NOT unistall nor reinstall it on another build.[CR][COLOR limegreen]EIM[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed builder’s version is available from [COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR white]Repo[/COLOR].[CR]This script offers various possibilities to display online content inside skins as well as a complete MovieDB browser including info dialogs for various media types. Used services are themoviedb.org, theaudiodb.org, Trakt.TV, omdbapi.com and a lot more. Needs skin implementation for lot of functions. Uses [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed for playback and library functions.</description>
     <summary lang="nl">[COLOR ff0084ff]E[/COLOR]xtended [COLOR ff0084ff]I[/COLOR]nfo [COLOR ff0084ff]M[/COLOR]od</summary>
     <description lang="nl">Dit script biedt meerdere mogelijkheden om online content weer te geven in skins en bevat ook een complete MovieDB browser inclusief info dialogen voor verscheidene media types. Gebruikte diensten zijn themoviedb.org, theaudiodb.org, Trakt.TV, omdbapi.com en nog veel meer. Vereist skin implementatie voor de meeste functies. Gebruikt [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed voor afspeel en bibliotheek functies.</description>
     <platform>all</platform>
