@@ -207,7 +207,7 @@ def get_tvshow_window(window_type):
 
         @ch.click(20)
         def add_tvshow_to_library(self):
-            TVLibrary = METALLIQ.getSetting("tv_library_folder")
+            TVLibrary = forqed.getSetting("tv_library_folder")
             tvdb_id = self.info["tvdb_id"]
             if not os.path.exists(xbmc.translatePath("%s%s/" % (TVLibrary, tvdb_id))):
                 xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq-forqed/tv/add_to_library/%s)" % self.info.get("tvdb_id", ""))
@@ -218,8 +218,8 @@ def get_tvshow_window(window_type):
 
         @ch.click(21)
         def remove_tvshow_from_library(self):
-            TVLibrary = METALLIQ.getSetting("tv_library_folder")
-            TVPlaylists = METALLIQ.getSetting("tv_playlist_folder")
+            TVLibrary = forqed.getSetting("tv_library_folder")
+            TVPlaylists = forqed.getSetting("tv_playlist_folder")
             tvdb_id = self.info["tvdb_id"]
             if os.path.exists(xbmc.translatePath("%s%s.xsp" % (TVPlaylists, tvdb_id))):
                 os.remove(xbmc.translatePath("%s%s.xsp" % (TVPlaylists, tvdb_id)))

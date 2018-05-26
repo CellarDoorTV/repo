@@ -75,7 +75,7 @@
 </addon>
 
 <?xml version="1.0" encoding="UTF-8"?>
-    <addon id="repository.cdrepo" name="[COLOR steelblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="2.1" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
+    <addon id="repository.cdrepo" name="[COLOR steelblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="2.2" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -192,7 +192,7 @@
 </addon>
 
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.metalliq" name="[COLOR gold]M[/COLOR]etalli[COLOR gold]Q[/COLOR] [COLOR gold]GOLDEN[/COLOR]" version="4.0.17krypton" provider-name="[COLOR gold][B]Last Version[/B][/COLOR]">
+<addon id="plugin.video.metalliq" name="[COLOR gold]M[/COLOR]etalli[COLOR gold]Q[/COLOR] [COLOR gold]GOLDEN[/COLOR]" version="5.0.17krypton" provider-name="[COLOR gold][B]Last Version[/B][/COLOR]">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 		<import addon="repository.cdrepo"/>
@@ -257,7 +257,7 @@
 </addon>
 
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.metalliq-forqed" name="[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed" version="5.0.17krypton" provider-name="[COLOR lime][B]Serious Fork[/B][/COLOR]">
+<addon id="plugin.video.metalliq-forqed" name="[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed" version="6.0.17krypton" provider-name="[COLOR lime][B]Serious Fork[/B][/COLOR]">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 		<import addon="repository.cdrepo" version="1.2"/>

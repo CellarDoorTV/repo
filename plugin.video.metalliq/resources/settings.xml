@@ -144,9 +144,9 @@
         <setting label="$LOCALIZE[14061] patch [LOWERCASE]$LOCALIZE[24001][/LOWERCASE]" id="autopatch" type="bool" default="false" />
         <setting label="$LOCALIZE[636] patches" id="autopatches" type="text" default="[[], [&quot;plugin.video.bennu&quot;, &quot;plugin.video.boxsetkings&quot;, &quot;plugin.video.covenant&quot;, &quot;plugin.video.exodus&quot;, &quot;plugin.video.flixnet&quot;, &quot;plugin.video.genesisreborn&quot;, &quot;plugin.video.gurzil&quot;, &quot;plugin.video.poseidon&quot;, &quot;plugin.video.redpill&quot;, &quot;plugin.video.sedundnes&quot;, &quot;plugin.video.showboxarize&quot;, &quot;plugin.video.tinklepad&quot;], [&quot;plugin.video.salts&quot;], [&quot;script.module.dudehere.routines&quot;]]" />
         <setting label="Patch" option="close" type="action" action="RunPlugin(plugin://plugin.video.metalliq/patch/all)"/>
-        <setting label="Trakt API client id" id="trakt_api_client_id" type="text" option="hidden" default="8a6445c036dd444c5e16b87f9895607ce552d216ec16099fb116aa3f8ad5a813" />
-        <setting label="Trakt API client secret" id="trakt_api_client_secret" subsetting="true" type="text" option="hidden" default="6ad4e727c0f5b5193be64ffa915360140f9cd7e5f322e90245289158d6ed4d23" visible="!eq(-1,)" />
-        <setting label="TMDb API" id="tmdb_api" type="text" option="hidden" default="0afc169ab40ca614af43a7b9c0a61e9b" />
+        <setting label="Trakt API client id" id="trakt_api_client_id" type="text" option="" default="82aa9a0f569bdeb78d6c89e4feb26e25484c0baa82b501abe9dd9f7a68f4c403" />
+        <setting label="Trakt API client secret" id="trakt_api_client_secret" subsetting="true" type="text" option="" default="7489cf06b98f1c1f143490fe7d718d900ecabe53db1df086a0d385ed8497b5c8" visible="!eq(-1,)" />
+        <setting label="TMDb API" id="tmdb_api" type="text" option="" default="0afc169ab40ca614af43a7b9c0a61e9b" />
         <setting label="TVDb API" id="tvdb_api" type="text" default="" />
         <setting label="LastFM API key" id="lastfm_api_key" type="text" default="" />
         <setting label="LastFM API shared secret" id="lastfm_api_shared_secret" subsetting="true" type="text" default="" visible="!eq(-1,)" />

@@ -33,9 +33,9 @@ def get_movie_window(window_type):
             self.info, self.data, self.account_states = data
             sets_thread = SetItemsThread(self.info["SetId"])
             self.omdb_thread = FunctionThread(get_omdb_movie_info, self.info["imdb_id"])
-            lists_thread = FunctionThread(self.sort_lists, self.data["lists"])
+            # lists_thread = FunctionThread(self.sort_lists, self.data["lists"])
             filter_thread = FilterImageThread(self.info.get("thumb", ""), 25)
-            for thread in [self.omdb_thread, sets_thread, lists_thread, filter_thread]:
+            for thread in [self.omdb_thread, sets_thread, filter_thread]:
                 thread.start()
             if "dbid" not in self.info:
                 self.info['poster'] = get_file(self.info.get("poster", ""))
@@ -45,11 +45,11 @@ def get_movie_window(window_type):
             filter_thread.join()
             self.info['ImageFilter'] = filter_thread.image
             self.info['ImageColor'] = filter_thread.imagecolor
-            lists_thread.join()
+            # lists_thread.join()
             self.listitems = [(1900, self.data["addons"]),
                               ( 250, sets_thread.listitems),
                               ( 150, self.data["similar"]),
-                              ( 450, lists_thread.listitems),
+                              # ( 450, lists_thread.listitems),
                               (1150, self.data["videos"]),
                               (1000, self.data["actors"]),
                               ( 750, merge_dict_lists(self.data["crew"])),
@@ -219,7 +219,7 @@ def get_movie_window(window_type):
                                    force=True)
 
         @ch.click(120)
-        def search_in_metalliq_by_title(self):
+        def search_in_forqed_by_title(self):
             url = "plugin://plugin.video.metalliq-forqed/movies/tmdb/search_term/%s/1" % self.info.get("title", "")
             self.close()
             xbmc.executebuiltin("ActivateWindow(videos,%s,return)" % url)
@@ -423,7 +423,7 @@ def get_movie_window(window_type):
 
         @ch.click(18)
         def add_movie_to_library(self):
-            MovieLibrary = METALLIQ.getSetting("movies_library_folder")
+            MovieLibrary = forqed.getSetting("movies_library_folder")
             imdb_id = self.info["imdb_id"]
             if not os.path.exists(xbmc.translatePath("%s%s/" % (MovieLibrary, imdb_id))):
                 xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq-forqed/movies/add_to_library/tmdb/%s)" % self.info.get("id", ""))
@@ -434,7 +434,7 @@ def get_movie_window(window_type):
 
         @ch.click(19)
         def remove_movie_from_library(self):
-            MovieLibrary = METALLIQ.getSetting("movies_library_folder")
+            MovieLibrary = forqed.getSetting("movies_library_folder")
             imdb_id = self.info["imdb_id"]
             if os.path.exists(xbmc.translatePath("%s%s/" % (MovieLibrary, imdb_id))):
                 get_kodi_json(method="VideoLibrary.RemoveMovie", params='{"movieid": %d}' % int(self.info["dbid"]))

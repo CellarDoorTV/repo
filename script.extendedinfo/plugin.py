@@ -15,7 +15,7 @@ class Main:
 
     def __init__(self):
         xbmc.log("version %s started" % ADDON_VERSION)
-        xbmc.executebuiltin('SetProperty(extendedinfo_running,True,home)')
+        xbmc.executebuiltin('SetProperty(eim4qed_running,True,home)')
         if xbmc.getCondVisibility('Skin.String(WindowColorMain,'+COLORMAIN+')') == False: xbmc.executebuiltin('Skin.SetString(WindowColorMain,'+COLORMAIN+')')
         elif xbmc.getCondVisibility('Skin.String(WindowColorThemed,'+COLORTHEMED+')') == False: xbmc.executebuiltin('Skin.SetString(WindowColorThemed,'+COLORTHEMED+')')
         self._parse_argv()
@@ -94,7 +94,7 @@ class Main:
                 else: url = 'plugin://script.extendedinfo?info=%s' % key
                 xbmcplugin.addDirectoryItem(handle=self.handle, url=url, listitem=li, isFolder=True)
             xbmcplugin.endOfDirectory(self.handle)
-        xbmc.executebuiltin('ClearProperty(extendedinfo_running,home)')
+        xbmc.executebuiltin('ClearProperty(eim4qed_running,home)')
 
     def _parse_argv(self):
         args = sys.argv[2][1:]

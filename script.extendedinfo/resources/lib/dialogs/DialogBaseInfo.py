@@ -34,7 +34,7 @@ class DialogBaseInfo(object):
         self.window.setProperty("type", self.type)
         self.window.setProperty("tmdb_logged_in", self.logged_in)
         # present for jurialmunkey
-        HOME.setProperty("ExtendedInfo_fanart", self.info.get("fanart", ""))
+        HOME.setProperty("SKI_fanart", self.info.get("fanart", ""))
 
     def onAction(self, action):
         ch.serve_action(action, self.getFocusId(), self)

@@ -143,8 +143,8 @@ def get_tmdb_window(window_type):
                 PLAYER.qlickplay(url, listitem=None, dbid=dbid, window=self)
             if selection == 1:
                 if self.type == "tv" or self.type == "episode":
-                    TVLibrary   = METALLIQ.getSetting("tv_library_folder")
-                    TVPlaylists = METALLIQ.getSetting("tv_playlist_folder")
+                    TVLibrary   = forqed.getSetting("tv_library_folder")
+                    TVPlaylists = forqed.getSetting("tv_playlist_folder")
                     if self.listitem.getProperty("dbid"):
                         get_kodi_json(method="VideoLibrary.RemoveTVShow", params='{"tvshowid": %s}' % dbid)
                         if os.path.exists(xbmc.translatePath("%s%s.xsp" % (TVPlaylists, tvdb_id))):
@@ -162,7 +162,7 @@ def get_tmdb_window(window_type):
                         xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq-forqed/tv/add_to_library/%s)" % tvdb_id)
                         notify(header='Added "%s" to library' % self.listitem.getProperty("TVShowTitle"), message="Starting library scan now", icon=self.listitem.getProperty("poster"), time=5000, sound=False)
                 else:
-                    MovieLibrary = METALLIQ.getSetting("movies_library_folder")
+                    MovieLibrary = forqed.getSetting("movies_library_folder")
                     if self.listitem.getProperty("dbid"):
                         get_kodi_json(method="VideoLibrary.RemoveMovie", params='{"movieid": %s}' % dbid)
                         if os.path.exists(xbmc.translatePath("%s%s/" % (MovieLibrary, imdb_id))):

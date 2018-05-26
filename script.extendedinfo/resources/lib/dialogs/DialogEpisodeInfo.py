@@ -84,7 +84,7 @@ def get_episode_window(window_type):
         def play_episode_no_resume(self):
             if self.dbid:
                 dbid = self.dbid
-                url = "special://profile/playlists/mixed/MetalliQ/TVShows/%s.xsp" % self.info.get("tvdb_id", "")
+                url = "special://profile/playlists/mixed/forqed/TVShows/%s.xsp" % self.info.get("tvdb_id", "")
                 if not os.path.exists(url):
                     url = "plugin://plugin.video.metalliq-forqed/tv/play/%s/%s/%s/%s" % (self.info.get("tvdb_id", ""), self.info.get("season", ""), self.info["episode"], SETTING("player_main_tv"))
             else:
