@@ -431,6 +431,150 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.numbersbynumbers" version="2.0.0.2" name="[COLOR white][B]NuMbErS[/B][/COLOR]" provider-name="[COLOR gold][B]Brackets[/B][/COLOR]">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0" />
+		<import addon="script.module.numbersbynumbers" />
+		<import addon="script.numbersbynumbers.artwork" version="1.0.0" />
+		<import addon="script.numbersbynumbers.metadata" version="1.0.4" />
+		<import addon="script.module.urlresolver" version="3.0.0" />
+		<import addon="script.module.requests" />
+		<import addon="script.module.metahandler" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Movies and TV Shows on [COLOR gold]NuMbErS[/COLOR]</summary>
+		<description lang="en">Please remember that NuMbErS is not an official part of the Kodi media player you are running, and therefore is not to be mentioned within official support channels of Kodi, this addon has nothing to do with the media player itself, nor it’s intended use, it is simply a third party plugin which has been added to your system.</description>
+		<disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.</disclaimer>
+		<platform>all</platform>
+		<forum></forum>
+		<website></website>
+		<source></source>
+		<assets>
+			<icon>icon.gif</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
+		<news>
+V1.0.0
+- Initial release
+        </news>
+	</extension>
+</addon>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.module.numbersbynumbers" name="NuMbErS Module" version="1.00.035" provider-name="Brackets">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0" />
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary lang="en">NuMbErS</summary>
+        <assets>
+	      <icon>icon.jpg</icon>
+		</assets>		
+	</extension>
+</addon>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.numbersbynumbers.artwork" version="1.0.0" name="Numbers By Numbers Artwork" provider-name="Brackets">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0"/>
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<summary>Themes for the Numbers By Numbers Addon</summary>
+		<description>Themes for Numbers are maintained separately to make distribution of the the addon itself easier/faster.</description>
+		<platform>all</platform>
+        <assets>
+	      <icon>icon.jpg</icon>
+		</assets>		
+	</extension>
+</addon>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.numbersbynumbers.metadata" version="1.0.4" name="Numbers By Numbers Metadata" provider-name="Brackets">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0"/>
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<summary>Metadata for NuMbErS Addon</summary>
+		<description>Metadata for NuMbErS are maintained separately to make distribution of the the addon itself easier/faster.</description>
+		<platform>all</platform>
+        <assets>
+	      <icon>icon.jpg</icon>
+		</assets>		
+	</extension>
+</addon>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.flixsport"
+       name="FlixSport" 
+       version="1.0.0"
+       provider-name="FlixSport">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.t0mm0.common" version="2.0.0"/>
+    <import addon="script.module.beautifulsoup" version="3.2.1"/>
+    <import addon="script.module.simple.downloader" version="0.9.4"/>
+    <import addon="script.module.beautifulsoup4" />
+    <import addon="script.module.simple.downloader" version="0.9.4"/>
+    <import addon="script.module.requests" />
+    <import addon="script.module.httplib2" />
+    <import addon="script.module.youtube.dl" optional="true"/>
+    <import addon="plugin.video.youtube" version="3.0.0"/>
+    <import addon="script.module.urlresolver" optional="true"/>
+    <import addon="script.module.simplejson" /> 
+    <import addon="script.common.plugin.cache" version="2.5.2"/>
+    <import addon="script.module.metahandler" version="2.5.1"/>
+    <import addon="script.module.python.koding.aio" version="0.0.1"/>
+    <import addon="script.module.bybmodules"  version="0.0.0.1"/>
+    <import addon="script.module.resolveurl" version="5.0.07"/>
+    <import addon="script.module.dateutil" version="2.5.3"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Live Sports Addon</summary>
+    <description lang="en">All Streams Are Obtained From Live Sports Bins - Of There Is A Issue Please Contact Me And I Shall Remove Some Streams
+Still Very Much Beta Stage</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.module.bybmodules"
+   name="BYB Modules"
+   version="0.0.1.8"
+   provider-name="BYB">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.python.koding.aio" version="0.0.1"/>
+    <import addon="script.module.resolveurl" version="5.0.07"/>
+    <import addon="script.module.dateutil" version="2.5.3"/>
+    <import addon="script.module.feedparser"/>
+    <import addon="script.module.beautifulsoup4" />
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary lang="en">Kodi python modules</summary>
+    <description lang="en"></description>
+    <disclaimer lang="en"></disclaimer>
+    <language></language>
+    <license>Creative Commons 4.0-NC-ND</license>
+    <forum></forum>
+    <website></website>
+    <news></news>
+    <source></source>
+  </extension>
+</addon>
+
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <addon id="plugin.video.spotitube" name="Youtube Music" version="2.0.9" provider-name="realvito (inspired by L0RE)">
 	<requires>
