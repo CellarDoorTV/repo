@@ -3,11 +3,12 @@
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.numbersbynumbers" />
-		<import addon="script.numbersbynumbers.artwork" version="1.0.0" />
-		<import addon="script.numbersbynumbers.metadata" version="1.0.4" />
-		<import addon="script.module.urlresolver" version="3.0.0" />
+		<import addon="script.numbersbynumbers.artwork" />
+		<import addon="script.numbersbynumbers.metadata" />
+		<import addon="script.module.urlresolver" />
 		<import addon="script.module.requests" />
-		<import addon="script.module.metahandler" version="1.0.0" />
+		<import addon="script.module.metahandler" />
+                <import addon="plugin.video.youtube"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="default.py">
 		<provides>video</provides>
@@ -25,8 +26,8 @@
 			<fanart>fanart.jpg</fanart>
 		</assets>
 		<news>
-V1.0.0
-- Initial release
+V2.0.0.2
+- The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.
         </news>
 	</extension>
 </addon>
