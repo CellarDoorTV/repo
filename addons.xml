@@ -515,7 +515,7 @@ V2.0.0.2
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.flixsport"
        name="[COLOR crimson]FlixSport[/COLOR]" 
-       version="1.0.0"
+       version="1.0.1"
        provider-name="FlixSport">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
