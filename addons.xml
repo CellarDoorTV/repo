@@ -1,17 +1,17 @@
 <addons>
 
 <?xml version="1.0" encoding="UTF-8"?>
-    <addon id="repository.cdrepo" name="[COLOR steelblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="2.3" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
+    <addon id="repository.cdrepo" name="[COLOR steelblue]CellarDoorTV [COLOR white]Repo[/COLOR]" version="2.4" provider-name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Builds[/COLOR]">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
         <extension point="xbmc.addon.repository" name="[COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] [COLOR ghostwhite]Repo">
             <dir>
-			<info compressed="false">http://cellardoortv.com/repo2/master/addons.xml</info>
+      <info compressed="false">http://cellardoortv.com/repo2/master/addons.xml</info>
             <checksum>http://cellardoortv.com/repo2/master/addons.xml.md5</checksum>
             <datadir zip="true">http://cellardoortv.com/repo2/master/zips/</datadir>
             <hashes>false</hashes>
-			</dir>
+      </dir>
             <dir>
                 <info compressed="false">http://raw.github.com/frenchdj/frenchdj.repository/master/addons.xml</info>
                 <checksum>http://raw.github.com/frenchdj/frenchdj.repository/master/addons.xml.md5</checksum>
@@ -27,21 +27,37 @@
                 <checksum>https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/addons.xml.md5</checksum>
                 <datadir zip="true">https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/</datadir>
             </dir>
-			<dir>
+      <dir>
                 <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
                 <checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
                 <datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
             </dir>
         </extension>
         <extension point="xbmc.addon.metadata">
-		<summary lang="en">CellarDoorTV Repository</summary>
-		<description lang="en">[COLOR gold]The Future Of Home Entertainment[/COLOR][CR]Kodi Repository for [COLOR steelblue]CellarDoorTV[/COLOR][CR][COLOR steelblue]CellarDoorTV[/COLOR] [COLOR white]Repo[/COLOR] allows you to install our CDTV Wizard and get access to the latest CDTV Custom Builds and more.</description>
-		<platform>all</platform>
+    <summary lang="en">CellarDoorTV Repository</summary>
+    <description lang="en">[COLOR gold]The Future Of Home Entertainment[/COLOR][CR]Kodi Repository for [COLOR steelblue]CellarDoorTV[/COLOR][CR][COLOR steelblue]CellarDoorTV[/COLOR] [COLOR white]Repo[/COLOR] allows you to install our CDTV Wizard and get access to the latest CDTV Custom Builds and more.</description>
+    <platform>all</platform>
     <assets>
         <icon>icon.gif</icon>
         <fanart>fanart.jpg</fanart>      
     </assets>
-	</extension>
+  </extension>
+</addon>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.program.CellarDoorTVwizard" name="[COLOR lightskyblue]CellarDoorTV Wizard[/COLOR]" version="0.2.6" provider-name="CDTV Builds">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.service" library="startup.py" start="startup" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">[COLOR lightskyblue]CellarDoorTV Wizard[/COLOR]</summary>
+    <description lang="en">CellarDoorTV Wizard allows you to get access to the latest CDTV Custom Builds and more.[CR]Credits - A huge thanks goes out to [COLOR deepskyblue]Surfacingx[/COLOR] the creator of the Aftermath Wizard for bringing this outstanding Wizard to this community.[CR]Contact - For help and support go to CellarDoorTV Facebook group.[CR]Follow me on Twitter or visit our website at https://cellardoortv.wordpress.com</description>
+    <platform>all</platform>
+  </extension>
 </addon>
 
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
