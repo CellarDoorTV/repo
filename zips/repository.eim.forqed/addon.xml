@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <addon id="repository.eim.forqed" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ED [COLOR white]Repository[/COLOR]" version="1.0" provider-name="[COLOR lime]Serious Fork[/COLOR]">
+    <addon id="repository.eim.forqed" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ED [COLOR white]Repository[/COLOR]" version="2.0" provider-name="[COLOR lime]Serious Fork[/COLOR]">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
         <extension point="xbmc.addon.repository" name="[COLOR forestgreen]EIM4QED Repository[/COLOR]">
             <dir>
-				<info compressed="false">https://github.com/CellarDoorTV/repo/blob/master/addons.xml</info>
-				<checksum>https://github.com/CellarDoorTV/repo/blob/master/addons.xml.md5</checksum>
-				<datadir zip="true">https://github.com/CellarDoorTV/repo/blob/master/</datadir>
+				<info compressed="false">https://raw.githubusercontent.com/CellarDoorTV/repo/master/addons.xml</info>
+				<checksum>https://raw.githubusercontent.com/CellarDoorTV/repo/master/addons.xml.md5</checksum>
+				<datadir zip="true">https://raw.githubusercontent.com/CellarDoorTV/repo/master/zips</datadir>
             <hashes>false</hashes>
 			</dir>
             <dir>
