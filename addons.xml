@@ -43,7 +43,7 @@
     <import addon="script.module.requests" version="2.9.1"/>
     <import addon="script.skin.helper.service" version="1.0.0"/>
     <import addon="resource.images.studios.white" version="0.0.18"/>
-    <import addon="plugin.video.metalliq-forqed" version="7.0.18" optional="true"/>
+    <import addon="plugin.video.metalliq-forqed" version="7.0.18leia"/>
   </requires>
   <extension point="xbmc.python.script" library="script.py"/>
   <extension point="xbmc.python.pluginsource" library="plugin.py">
