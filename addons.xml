@@ -1,15 +1,15 @@
 <addons>
 
 <?xml version="1.0" encoding="UTF-8"?>
-    <addon id="repository.eim.forqed" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ED [COLOR white]Repository[/COLOR]" version="2.2" provider-name="[COLOR lime]Serious Fork[/COLOR]">
+    <addon id="repository.eim.forqed" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ED [COLOR white]Repository[/COLOR]" version="2.0" provider-name="[COLOR lime]Serious Fork[/COLOR]">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
         <extension point="xbmc.addon.repository" name="[COLOR forestgreen]EIM4QED Repository[/COLOR]">
             <dir>
-        <info compressed="false">https://raw.githubusercontent.com/CellarDoorTV/repo/master/addons.xml</info>
-        <checksum>https://raw.githubusercontent.com/CellarDoorTV/repo/master/addons.xml.md5</checksum>
-        <datadir zip="true">https://raw.githubusercontent.com/CellarDoorTV/repo/master/zips</datadir>
+        <info compressed="false">https://github.com/CellarDoorTV/repo/blob/master/addons.xml</info>
+        <checksum>https://github.com/CellarDoorTV/repo/blob/master/addons.xml.md5</checksum>
+        <datadir zip="true">https://github.com/CellarDoorTV/repo/blob/master/</datadir>
             <hashes>false</hashes>
       </dir>
             <dir>
@@ -35,36 +35,32 @@
 </addon>
       
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.extendedinfo" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ed" version="100.4.18leia" provider-name="[COLOR lime]Serious Fork[/COLOR]">
+<addon id="script.extendedinfo" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ed" version="100.3.18leia" provider-name="[COLOR lime]Serious Fork[/COLOR]">
   <requires>
     <import addon="xbmc.python" version="2.25.0"/>
     <import addon="script.module.pil" version="1.1.7"/>
-    <import addon="script.module.requests" version="2.9.1"/>
-    <import addon="script.module.simplejson" version="2.0.10"/>
-    <import addon="script.skin.helper.service" version="1.0.0"/>
-    <import addon="script.module.resolveurl"/>
-    <import addon="script.module.youtube.dl"/>
-    <import addon="plugin.program.super.favourites"/>
     <import addon="plugin.video.youtube" version="6.2.2"/>
+    <import addon="script.module.requests" version="2.9.1"/>
+    <import addon="script.skin.helper.service" version="1.0.0"/>
     <import addon="resource.images.studios.white" version="0.0.18"/>
-    <import addon="plugin.video.metalliq-forqed" version="8.0.18leia"/>
+    <import addon="plugin.video.metalliq-forqed" version="7.0.18leia"/>
   </requires>
-  <extension point="xbmc.python.script"             library="default.py">
-    <provides>executable</provides>
-  </extension>
-  <extension point="xbmc.python.library"            library="default.py" />
-  <extension point="xbmc.python.pluginsource"       library="plugin.py">
+  <extension point="xbmc.python.script" library="script.py"/>
+  <extension point="xbmc.python.pluginsource" library="plugin.py">
     <provides>video</provides>
   </extension>
+  <extension point="kodi.context.item">
+    <menu id="kodi.core.main">
+      <item library="context.py">
+        <label>EIM4QED</label>
+        <visible>String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,season) | String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,actor) | String.IsEqual(ListItem.dbtype,director)</visible>
+      </item>
+    </menu>
+  </extension>
   <extension point="xbmc.addon.metadata">
-    <language/>
-    <summary lang="en">Fork of the ExtendedInfo script from phil65 - Works with [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed Leia</summary>
-    <description>This script offers various possibilities to display online content inside skins as well as a complete MovieDB browser including info dialogs for various media types. Used services are themoviedb.org, theaudiodb.org, Trakt.TV, omdbapi.com and a lot more. Needs skin implementation for lot of functions. Uses [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed for playback and library functions.</description>
-    <summary lang="nl">Fork of the ExtendedInfo script from phil65 - Works with [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed Leia</summary>
-    <description lang="nl">Dit script biedt meerdere mogelijkheden om online content weer te geven in skins en bevat ook een complete MovieDB browser inclusief info dialogen voor verscheidene media types. Gebruikte diensten zijn themoviedb.org, theaudiodb.org, Trakt.TV, omdbapi.com en nog veel meer. Vereist skin implementatie voor de meeste functies. Gebruikt EIM4QED voor afspeel en bibliotheek functies.</description>
     <platform>all</platform>
-    <reuselanguageinvoker>false</reuselanguageinvoker>
-    <genre>movies,tv,trailers</genre>
+    <summary>Fork of the ExtendedInfo script from phil65 - Works with [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed Leia</summary>
+    <description>This script offers various possibilities to display online content inside skins as well as a complete MovieDB browser including info dialogs for various media types. Used services are themoviedb.org, theaudiodb.org, Trakt.TV, omdbapi.com and a lot more. Needs skin implementation for lot of functions. Uses [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed for playback and library functions.</description>
     <assets>
       <icon>icon.png</icon>
       <fanart>fanart.jpg</fanart>
@@ -79,7 +75,7 @@
 </addon>
 
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.metalliq-forqed" name="[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed" version="8.0.18leia" provider-name="[COLOR lime]Serious Fork[/COLOR]">
+<addon id="plugin.video.metalliq-forqed" name="[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed" version="7.0.18leia" provider-name="[COLOR lime]Serious Fork[/COLOR]">
   <requires>
     <import addon="xbmc.python" version="2.25.0"/>
     <import addon="metadata.tvdb.com" version="3.0.14"/>
@@ -87,64 +83,35 @@
     <import addon="script.module.requests" version="2.19.1"/>
     <import addon="script.module.requests-cache" version="0.4.13"/>
   </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-    <provides>video audio</provides>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>video</provides>
   </extension>
-  <extension point="xbmc.service" library="service.py" start="[login|startup]">
-  </extension>
+  <extension point="xbmc.service" library="service.py"/>
   <extension point="kodi.context.item">
     <menu id="kodi.core.main">
-      <menu>
+      <item library="context.py">
         <label>MetalliQ 4Qed</label>
-        <item library="context_toggle.py">
-          <label>Preferred toggle</label>
-          <visible>!System.HasAddon(context.chappai) + !Skin.HasSetting(Toggling)</visible>
-        </item>
-        <item library="context_movie.py">
-          <label>$ADDON[plugin.video.metalliq-forqed 30602]</label>
-          <visible>StringCompare(ListItem.dbtype,movie) + SubString(ListItem.Path, plugin.video.metalliq-forqed)</visible>
-        </item>
-        <item library="context_tvshow.py">
-          <label>$ADDON[plugin.video.metalliq-forqed 30602]</label>
-          <visible>StringCompare(ListItem.dbtype,tvshow) + SubString(ListItem.Path, plugin.video.metalliq-forqed)</visible>
-        </item>
-        <item library="context_live.py">
-          <label>$ADDON[plugin.video.metalliq-forqed 30602]</label>
-          <visible>[SubString(ListItem.FileNameAndPath, plugin.video.metalliq-forqed\\Live) | SubString(ListItem.FileNameAndPath, plugin.video.metalliq-forqed\\Live)]</visible>
-        </item>
-        <item library="context_playable.py">
-          <label>$ADDON[plugin.video.metalliq-forqed 30622]</label>
-          <visible>!System.HasAddon(context.metalliq-forqed) + !Skin.HasSetting(Contexting)</visible>
-        </item>
-      </menu>
+        <visible>String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,episode)</visible>
+      </item>
     </menu>
   </extension>
   <extension point="xbmc.addon.metadata">
     <platform>all</platform>
-        <reuselanguageinvoker>false</reuselanguageinvoker>
-    <language></language>
     <summary lang="en">TMDb, TVDb and Trakt browser</summary>
-    <description lang="en">[COLOR lime]Browse The MovieDb, The TVDb, Trakt, The AudioDb and LastFM and pass info along to library or an addon to try and play it. Needs player-files and the appropriate addon to actually play.[/COLOR]</description>
-    <summary lang="nl">Blader door TMDb, TVDb, Trakt, AudioDb en LastFM</summary>
-    <description lang="nl">Blader door The MovieDb, The TVDb, Trakt, The AudioDb en LastFM en geef info door aan de bibliotheek of een addon om te proberen het af te spelen. Vereist player-bestanden en de bijbehorende addon om daadwerkelijk af te kunnen spelen.</description>
-    <supportedcontent>
-      <content>movies</content>
-      <content>tvshows</content>
-      <content>episodes</content>
-      <content>musicvideos</content>
-      <content>music</content>
-      <content>livetv</content>
-    </supportedcontent>
+    <description lang="en">[COLOR lime]I don’t take any credits for this add-on. Without the original developers this add-on would never exist. Thanks for all they have brought to the community.[/COLOR][CR]Browse The MovieDb, The TVDb, Trakt, The AudioDb and LastFM and pass info along to library or an addon to try and play it. Needs player-files and the appropriate addon to actually play.</description>
     <assets>
       <icon>icon.gif</icon>
       <fanart>fanart.jpg</fanart>
-      <screenshot>resources/preview/screenshot1.png</screenshot>
-      <screenshot>resources/preview/screenshot2.png</screenshot>
-      <screenshot>resources/preview/screenshot3.png</screenshot>
+      <screenshot>resources/media/preview/screenshot1.png</screenshot>
+      <screenshot>resources/media/preview/screenshot2.png</screenshot>
+      <screenshot>resources/media/preview/screenshot3.png</screenshot>
     </assets>
-
+    <license></license>
+    <forum></forum>
+    <website></website>
+    <source></source>
     <news></news>
-
   </extension>
-
 </addon>
+      
+</addons>
