@@ -1,4 +1,4 @@
-List of possible ExtendedInfo script calls.
+List of possible wraith script calls.
 All calls can also be done by using a plugin path.
 
 Example:
@@ -9,19 +9,29 @@ Make your own custom commands:
 - RunPlugin(plugin://script.extendedinfo/?argument1=value1&argument2=value2)
 - ActivateWindow(Videos,plugin://script.extendedinfo/?argument1=value1&argument2=value2,return)
 
-### Custom (added by OpenELEQ)
+### Custom
 
 RunScript(script.extendedinfo,info=list,type=movie)     --> Starts script with movie-type
   - optional additional parameter: query=
     - set query to "qqqqq" to force keyboard
   - optional additional parameter: iquery=              --> Executes custom iSearch using movie-list (~/resources/extras/movie/favourites.xml)
     - set iquery to "qqqqq" to force keyboard
+  - optional additional parameter: mode=
+    - available modes:  incinemas, upcoming,            --> Loads the associated TMDB list fully paged
+                        popularmovies, topratedmovies 
+                        
+                        userlists, genres, opensearch   --> Opens the associated dialog
 
 RunScript(script.extendedinfo,info=list,type=tv)        --> Starts script with tv-type
   - optional additional parameter: query=
     - set query to "qqqqq" to force keyboard
   - optional additional parameter: iquery=              --> Executes custom iSearch using tv-list (~/resources/extras/tv/favourites.xml)
     - set iquery to "qqqqq" to force keyboard
+  - optional additional parameter: mode=
+    - available modes: populartvshows, topratedtvshows, --> Loads the associated TMDB list fully paged
+                       onairtvshows, airingtodaytvshows
+                       
+                       userlists, genres, opensearch    --> Opens the associated dialog
 
 RunScript(script.extendedinfo,info=list,iquery=)        --> Executes custom iSearch using total list (~/resources/extras/total/favourites.xml)
   - set iquery to "qqqqq" to force keyboard
@@ -303,10 +313,10 @@ RunScript(script.extendedinfo,info=extendedactorinfo,name=ACTORNAME)
 RunScript(script.extendedinfo,info=extendedactorinfo,id=ACTOR_TMDB_ID)
 
 possible script calls for Movie Info Dialog:
-RunScript(script.extendedinfo,info=extendedinfo,name=MOVIENAME)
-RunScript(script.extendedinfo,info=extendedinfo,id=MOVIE_TMDB_ID)
-RunScript(script.extendedinfo,info=extendedinfo,dbid=MOVIE_DBID)
-RunScript(script.extendedinfo,info=extendedinfo,imdb_id=IMDB_ID)
+RunScript(script.extendedinfo,info=wraith,name=MOVIENAME)
+RunScript(script.extendedinfo,info=wraith,id=MOVIE_TMDB_ID)
+RunScript(script.extendedinfo,info=wraith,dbid=MOVIE_DBID)
+RunScript(script.extendedinfo,info=wraith,imdb_id=IMDB_ID)
 
 ----
 
