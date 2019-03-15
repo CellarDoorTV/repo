@@ -1,6 +1,5 @@
-<addons>
-
 <?xml version="1.0" encoding="UTF-8"?>
+<addons>
     <addon id="repository.eim.forqed" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ED [COLOR white]Repository[/COLOR]" version="3.0" provider-name="[COLOR lime]Serious Fork[/COLOR]">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
@@ -34,7 +33,6 @@
   </extension>
 </addon>
       
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="script.extendedinfo" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ed" version="100.5.18leia" provider-name="[COLOR lime]Serious Fork[/COLOR]">
   <requires>
     <import addon="xbmc.python" version="2.25.0"/>
@@ -78,7 +76,6 @@
   </extension>
 </addon>
 
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.metalliq-forqed" name="[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed" version="9.0.18leia" provider-name="[COLOR lime]Serious Fork[/COLOR]">
   <requires>
     <import addon="xbmc.python" version="2.25.0"/>
@@ -148,3 +145,4 @@
   </extension>
 
 </addon>
+</addons>
