@@ -239,7 +239,7 @@ def settings_set_channelers():
                 plugin.set_setting(SETTING_LIVE_ENABLED_CHANNELERS, selected)
             else:
                 raise Exception("invalid parameter %s" % media)
-    print "MetalliQ 4Qed Guidance: Movie, TV and Live players enabled"
+    print "metalliq-forqed Guidance: Movie, TV and Live players enabled"
     return True
 
 @plugin.route('/settings/default_channeler/<media>')
@@ -247,7 +247,7 @@ def settings_set_default_channeler(media):
     channelers = active_channelers(media)
     channelers.insert(0, ADDON_PICKER)
     media = media.replace('es','e').replace('ws','w').replace('all','').replace('os','o').replace('vs','v s')
-    selection = dialogs.select("{0}".format(_("Select %s") % "{0} {1}".format(_("Default").lower(), _("Player").lower())), [p.title for p in channelers])
+    selection = dialogs.select("{0}".format(_("Select {0}").format("{0} {1}".format(_("Default").lower(), _("Player").lower()))), [p.title for p in channelers])
     if selection >= 0:
         selected = channelers[selection].id
         if media == "movies":
@@ -267,7 +267,7 @@ def settings_set_default_channeler(media):
 def settings_set_default_player(media):
     players = active_players(media)
     players.insert(0, ADDON_SELECTOR)
-    selection = dialogs.select("{0}".format(_("Select %s") % "{0} {1}".format(_("Default").lower(), _("Player").lower())), [p.title for p in players])
+    selection = dialogs.select("{0}".format(_("Select {0}").format("{0} {1}".format(_("Default").lower(), _("Player").lower()))), [p.title for p in players])
     if selection >= 0:
         selected = players[selection].id
         if media == "movies":
@@ -288,7 +288,7 @@ def settings_set_default_player(media):
 def settings_set_default_player_fromlib(media):
     players = active_players(media)
     players.insert(0, ADDON_SELECTOR)
-    selection = dialogs.select("{0}".format(_("Select %s") % "{0} {1}".format(_("Library").lower(), _("Player").lower())), [p.title for p in players])
+    selection = dialogs.select("{0}".format(_("Select {0}").format("{0} {1}".format(_("Library").lower(), _("Player").lower()))), [p.title for p in players])
     if selection >= 0:
         selected = players[selection].id
         if media == "movies":
@@ -309,7 +309,7 @@ def settings_set_default_player_fromlib(media):
 def settings_set_default_player_fromcontext(media):
     players = active_players(media)
     players.insert(0, ADDON_SELECTOR)
-    selection = dialogs.select("{0}".format(_("Select %s") % "{0} {1}".format("context", _("Player").lower())), [p.title for p in players])
+    selection = dialogs.select("{0}".format(_("Select {0}").format("{0} {1}".format("context", _("Player").lower()))), [p.title for p in players])
     if selection >= 0:
         selected = players[selection].id
         if media == "movies":
@@ -330,8 +330,8 @@ def settings_set_default_player_fromcontext(media):
 @plugin.route('/update_players/<url>', name='update_players_url')
 def update_players(url = None):
     if url is None: url = plugin.get_setting(SETTING_PLAYERS_UPDATE_URL, unicode)
-    if updater.update_players(url): dialogs.notify(msg=_('Update'), title=_('Updated for %s') % _('Player'), delay=1000, image=get_icon_path("player"))
-    else: dialogs.notify(msg=_('Update'), title=_('Failed for %s') % _('Player'), delay=1000, image=get_icon_path("player"))
+    if updater.update_players(url): dialogs.notify(msg=_('Update'), title=_('Updated for {0}').format(_('Player')), delay=1000, image=get_icon_path("player"))
+    else: dialogs.notify(msg=_('Update'), title=_('Failed for {0}').format(_('Player')), delay=1000, image=get_icon_path("player"))
     plugin.open_settings()
 
 @plugin.route('/setup/total')
@@ -362,8 +362,8 @@ def silent_setup():
 def players_setup():
     set_property("running","totalmetalliq")
     url = "http://cellardoortv.com/metalliq/players/"
-    if updater.update_players(url): dialogs.notify(msg=_('Player'), title=_('Updated for %s') % _('Player'), delay=1000, image=get_icon_path("player"))
-    else: dialogs.notify(msg=_('Player'), title=_('Failed for %s') % _('Player'), delay=1000, image=get_icon_path("player"))
+    if updater.update_players(url): dialogs.notify(msg=_('Player'), title=_('Updated for {0}').format(_('Player')), delay=1000, image=get_icon_path("player"))
+    else: dialogs.notify(msg=_('Player'), title=_('Failed for {0}').format(_('Player')), delay=1000, image=get_icon_path("player"))
     xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq-forqed/settings/players/all/)")
     clear_property("running")
     return True
@@ -570,7 +570,7 @@ def export_movies_library():
     if len(movies) < 1: return dialogs.notify(msg='Movies folder', title='Empty', delay=5000, image=get_icon_path("movies"))
     else :
         for movie in movies: ids = ids + str(movie) + '\n'
-    movies_backup_file_path = "special://home/userdata/addon_data/plugin.video.metalliq-forqed/movies_to_add.bak"
+    movies_backup_file_path = "special://profile/addon_data/plugin.video.metalliq-forqed/movies_to_add.bak"
     if xbmcvfs.exists(movies_backup_file_path): os.remove(xbmc.translatePath(movies_backup_file_path))
     if not xbmcvfs.exists(movies_backup_file_path):
         batch_add_file = xbmcvfs.File(movies_backup_file_path, 'w')
@@ -587,7 +587,7 @@ def export_tv_library():
     if len(shows) < 1: return dialogs.notify(msg='TVShows folder', title='Empty', delay=5000, image=get_icon_path("tv"))
     else :
         for show in shows: ids = ids + str(show) + '\n'
-    shows_backup_file_path = "special://home/userdata/addon_data/plugin.video.metalliq-forqed/shows_to_add.bak"
+    shows_backup_file_path = "special://profile/addon_data/plugin.video.metalliq-forqed/shows_to_add.bak"
     if xbmcvfs.exists(shows_backup_file_path): os.remove(xbmc.translatePath(shows_backup_file_path))
     if not xbmcvfs.exists(shows_backup_file_path):
         batch_add_file = xbmcvfs.File(shows_backup_file_path, 'w')
@@ -750,8 +750,8 @@ def test(id, maxdepth):
                                 else: dirs_thumbs.append("http%3a%2f%2fmirrors.kodi.tv%2faddons%2fhelix%2f{0}%2ffanart.jpg".format(ADDON.getAddonInfo("id")))
             else: pass
         if depth == maxdepth: break
-    id_folder = xbmc.translatePath("special://home/userdata/addon_data/plugin.program.super.favourites/Super Favourites/{0}/".format(ADDON.getAddonInfo("id")))
-    name_folder = xbmc.translatePath("special://home/userdata/addon_data/plugin.program.super.favourites/Super Favourites/{0}/".format(ADDON.getAddonInfo("name")))
+    id_folder = xbmc.translatePath("special://profile/addon_data/plugin.program.super.favourites/Super Favourites/{0}/".format(ADDON.getAddonInfo("id")))
+    name_folder = xbmc.translatePath("special://profile/addon_data/plugin.program.super.favourites/Super Favourites/{0}/".format(ADDON.getAddonInfo("name")))
     if not xbmcvfs.exists(id_folder): xbmcvfs.mkdir(id_folder)
     if not xbmcvfs.exists(name_folder): xbmcvfs.mkdir(name_folder)
     #id_file = "%-36s (%s)%s" % (ADDON.getAddonInfo("id"), ADDON.getAddonInfo("name"), ".ini")

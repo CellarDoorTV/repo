@@ -60,11 +60,11 @@ msgid "Players URL"
 msgstr ""
 
 msgctxt "#30012"
-msgid "Install from URL"
+msgid " Update [COLOR forestgreen][B]C[/COLOR][COLOR gold]D[/COLOR][COLOR ghostwhite]T[/COLOR][COLOR mediumblue]V[/B][/COLOR] players"
 msgstr ""
 
 msgctxt "#30013"
-msgid "Enable all players"
+msgid "- Enable all players"
 msgstr ""
 
 msgctxt "#30014"
@@ -817,4 +817,12 @@ msgstr ""
 
 msgctxt "#30903"
 msgid "Enable library sync (watchlist)"
+msgstr ""
+
+msgctxt "#30904"
+msgid "- Rerun Total Setup - [COLOR lime]EIM[/COLOR]4[COLOR lime]Q[/COLOR]ED Simple Selector"
+msgstr ""
+
+msgctxt "#30905"
+msgid "Export [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed movie and tvshow libraries as list"
 msgstr ""

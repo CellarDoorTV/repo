@@ -818,3 +818,11 @@ msgstr "Nummers"
 msgctxt "#30901"
 msgid "pages to consider for random playback"
 msgstr "aantal paginas te gebruiken voor willekeurig afspelen"
+
+msgctxt "#30904"
+msgid "- Rerun Total Setup - [COLOR lime]EIM[/COLOR]4[COLOR lime]Q[/COLOR]ED Simple Selector"
+msgstr ""
+
+msgctxt "#30905"
+msgid "Export [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed movie and tvshow libraries as list"
+msgstr ""

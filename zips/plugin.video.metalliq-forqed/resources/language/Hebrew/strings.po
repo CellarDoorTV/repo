@@ -296,3 +296,11 @@ msgstr "נקה כל הערוצים"
 msgctxt "#30004"
 msgid "Remove channel"
 msgstr "הסר ערוץ"
+
+msgctxt "#30904"
+msgid "- Rerun Total Setup - [COLOR lime]EIM[/COLOR]4[COLOR lime]Q[/COLOR]ED Simple Selector"
+msgstr ""
+
+msgctxt "#30905"
+msgid "Export [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed movie and tvshow libraries as list"
+msgstr ""

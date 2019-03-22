@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-    <addon id="repository.eim.forqed" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ED [COLOR white]Repository[/COLOR]" version="3.0" provider-name="[COLOR lime]Serious Fork[/COLOR]">
+<addon id="repository.eim.forqed" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ED [COLOR white]Repository[/COLOR]" version="3.1" provider-name="[COLOR lime]Serious Fork[/COLOR]">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -33,7 +33,8 @@
   </extension>
 </addon>
       
-<addon id="script.extendedinfo" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ed" version="100.5.18leia" provider-name="[COLOR lime]Serious Fork[/COLOR]">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.extendedinfo" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ed" version="100.6.18leia" provider-name="[COLOR lime]Serious Fork[/COLOR]">
   <requires>
     <import addon="xbmc.python" version="2.25.0"/>
     <import addon="script.module.pil" version="1.1.7"/>
@@ -45,7 +46,7 @@
     <import addon="plugin.program.super.favourites"/>
     <import addon="plugin.video.youtube" version="6.2.2"/>
     <import addon="resource.images.studios.white" version="0.0.18"/>
-    <import addon="plugin.video.metalliq-forqed" version="9.0.18leia"/>
+    <import addon="plugin.video.metalliq-forqed" version="9.1.18leia"/>
   </requires>
   <extension point="xbmc.python.script"             library="default.py">
     <provides>executable</provides>
@@ -76,10 +77,11 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.metalliq-forqed" name="[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed" version="9.0.18leia" provider-name="[COLOR lime]Serious Fork[/COLOR]">
+<addon id="plugin.video.metalliq-forqed" name="[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed" version="9.1.18leia" provider-name="[COLOR lime]Serious Fork[/COLOR]">
   <requires>
     <import addon="xbmc.python" version="2.25.0"/>
     <import addon="metadata.tvdb.com" version="3.0.14"/>
+    <import addon="script.module.requests" version="2.9.1"/>
     <import addon="script.module.futures" version="2.2.0"/>
     <import addon="script.module.requests" version="2.19.1"/>
     <import addon="script.module.requests-cache" version="0.4.13"/>
@@ -87,7 +89,7 @@
   <extension point="xbmc.python.pluginsource" library="default.py">
     <provides>video audio</provides>
   </extension>
-  <extension point="xbmc.service" library="service.py" start="[login|startup]">
+  <extension point="xbmc.service" library="service.py" start="login">
   </extension>
   <extension point="kodi.context.item">
     <menu id="kodi.core.main">
@@ -95,19 +97,19 @@
         <label>MetalliQ 4Qed</label>
         <item library="context_toggle.py">
           <label>Preferred toggle</label>
-          <visible>!System.HasAddon(context.chappai) + !Skin.HasSetting(Toggling)</visible>
+          <visible>!System.HasAddon(context.metalliq-forqed) + !Skin.HasSetting(Toggling)</visible>
         </item>
         <item library="context_movie.py">
           <label>$ADDON[plugin.video.metalliq-forqed 30602]</label>
-          <visible>StringCompare(ListItem.dbtype,movie) + SubString(ListItem.Path, plugin.video.metalliq-forqed)</visible>
+          <visible>String.IsEqual(ListItem.dbtype,movie) + String.Contains(ListItem.Path, plugin.video.metalliq-forqed)</visible>
         </item>
         <item library="context_tvshow.py">
           <label>$ADDON[plugin.video.metalliq-forqed 30602]</label>
-          <visible>StringCompare(ListItem.dbtype,tvshow) + SubString(ListItem.Path, plugin.video.metalliq-forqed)</visible>
+          <visible>String.IsEqual(ListItem.dbtype,tvshow) + String.Contains(ListItem.Path, plugin.video.metalliq-forqed)</visible>
         </item>
         <item library="context_live.py">
           <label>$ADDON[plugin.video.metalliq-forqed 30602]</label>
-          <visible>[SubString(ListItem.FileNameAndPath, plugin.video.metalliq-forqed\\Live) | SubString(ListItem.FileNameAndPath, plugin.video.metalliq-forqed\\Live)]</visible>
+          <visible>[String.Contains(ListItem.FileNameAndPath, plugin.video.metalliq-forqed\\Live) | String.Contains(ListItem.FileNameAndPath, plugin.video.metalliq-forqed\\Live)]</visible>
         </item>
         <item library="context_playable.py">
           <label>$ADDON[plugin.video.metalliq-forqed 30622]</label>
@@ -118,12 +120,9 @@
   </extension>
   <extension point="xbmc.addon.metadata">
     <platform>all</platform>
-        <reuselanguageinvoker>false</reuselanguageinvoker>
     <language></language>
     <summary lang="en">TMDb, TVDb and Trakt browser</summary>
     <description lang="en">[COLOR lime]Browse The MovieDb, The TVDb, Trakt, The AudioDb and LastFM and pass info along to library or an addon to try and play it. Needs player-files and the appropriate addon to actually play.[/COLOR]</description>
-    <summary lang="nl">Blader door TMDb, TVDb, Trakt, AudioDb en LastFM</summary>
-    <description lang="nl">Blader door The MovieDb, The TVDb, Trakt, The AudioDb en LastFM en geef info door aan de bibliotheek of een addon om te proberen het af te spelen. Vereist player-bestanden en de bijbehorende addon om daadwerkelijk af te kunnen spelen.</description>
     <supportedcontent>
       <content>movies</content>
       <content>tvshows</content>
