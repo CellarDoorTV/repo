@@ -34,13 +34,23 @@ from .movies import Movies, Collections, Companies, Keywords, Reviews
 from .people import People, Credits, Jobs
 from .search import Search
 from .tv import TV, TV_Seasons, TV_Episodes, Networks
+from meta import plugin
+from settings import SETTING_TMDB_API
+
+TMDB_API = plugin.get_setting(SETTING_TMDB_API, str)
 
 def _get_env_key(key):
     try:
         return os.environ[key]
     except KeyError:
-        return "9dd023e70aac78b2e85ba6085d790cac"
+        return "7f8488e104f22915afdaa645c3504b5c"
 
-API_KEY = _get_env_key('TMDB_API_KEY')
+if len(TMDB_API) == 32:
+    try:
+        API_KEY = TMDB_API
+    except:
+        API_KEY = _get_env_key('TMDB_API_KEY')
+else:
+    API_KEY = _get_env_key('TMDB_API_KEY')
+
 API_VERSION = '3'
-

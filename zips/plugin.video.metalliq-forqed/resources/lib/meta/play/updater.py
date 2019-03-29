@@ -14,7 +14,7 @@ from meta.play.players import EXTENSION
 
 from language import get_string as _
 
-data_dir = "special://home/userdata/addon_data/{0}".format(plugin.id)
+data_dir = "special://profile/addon_data/{0}".format(plugin.id)
 data_dir = xbmc.translatePath(data_dir)
  
 def remove_auth(url):
@@ -95,7 +95,7 @@ def flat_extract(z, extract_to, members=None):
     if not os.path.exists(extract_to):
         os.makedirs(extract_to)
     else:
-        if xbmc.getInfoLabel('Window(home).Property(running)') == 'totalchappaai':
+        if xbmc.getInfoLabel('Window(home).Property(running)') == 'totalmetalliq-forqed':
             empty_folder(extract_to)
         else:
             if dialogs.yesno(_("Update players"), _("Do you want to remove your existing players first?")):

@@ -147,7 +147,7 @@ def get_episode_from_library(imdbnumber, season, episode):
     return None
 
 def add_source(source_name, source_path, source_content, source_thumbnail):    
-    xml_file = xbmc.translatePath('special://home/userdata/sources.xml')
+    xml_file = xbmc.translatePath('special://profile/sources.xml')
     if not os.path.exists(xml_file):
         with open(xml_file, "w") as f:
             f.write("""<sources>
@@ -262,7 +262,7 @@ def _db_execute(db_name, command):
     return True
 
 def _get_database(db_name):
-    path_db = "special://home/userdata/Database/" + db_name
+    path_db = "special://profile/Database/" + db_name
     filelist = glob.glob(xbmc.translatePath(path_db))
     if filelist:
         return filelist[-1]

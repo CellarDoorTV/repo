@@ -207,7 +207,7 @@ class XBMCMixin(object):
         """
         
     def temp_fn(self, path):
-        return os.path.join(xbmc.translatePath('special://home/addons/temp/'), path)
+        return os.path.join(xbmc.translatePath('special://temp/'), path)
 
     def get_string(self, stringid):
         '''Returns the localized string from strings.xml for the given

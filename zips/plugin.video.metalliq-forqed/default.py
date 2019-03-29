@@ -432,46 +432,10 @@ def root_search_term(term):
             'thumbnail': get_icon_path("tv"),
         },
         {
-            'label': "{0}: '{1}' - {2} ({3})".format(_("Search"), term, _("TV shows"), "TVDb"),
-            'path': plugin.url_for("tvdb_tv_search_term", term=term, page='1'),
-            'icon': get_icon_path("tv"),
-            'thumbnail': get_icon_path("tv"),
-        },
-        {
-            'label': "{0}: '{1}' - {2} ({3})".format(_("Search"), term, _("Albums"), "LastFM"),
-            'path': plugin.url_for("music_search_album_term", term=term, page='1'),
-            'icon': get_icon_path("music"),
-            'thumbnail': get_icon_path("music"),
-        },
-        {
-            'label': "{0}: '{1}' - {2} ({3})".format(_("Search"), term, _("Artists"), "LastFM"),
-            'path': plugin.url_for("music_search_artist_term", term=term, page='1'),
-            'icon': get_icon_path("music"),
-            'thumbnail': get_icon_path("music"),
-        },
-        {
-            'label': "{0}: '{1}' - {2} ({3})".format(_("Search"), term, _("Tracks"), "LastFM"),
-            'path': plugin.url_for("music_search_track_term", term=term, page='1'),
-            'icon': get_icon_path("music"),
-            'thumbnail': get_icon_path("music"),
-        },
-        {
-            'label': "{0}: '{1}' - {2} ({3})".format(_("Search"), term, _("Channels"), "Live addons"),
-            'path': plugin.url_for("live_search_term", term=term),
-            'icon': get_icon_path("live"),
-            'thumbnail': get_icon_path("live"),
-        },
-        {
             'label': "{0}: '{1}' - {2} ({3})".format(_("Search"), term, _("Playlists"), "Trakt"),
             'path': plugin.url_for("lists_search_for_lists_term", term=term, page='1'),
             'icon': get_icon_path("lists"),
             'thumbnail': get_icon_path("lists"),
-        },
-        {
-            'label': "{0}: '{1}' ({2})".format(_("Search"), term, plugin.addon.getAddonInfo('name')),
-            'path': plugin.url_for("root_search_term", term=term, page='1'),
-            'icon': get_icon_path("search"),
-            'thumbnail': get_icon_path("search"),
         },
         {
             'label': "{0} {1}".format(_("Edit"), _("Search string").lower()),

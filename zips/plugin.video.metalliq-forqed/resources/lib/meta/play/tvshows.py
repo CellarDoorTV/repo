@@ -418,8 +418,9 @@ def get_episode_parameters(show, season, episode):
         parameters['network_clean'] = re.sub("(\(.*?\))", "", network).strip()
     else:
         parameters['network_clean'] = network
-    parameters['showname'] = show['seriesname']
+    parameters['showname'] = show['seriesname'].replace("&", "%26")
     parameters['clearname'] = re.sub("(\(.*?\))", "", show['seriesname']).strip()
+    parameters['stripname'] = ' '.join(re.compile('[\W_]+').sub(' ', show['seriesname']).split())
     parameters['sortname'] = to_utf8(parameters['clearname'])
     for article in articles:
         if to_utf8(parameters['clearname']).startswith(article): parameters['sortname'] = to_utf8(parameters['clearname']).replace(article,'')
@@ -433,7 +434,7 @@ def get_episode_parameters(show, season, episode):
         parameters['absolute_number'] = int(episode_obj.get('absolute_number'))
     except:
         parameters['absolute_number'] = "na"
-    parameters['title'] = episode_obj.get('episodename', str(episode))
+    parameters['title'] = episode_obj.get('episodename', str(episode)).replace("&", "%26")
     parameters['urltitle'] = urllib.quote(to_utf8(parameters['title']))
     parameters['sorttitle'] = to_utf8(parameters['title'])
     for article in articles:
@@ -451,32 +452,32 @@ def get_episode_parameters(show, season, episode):
         parameters["epday"] = 0
     parameters['imdb'] = show.get('imdb_id', '')
     parameters['epid'] = episode_obj.get('id')
-    if episode_obj.get('id') != "": parameters['plot'] = episode_obj.get('overview')
-    else: parameters['plot'] = show['overview']
+    if episode_obj.get('id') != "": parameters['plot'] = episode_obj.get('overview').replace(":","").replace(";", "").replace("'", "").replace('"', '')
+    else: parameters['plot'] = show['overview'].replace(":","").replace(";", "").replace("'", "").replace('"', '')
     if episode_obj.get('Rating') != "": parameters['rating'] = episode_obj.get('Rating')
     else: parameters['rating'] = show['Rating']
     if episode_obj.get('RatingCount') != "": parameters['votes'] = episode_obj.get('RatingCount')
     else: parameters['votes'] = show['RatingCount']
     parameters['writers'] = episode_obj.get('Writer')
     parameters['directors'] = episode_obj.get('Director')
-    parameters['status'] = show.get('Status')
+    parameters['status'] = show.get('status')
     parameters['mpaa'] = show.get('ContentRating')
-    if show.get('Actors') != None and show.get('Actors') != "": parameters['actors'] = show.get('Actors').split("|")
-    else: parameters['actors'] = []
-    if show.get('Genre') != None and '|' in show.get('Genre'): parameters['genres'] = show.get('Genre').replace('|',' / ')[3:-3]
-    else: parameters['genres'] = show.get('Genre')
+    if show.get('actors') != None and show.get('actors') != "": parameters['actors'] = re.sub(r'\<[^)].*?\>', '', show.get('actors'))
+    else: parameters['actors'] = ""
+    if show.get('genre') != None and '|' in show.get('genre'): parameters['genres'] = show.get('genre').replace('|',' / ')[3:-3]
+    else: parameters['genres'] = ""
     parameters['runtime'] = show['runtime']
     parameters['duration'] = int(show['runtime']) * 60
     tvdb_base = "http://thetvdb.com/banners/"
     if episode_obj.get('filename') != "": parameters['thumbnail'] = tvdb_base + str(episode_obj.get('filename'))
-    elif show.get('poster') != "": parameters['thumbnail'] = tvdb_base + show.get('poster')
-    else: parameters['thumbnail'] = get_icon("metalliq")
-    if show.get('poster') != "": parameters['poster'] = tvdb_base + show.get('poster')
-    else: parameters['poster'] = get_icon("metalliq")
+    elif show.get('poster') != "": parameters['thumbnail'] = show.get('poster')
+    else: parameters['thumbnail'] = get_icon("metalliq-forqed")
+    if show.get('poster') != "": parameters['poster'] = show.get('poster')
+    else: parameters['poster'] = get_icon("metalliq-forqed")
     parameters['thumbnail'] = "http://thetvdb.com/banners/episodes/" + str(show['id']) + "/" + str(parameters['epid']) + ".jpg"
-    if show.get('banner') != "": parameters['banner'] = tvdb_base + show.get('banner')
+    if show.get('banner') != "": parameters['banner'] = show.get('banner')
     else: parameters['banner'] = get_banner_path()
-    if show.get('fanart') != None and show.get('fanart') != "": parameters['fanart'] = tvdb_base + show.get('fanart')
+    if show.get('fanart') != None and show.get('fanart') != "": parameters['fanart'] = show.get('fanart')
     else: parameters['fanart'] = get_background_path()
     is_anime = False
     if parameters['genres'] != None and parameters['absolute_number'] and parameters['absolute_number'] != '0' and "animation" in parameters['genres'].lower():
@@ -543,7 +544,7 @@ def get_tmdb_episode_parameters(show, preason, prepisode):
     parameters['thumbnail'] = parameters['poster']
     parameters['icon'] = parameters['poster']
     try: genre = [x for x in show['genre'].split('|') if not x == '']
-    except: genre = []
+    except: genre = ""
     parameters['genre'] = " / ".join(genre)
     if "JP" in show['origin_country']: is_anime = True
     else: is_anime = False
@@ -598,7 +599,7 @@ def get_trakt_episode_parameters(show, preason, prepisode):
     parameters['thumbnail'] = parameters['poster']
     parameters['icon'] = parameters['poster']
     try: genre = [x for x in show['genre'].split('|') if not x == '']
-    except: genre = []
+    except: genre = ""
     parameters['genre'] = " / ".join(genre)
     if "JP" in show['origin_country']: is_anime = True
     else: is_anime = False

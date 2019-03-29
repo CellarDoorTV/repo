@@ -56,8 +56,8 @@ def main():
         else: 
             url = None
 #        if url is None:
-#            title = "[COLOR yellow]Chappai[/COLOR]"
-#            msg = "Invalid media file. Try using the [COLOR yellow]Chappai[/COLOR]-Context-Menu addon instead"
+#            title = "MetalliQ"
+#            msg = "Invalid media file. Try using the MetalliQ-Context-Menu addon instead"
 #            xbmc.executebuiltin('XBMC.Notification("%s", "%s", "%s", "%s")' % (msg, title, 2000, ''))
             return
         xbmc.executebuiltin("RunPlugin({0})".format(url))

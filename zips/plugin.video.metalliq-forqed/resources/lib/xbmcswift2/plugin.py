@@ -105,7 +105,7 @@ class Plugin(XBMCMixin):
 
         # The path to the storage directory for the addon
         self._storage_path = xbmc.translatePath(
-            'special://home/userdata/addon_data/%s/.storage/' % self._addon_id)
+            'special://profile/addon_data/%s/.storage/' % self._addon_id)
         if not os.path.isdir(self._storage_path):
             os.makedirs(self._storage_path)
 

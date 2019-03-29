@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.metalliq-forqed" name="[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed" version="9.1.18leia" provider-name="[COLOR lime]Serious Fork[/COLOR]">
+<addon id="plugin.video.metalliq-forqed" name="[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed" version="9.2.18leia" provider-name="[COLOR lime]Serious Fork[/COLOR]">
 	<requires>
-		<import addon="xbmc.python" version="2.25.0"/>
+		<import addon="xbmc.python" version="2.19.0"/>
 		<import addon="metadata.tvdb.com" version="3.0.14"/>
 		<import addon="script.module.requests" version="2.9.1"/>
 		<import addon="script.module.futures" version="2.2.0"/>
@@ -16,7 +16,7 @@
 	<extension point="kodi.context.item">
 		<menu id="kodi.core.main">
 			<menu>
-				<label>MetalliQ 4Qed</label>
+				<label>[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed</label>
 				<item library="context_toggle.py">
 					<label>Preferred toggle</label>
 					<visible>!System.HasAddon(context.metalliq-forqed) + !Skin.HasSetting(Toggling)</visible>

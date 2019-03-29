@@ -36,7 +36,7 @@ msgid "Remove channel"
 msgstr ""
 
 msgctxt "#30005"
-msgid "Style"
+msgid "Style - [COLOR limegreen]Choose your theme[/COLOR]"
 msgstr ""
 
 msgctxt "#30006"
@@ -72,7 +72,7 @@ msgid "Failed to delete cache"
 msgstr ""
 
 msgctxt "#30015"
-msgid "Background"
+msgid "Backgrounds - [COLOR limegreen]Choose your background[/COLOR]"
 msgstr ""
 
 msgctxt "#30016"
@@ -825,4 +825,8 @@ msgstr ""
 
 msgctxt "#30905"
 msgid "Export [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed movie and tvshow libraries as list"
+msgstr ""
+
+msgctxt "#30906"
+msgid "- [COLOR limegreen]Update Players From URL[/COLOR]"
 msgstr ""

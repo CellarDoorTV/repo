@@ -121,7 +121,8 @@ def get_movie_parameters(movie):
     parameters['released'] = movie['release_date']
     parameters['id'] = movie['id']
     parameters['imdb'] = movie['imdb_id']
-    parameters['title'] = movie['title']
+    parameters['title'] = movie['title'].replace("&", "%26")
+    parameters['striptitle'] = ' '.join(re.compile('[\W_]+').sub(' ', movie['title']).split())
     parameters['urltitle'] = urllib.quote(to_utf8(parameters['title']))
     parameters['sorttitle'] = to_utf8(parameters['title'])
     articles = ['a ', 'A ', 'An ', 'an ', 'The ', 'the ']
@@ -131,15 +132,15 @@ def get_movie_parameters(movie):
     if "movie" in str(parameters['sorttitle']).lower(): parameters['sortesttitle'] = str(parameters['sorttitle']).lower().replace(' movie','')
     elif "movi" in str(parameters['sorttitle']).lower(): parameters['sortesttitle'] = str(parameters['sorttitle']).lower().replace(' movi','')
     else: parameters['sortesttitle'] = parameters['sorttitle']
-    parameters['original_title'] = movie['original_title']
+    parameters['original_title'] = movie['original_title'].replace("&", "%26")
     parameters['name'] = u'%s (%s)' % (parameters['title'], parameters['year'])
     parameters['urlname'] = urllib.quote(to_utf8(parameters['name']))
     parameters['released'] = movie['release_date']
     parameters['rating'] = movie['vote_average']
     genre = [x['name'] for x in movie['genres'] if not x == '']
+    parameters['genres'] = " / ".join(genre)
     studios = [x['name'] for x in movie['production_companies'] if not x == '']
     parameters['studios'] = " / ".join(studios)
-    parameters['genres'] = " / ".join(genre)
     if movie['runtime'] and movie['runtime'] != "" and movie['runtime'] != None: parameters['runtime'] = movie['runtime']
     else: parameters['runtime'] = "0"
     if movie['vote_count'] and movie['vote_count'] != "" and movie['vote_count'] != None and movie['vote_count'] != 0: parameters['votes'] = movie['vote_count']
@@ -166,12 +167,12 @@ def get_movie_parameters(movie):
         for item in preactors:
             if item not in actors: actors.append(item)
         parameters['actors'] = actors
-    else: parameters['actors'] = []
+    else: parameters['actors'] = ""
     if movie['releases']['countries'][0]['certification']: parameters['mpaa'] = movie['releases']['countries'][0]['certification']
     else: parameters['mpaa'] = ""
     parameters['duration'] = int(parameters['runtime']) * 60
-    parameters['plot'] = movie['overview']
-    parameters['tagline'] = movie['tagline']
+    parameters['plot'] = movie['overview'].replace(":","").replace(";", "").replace("'", "").replace('"', '')
+    parameters['tagline'] = movie['tagline'].replace(":","").replace(";", "").replace("'", "").replace('"', '')
     parameters['poster'] = "http://image.tmdb.org/t/p/original" + str(movie['poster_path'])
     parameters['fanart'] = "http://image.tmdb.org/t/p/original" + str(movie['backdrop_path'])
     parameters['now'] = datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')
@@ -180,5 +181,5 @@ def get_movie_parameters(movie):
         if trakt_ids["slug"] != "" and trakt_ids["slug"] != None:
             parameters['slug'] = trakt_ids["slug"]
         else:
-            parameters['slug'] = parameters['title'].lower().replace('~','').replace('#','').replace('%','').replace('&','').replace('*','').replace('{','').replace('}','').replace('\\','').replace(':','').replace('<','').replace('>','').replace('?','').replace('/','').replace('+','').replace('|','').replace('"','').replace(" ","-")
+            parameters['slug'] = parameters['title'].lower().replace('~','').replace('#','').replace('%','').replace('&','').replace('*','').replace('{','').replace('}','').replace('\\','').replace(':','').replace('<','').replace('>','').replace('?','').replace('/','').replace('+','').replace('|','').replace('"','').replace(" ","-").replace("--","-")
     return parameters

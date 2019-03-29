@@ -7,8 +7,8 @@ from settings import *
 from language import get_string as _
 
 API_ENDPOINT = "http://ws.audioscrobbler.com/2.0/"
-API_KEY = "3e6ac91a3cb5fa63cc1571de42f22167"
-SHARED_SECRET = "c34f3859900b4511a27f051e198a39f3"
+API_KEY = "a4effb75f1c70f37cc695d55eb08b2ea"
+SHARED_SECRET = "74c1c65395b02b5b58a434e9b560314d"
 
 
 def call_last_fm(params={}, data=None, result_format = "json"):

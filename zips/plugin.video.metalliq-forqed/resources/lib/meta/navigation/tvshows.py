@@ -7,7 +7,7 @@ from xbmcswift2 import xbmc, xbmcplugin, xbmcvfs
 from meta import plugin, import_tmdb, import_tvdb, LANG
 from meta.gui import dialogs
 from meta.info import get_tvshow_metadata_tvdb, get_tvshow_metadata_tmdb, get_season_metadata_tvdb, get_episode_metadata_tvdb, get_tvshow_metadata_trakt, get_season_metadata_trakt, get_episode_metadata_trakt
-from meta.utils.text import parse_year, is_ascii, to_utf8
+from meta.utils.text import page_redux, parse_year, is_ascii, to_utf8
 from meta.utils.executor import execute
 from meta.utils.properties import set_property
 from meta.utils.rpc import RPC
@@ -34,12 +34,12 @@ VIEW  = plugin.get_setting(SETTING_TVSHOWS_VIEW, int)
 VIEW_TVSHOWS  = plugin.get_setting(SETTING_TVSHOWS_VIEW, int)
 VIEW_SEASONS  = plugin.get_setting(SETTING_SEASONS_VIEW, int)
 VIEW_EPISODES  = plugin.get_setting(SETTING_EPISODES_VIEW, int)
-
+# 10751|10762|10763|
 @plugin.route('/tv')
 def tv():
     items = [
         {
-            'label': _("Enter search string"),
+            'label': "{0}: {1}".format(_("Search"), _("TV show")),
             'path': plugin.url_for("tv_search"),
             'icon': get_icon_path("search"),
         },
@@ -47,62 +47,101 @@ def tv():
             'label': "{0} ({1})".format(_("Genres"), "TMDb"),
             'path': plugin.url_for("tmdb_tv_genres"),
             'icon': get_icon_path("genres"),
+            'context_menu': [
+                (
+                    _("Scan item to library"),
+                    "RunPlugin({0})".format(plugin.url_for("tmdb_tv_genre_to_library", id="10759|16|35|80|99|18|9648|10764|10765|10766|10767|10768|37", page='1', confirm="yes"))
+                ),
+            ],
         },
         {
             'label': "{0} ({1})".format("On the air", "TMDb"),
             'path': plugin.url_for("tmdb_tv_now_playing", page='1'),
             'icon': get_icon_path("ontheair"),
+            'context_menu': [
+                (
+                    _("Scan item to library"),
+                    "RunPlugin({0})".format(plugin.url_for("tmdb_tv_now_playing_to_library", page='1', confirm="yes"))
+                ),
+            ],
         },
         {
             'label': "{0} ({1})".format("Popular", "TMDb"),
             'path': plugin.url_for("tmdb_tv_most_popular", page='1'),
             'icon': get_icon_path("popular"),
+            'context_menu': [
+                (
+                    _("Scan item to library"),
+                    "RunPlugin({0})".format(plugin.url_for("tmdb_tv_most_popular_to_library", page='1', confirm="yes"))
+                ),
+            ],
         },
         {
             'label': "{0} ({1})".format("Top rated", "TMDb"),
             'path': plugin.url_for("tmdb_tv_top_rated", page='1'),
             'icon': get_icon_path("top_rated"),
+            'context_menu': [
+                (
+                    _("Scan item to library"),
+                    "RunPlugin({0})".format(plugin.url_for("tmdb_tv_top_rated_to_library", page='1', confirm="yes"))
+                ),
+            ],
         },
-#        {
-#            'label': _("Aired") + " (Trakt)",
-#            'path': plugin.url_for("trakt_tv_aired_yesterday", page='1'),
-#            'icon': get_icon_path("aired"),
-#        },
-#        {
-#            'label': _("Premiered") + " (Trakt)",
-#            'path': plugin.url_for("trakt_tv_premiered_last_week", page='1'),
-#            'icon': get_icon_path("premiered"),
-#        },
         {
             'label': "{0} ({1})".format("Most played", "Trakt"),
             'path': plugin.url_for("trakt_tv_played", page='1'),
             'icon': get_icon_path("player"),
+            'context_menu': [
+                (
+                    _("Scan item to library"),
+                    "RunPlugin({0})".format(plugin.url_for("trakt_tv_played_to_library", page='1', confirm="yes"))
+                ),
+            ],
         },
         {
             'label': "{0} ({1})".format("Most watched", "Trakt"),
             'path': plugin.url_for("trakt_tv_watched", page='1'),
             'icon': get_icon_path("traktwatchlist"),
+            'context_menu': [
+                (
+                    _("Scan item to library"),
+                    "RunPlugin({0})".format(plugin.url_for("trakt_tv_watched_to_library", page='1', confirm="yes"))
+                ),
+            ],
         },
         {
             'label': "{0} ({1})".format("Most collected", "Trakt"),
             'path': plugin.url_for("trakt_tv_collected", page='1'),
             'icon': get_icon_path("traktcollection"),
+            'context_menu': [
+                (
+                    _("Scan item to library"),
+                    "RunPlugin({0})".format(plugin.url_for("trakt_tv_collected_to_library", page='1', confirm="yes"))
+                ),
+            ],
         },
         {
-            'label': "{0} ({1})".format("Most popular", "Trakt"),
+            'label': "{0} ({1})".format("Popular", "Trakt"),
             'path': plugin.url_for("tv_trakt_popular", page='1'),
             'icon': get_icon_path("traktrecommendations"),
+            'context_menu': [
+                (
+                    _("Scan item to library"),
+                    "RunPlugin({0})".format(plugin.url_for("trakt_tv_popular_to_library", page='1', confirm="yes"))
+                ),
+            ],
         },
         {
             'label': "{0} ({1})".format("Trending", "Trakt"),
             'path': plugin.url_for("trakt_tv_trending", page='1'),
             'icon': get_icon_path("trending"),
+            'context_menu': [
+                (
+                    _("Scan item to library"),
+                    "RunPlugin({0})".format(plugin.url_for("trakt_tv_trending_to_library", page='1', confirm="yes"))
+                ),
+            ],
         },
-#        {
-#            'label': _("Updated") + " (Trakt)",
-#            'path': plugin.url_for(tv_trakt_updated, page='1'),
-#            'icon': get_icon_path("trending"),
-#        },
         {
             'label': "{0} {1}".format(_("Use your"), "Trakt"),
             'path': plugin.url_for("trakt_my_tv"),
@@ -123,9 +162,9 @@ def trakt_tv_search():
 def trakt_tv_search_term(term, page):
     from trakt import trakt
     results, pages = trakt.search_for_tvshow_paginated(term, page)
-    return list_trakt_items(results, pages, page)
+    return list_trakt_search_items(results, pages, page)
 
-def list_trakt_items(results, pages, page):
+def list_trakt_search_items(results, pages, page):
     from trakt import trakt
     shows = [get_tvshow_metadata_trakt(item["show"], None) for item in results]
     items = [make_tvshow_item(show) for show in shows if show.get('tvdb_id')]
@@ -140,14 +179,14 @@ def list_trakt_items(results, pages, page):
             'path': plugin.url_for(caller_name(), **args),
             'icon': get_icon_path("item_next"),
             'properties' : {'fanart_image' : get_background_path()}})
-    if FORCE == True: plugin.finish(items=items, sort_methods=SORT, view_mode=VIEW)
-    else: return plugin.finish(items=items, sort_methods=SORT)
+    if FORCE == True: plugin.finish(items=items, view_mode=VIEW)
+    else: return plugin.finish(items=items)
 
 @plugin.route('/tv/trakt/personal')
 def trakt_my_tv():
     items = [
         {
-            'label': "{0} ({1})".format(_("Library"), "collection"),
+            'label': "{0} ({1})".format(_("Library"), "Trakt Collection"),
             'path': plugin.url_for("trakt_tv_collection"),
             'icon': get_icon_path("traktcollection"),
             'context_menu': [
@@ -158,7 +197,7 @@ def trakt_my_tv():
             ],
         },
         {
-            'label': "{0} {1} ({2})".format(_("Unwatched"), _("TV shows").lower(), "watchlist"),
+            'label': "{0} {1} ({2})".format(_("Unwatched"), _("TV shows").lower(), "Trakt watchlist"),
             'path': plugin.url_for("trakt_tv_watchlist"),
             'icon': get_icon_path("traktwatchlist"),
             'context_menu': [
@@ -169,7 +208,7 @@ def trakt_my_tv():
             ],
         },
         {
-            'label': "{0}{1} ({2})".format(_("Next recording").replace(_("Recording").lower(), ""), _("episodes"), "next episodes"),
+            'label': "{0}{1} ({2})".format(_("Next recording").replace(_("Recording").lower(), ""), _("episodes"), "Trakt Next Episodes"),
             'path': plugin.url_for("trakt_tv_next_episodes"),
             'icon': get_icon_path("traktnextepisodes"),
             'context_menu': [
@@ -180,12 +219,12 @@ def trakt_my_tv():
             ]
         },
         {
-            'label': "{0}{1} ({2})".format(_("Upcoming recordings").replace(_("Recordings").lower(), ""), _("episodes"), "calendar"),
+            'label': "{0}{1} ({2})".format(_("Upcoming recordings").replace(_("Recordings").lower(), ""), _("episodes"), "Trakt Calendar"),
             'path': plugin.url_for("trakt_tv_calendar"),
             'icon': get_icon_path("traktcalendar"),
         },
         {
-            'label':"{0} ({1})".format(_("Find similar"), "recommendations"),
+            'label':"{0} ({1})".format(_("Find similar"), "Trakt Recommendations"),
             'path': plugin.url_for("trakt_tv_recommendations"),
             'icon': get_icon_path("traktrecommendations"),
             'context_menu': [
@@ -281,20 +320,37 @@ def list_aired_episodes(result):
         else: return plugin.finish(items=items, sort_methods=SORT)
 
 @plugin.route('/tv/trakt/played/<page>')
-def trakt_tv_played(page):
+def trakt_tv_played(page, raw=False):
     from trakt import trakt
     results, pages = trakt.trakt_get_played_shows_paginated(page)
-    return list_trakt_tvshows_played_paginated(results, pages, page)
+    plugin.log.info(results)
+    if raw: return results
+    else: return list_trakt_tvshows_played_paginated(results, pages, page)
 
-def list_trakt_tvshows_played_paginated(results, pages, page):
+@plugin.route('/tv/trakt/played_to_library/<page>/<confirm>')
+def trakt_tv_played_to_library(page, confirm, uncached=False):
+    try:
+        page = int(page)
+        pages = [page]
+    except: pages = page_redux(page)
+    if confirm == "no" or dialogs.yesno(_("Scan item to library"), "{0}[CR]{1}[CR]{2}".format(_("Library"), _("Add %s") % ("'{0} ({1}) {2} {3}'".format("Most played", "Trakt", _("page"), ','.join([str(i) for i in pages]))),_("Are you sure?"))):
+        items = {}
+        tv = []
+        for i in pages: tv = tv + [m for m in trakt_tv_played(i, True) if m not in tv]
+        if uncached: tv_add_all_to_library(tv, True)
+        else: tv_add_all_to_library(tv)
+
+def list_trakt_tvshows_played_paginated(results, total_items, page):
     from trakt import trakt
     results = sorted(results,key=lambda item: item["show"]["title"].lower().replace("the ", ""))
     genres_dict = trakt_get_genres()
     shows = [get_tvshow_metadata_trakt(item["show"], genres_dict) for item in results]
     items = [make_tvshow_item(show) for show in shows if show.get('tvdb_id')]
+    nextpage = int(page) + 1
+    pages = int(total_items) // 99 + (int(total_items) % 99 > 0)
     if int(pages) > int(page):
         items.append({
-            'label': _("Next page").format() + "  >>  (%s/%s)" % (int(page), int(pages)),
+            'label': _("Next page").format() + "  >>  (%s/%s)" % (nextpage, pages),
             'path': plugin.url_for("trakt_tv_played", page=int(page) + 1),
             'icon': get_icon_path("item_next"),
         })
@@ -302,10 +358,24 @@ def list_trakt_tvshows_played_paginated(results, pages, page):
     else: return plugin.finish(items=items, sort_methods=SORT)
 
 @plugin.route('/tv/trakt/watched/<page>')
-def trakt_tv_watched(page):
+def trakt_tv_watched(page, raw=False):
     from trakt import trakt
     results, total_items = trakt.trakt_get_watched_shows_paginated(page)
-    return list_trakt_tvshows_watched_paginated(results, total_items, page)
+    if raw: return results
+    else: return list_trakt_tvshows_watched_paginated(results, total_items, page)
+
+@plugin.route('/tv/trakt/watched_to_library/<page>/<confirm>')
+def trakt_tv_watched_to_library(page, confirm, uncached=False):
+    try:
+        page = int(page)
+        pages = [page]
+    except: pages = page_redux(page)
+    if confirm == "no" or dialogs.yesno(_("Scan item to library"), "{0}[CR]{1}[CR]{2}".format(_("Library"), _("Add %s") % ("'{0} ({1}) {2} {3}'".format("Most watched", "Trakt", _("page"), ','.join([str(i) for i in pages]))),_("Are you sure?"))):
+        items = {}
+        tv = []
+        for i in pages: tv = tv + [m for m in trakt_tv_watched(i, True) if m not in tv]
+        if uncached: tv_add_all_to_library(tv, True)
+        else: tv_add_all_to_library(tv)
 
 def list_trakt_tvshows_watched_paginated(results, total_items, page):
     from trakt import trakt
@@ -325,10 +395,24 @@ def list_trakt_tvshows_watched_paginated(results, total_items, page):
     else: return plugin.finish(items=items, sort_methods=SORT)
 
 @plugin.route('/tv/trakt/collected/<page>')
-def trakt_tv_collected(page):
+def trakt_tv_collected(page, raw=False):
     from trakt import trakt
     results, total_items = trakt.trakt_get_collected_shows_paginated(page)
-    return list_trakt_tvshows_watched_paginated(results, total_items, page)
+    if raw: return results
+    else: return list_trakt_tvshows_watched_paginated(results, total_items, page)
+
+@plugin.route('/tv/trakt/collected_to_library/<page>/<confirm>')
+def trakt_tv_collected_to_library(page, confirm, uncached=False):
+    try:
+        page = int(page)
+        pages = [page]
+    except: pages = page_redux(page)
+    if confirm == "no" or dialogs.yesno(_("Scan item to library"), "{0}[CR]{1}[CR]{2}".format(_("Library"), _("Add %s") % ("'{0} ({1}) {2} {3}'".format("Most collected", "Trakt", _("page"), ','.join([str(i) for i in pages]))),_("Are you sure?"))):
+        items = {}
+        tv = []
+        for i in pages: tv = tv + [m for m in trakt_tv_collected(i, True) if m not in tv]
+        if uncached: tv_add_all_to_library(tv, True)
+        else: tv_add_all_to_library(tv)
 
 def list_trakt_tvshows_collected_paginated(results, total_items, page):
     from trakt import trakt
@@ -348,10 +432,24 @@ def list_trakt_tvshows_collected_paginated(results, total_items, page):
     else: return plugin.finish(items=items, sort_methods=SORT)
 
 @plugin.route('/tv/trakt/popular/<page>')
-def tv_trakt_popular(page):
+def tv_trakt_popular(page, raw=False):
     from trakt import trakt
     results, pages = trakt.trakt_get_popular_shows_paginated(page)
-    return list_trakt_tvshows_popular_paginated(results, pages, page)
+    if raw: return results
+    else: return list_trakt_tvshows_popular_paginated(results, pages, page)
+
+@plugin.route('/tv/trakt/popular_to_library/<page>/<confirm>')
+def trakt_tv_popular_to_library(page, confirm, uncached=False):
+    try:
+        page = int(page)
+        pages = [page]
+    except: pages = page_redux(page)
+    if confirm == "no" or dialogs.yesno(_("Scan item to library"), "{0}[CR]{1}[CR]{2}".format(_("Library"), _("Add %s") % ("'{0} ({1}) {2} {3}'".format("Popular", "Trakt", _("page"), ','.join([str(i) for i in pages]))),_("Are you sure?"))):
+        items = {}
+        tv = []
+        for i in pages: tv = tv + [m for m in tv_trakt_popular(i, True) if m not in tv]
+        if uncached: tv_add_all_to_library([{u'show': m} for m in tv], True)
+        else: tv_add_all_to_library([{u'show': m} for m in tv])
 
 def list_trakt_tvshows_popular_paginated(results, pages, page):
     from trakt import trakt
@@ -370,10 +468,24 @@ def list_trakt_tvshows_popular_paginated(results, pages, page):
     else: return plugin.finish(items=items, sort_methods=SORT)
 
 @plugin.route('/tv/trakt/trending/<page>')
-def trakt_tv_trending(page):
+def trakt_tv_trending(page, raw=False):
     from trakt import trakt
     results, pages = trakt.trakt_get_trending_shows_paginated(page)
-    return list_trakt_tvshows_trending_paginated(results, pages, page)
+    if raw: return results
+    else: list_trakt_tvshows_trending_paginated(results, pages, page)
+
+@plugin.route('/tv/trakt/trending_to_library/<page>/<confirm>')
+def trakt_tv_trending_to_library(page, confirm, uncached=False):
+    try:
+        page = int(page)
+        pages = [page]
+    except: pages = page_redux(page)
+    if confirm == "no" or dialogs.yesno(_("Scan item to library"), "{0}[CR]{1}[CR]{2}".format(_("Library"), _("Add %s") % ("'{0} ({1}) {2} {3}'".format("Trending", "Trakt", _("page"), ','.join([str(i) for i in pages]))),_("Are you sure?"))):
+        items = {}
+        tv = []
+        for i in pages: tv = tv + [m for m in trakt_tv_trending(i, True) if m not in tv]
+        if uncached: tv_add_all_to_library(tv, True)
+        else: tv_add_all_to_library(tv)
 
 def list_trakt_tvshows_trending_paginated(results, pages, page):
     from trakt import trakt
@@ -420,7 +532,7 @@ def tv_search_term(term, page):
         },
         {
             'label': "{0}: '{1}' - {2} ({3})".format(_("Search"), term, _("TV shows"), "TVDb"),
-            'path': plugin.url_for("tv_search_term", term=term, page='1'),
+            'path': plugin.url_for("tvdb_tv_search_term", term=term, page='1'),
             'icon': get_icon_path("search"),
             'thumbnail': get_icon_path("search"),
         },
@@ -475,38 +587,116 @@ def tmdb_tv_search_term(term, page):
     if FORCE == True: return plugin.finish(items=items, sort_methods=SORT, view_mode=VIEW)
     else: return plugin.finish(items=items, sort_methods=SORT)
 
-@plugin.cached_route('/tv/tmdb/genres', cache="genres")
+@plugin.cached_route('/tv/tmdb/genres', TTL=CACHE_TTL)
 def tmdb_tv_genres():
     """ TV genres list """
     genres = get_tv_genres()
-    items = sorted([{'label': name, 'icon': get_genre_icon(id), 'path': plugin.url_for(tv_genre, id=id, page='1')} for id, name in genres.items()], key=lambda k: k['label'])
+    items = sorted([{'label': name,
+                     'icon': get_genre_icon(id),
+                     'path': plugin.url_for("tmdb_tv_genre", id=id, page='1'),
+                     'context_menu': [(
+                                       _("Scan item to library"),
+                                       "RunPlugin({0})".format(plugin.url_for("tmdb_tv_genre_to_library", id=id, page='1', confirm="yes"))
+                                      )]} for id, name in genres.items()], key=lambda k: k['label'])
     for item in items: item['properties'] = {'fanart_image' : get_background_path()}
-    if FORCE == True: plugin.set_view_mode(VIEW); return items
-    else: return items
+    return items
+
+@plugin.cached_route('/tv/genre/<id>/<page>', TTL=CACHE_TTL)
+def tmdb_tv_genre(id, page, raw=False):
+    """ Shows by genre """
+    if FORCE == True: plugin.set_view_mode(VIEW)
+    import_tmdb()
+    result = tmdb.Discover().tv(with_genres=id, page=page, language=LANG)
+    if raw: return result
+    else: return list_tvshows(result)
+
+@plugin.route('/tv/genre_to_library/<id>/<page>/<confirm>')
+def tmdb_tv_genre_to_library(id, page, confirm):
+    genre_names = get_tv_genres()
+    if "|" in id:
+        genres = id.split("|")
+        name = ' + '.join([genre_names.get(int(i), None) for i in genres])
+    else:
+        genres = [id]
+        name = genre_names.get(int(id), None)
+    try:
+        page = int(page)
+        pages = [page]
+    except: pages = page_redux(page)
+    if confirm == "no" or dialogs.yesno(_("Scan item to library"), "{0}[CR]{1}[CR]{2}".format(_("Library"), _("Add %s") % ("'{0} ({1}) {2} {3}'".format(name, "TMDb", _("page"), ','.join([str(i) for i in pages]))),_("Are you sure?"))):
+        items = {}
+        tv = []
+        for g in genres:
+            for i in pages: tv = tv + [m for m in tmdb_tv_genre(g, i, True)["results"] if m not in tv]
+        items["results"] = tv
+        tv_add_all_to_library(items)
 
 @plugin.cached_route('/tv/tmdb/now_playing/<page>', TTL=CACHE_TTL)
-def tmdb_tv_now_playing(page):
+def tmdb_tv_now_playing(page, raw=False):
     """ On the air shows """
     if FORCE == True: plugin.set_view_mode(VIEW)
     import_tmdb()
     result = tmdb.TV().on_the_air(page=page, language=LANG)
-    return list_tvshows(result)
+    if raw: return result
+    else: return list_tvshows(result)
+
+@plugin.route('/tv/tmdb/now_playing_to_library/<page>/<confirm>')
+def tmdb_tv_now_playing_to_library(page, confirm):
+    try:
+        page = int(page)
+        pages = [page]
+    except: pages = page_redux(page)
+    if confirm == "no" or dialogs.yesno(_("Scan item to library"), "{0}[CR]{1}[CR]{2}".format(_("Library"), _("Add %s") % ("'{0} ({1}) {2} {3}'".format("On the air", "TMDb", _("page"), ','.join([str(i) for i in pages]))),_("Are you sure?"))):
+        items = {}
+        tv = []
+        for i in pages: tv = tv + [m for m in tmdb_tv_now_playing(i, True)["results"] if m not in tv]
+        items["results"] = tv
+        tv_add_all_to_library(items)
 
 @plugin.cached_route('/tv/tmdb/most_popular/<page>', TTL=CACHE_TTL)
-def tmdb_tv_most_popular(page):
+def tmdb_tv_most_popular(page, raw=False):
     """ Most popular shows """
     if FORCE == True: plugin.set_view_mode(VIEW)
     import_tmdb()
     result = tmdb.TV().popular(page=page, language=LANG)
-    return list_tvshows(result)
+    if raw: return result
+    else: return list_tvshows(result)
+
+@plugin.route('/tv/tmdb/most_popular_to_library/<page>/<confirm>')
+def tmdb_tv_most_popular_to_library(page, confirm):
+    try:
+        page = int(page)
+        pages = [page]
+    except: pages = page_redux(page)
+    if confirm == "no" or dialogs.yesno(_("Scan item to library"), "{0}[CR]{1}[CR]{2}".format(_("Library"), _("Add %s") % ("'{0} ({1}) {2} {3}'".format("Popular", "TMDb", _("page"), ','.join([str(i) for i in pages]))),_("Are you sure?"))):
+        items = {}
+        tv = []
+        for i in pages: tv = tv + [m for m in tmdb_tv_most_popular(i, True)["results"] if m not in tv]
+        items["results"] = tv 
+        tv_add_all_to_library(items)
 
 @plugin.cached_route('/tv/tmdb/top_rated/<page>', TTL=CACHE_TTL)
-def tmdb_tv_top_rated(page):
+def tmdb_tv_top_rated(page, raw=False):
     """ Top rated shows """
     if FORCE == True: plugin.set_view_mode(VIEW)
     import_tmdb()
     result = tmdb.TV().top_rated(page=page, language=LANG)
-    return list_tvshows(result)
+    if raw: return result
+    else: return list_tvshows(result)
+
+@plugin.route('/tv/tmdb/top_rated_to_library/<page>/<confirm>')
+def tmdb_tv_top_rated_to_library(page, confirm):
+    try:
+        page = int(page)
+        pages = [page]
+    except: pages = page_redux(page)
+    if confirm == "no" or dialogs.yesno(_("Scan item to library"), "{0}[CR]{1}[CR]{2}".format(_("Library"), _("Add %s") % ("'{0} ({1}) {2} {3}'".format("Top rated", "TMDb", _("page"), ','.join([str(i) for i in pages]))),_("Are you sure?"))):
+        items = {}
+        tv = []
+        for i in pages: tv = tv + [m for m in tmdb_tv_top_rated(i, True)["results"] if m not in tv]
+        items["results"] = tv 
+        tv_add_all_to_library(items)
+
 
 @plugin.route('/tv/tvdb/search')
 def tvdb_tv_search():
@@ -589,14 +779,6 @@ def trakt_tv_recommendations():
     if FORCE == True: return plugin.finish(items=items, sort_methods=SORT, view_mode=VIEW)
     else: return plugin.finish(items=items, sort_methods=SORT)
 
-@plugin.cached_route('/tv/genre/<id>/<page>', TTL=CACHE_TTL)
-def tv_genre(id, page):
-    """ Shows by genre """
-    if FORCE == True: plugin.set_view_mode(VIEW)
-    import_tmdb()
-    result = tmdb.Discover().tv(with_genres=id, page=page, language=LANG)
-    return list_tvshows(result)
-
 def get_tvdb_id_from_name(name, lang):
     import_tvdb()
     search_results = tvdb.search(name, language=lang)
@@ -627,28 +809,25 @@ def get_tvdb_id_from_imdb_id(imdb_id):
     return tvdb_id
 
 @plugin.route('/tv/trakt/personal/collection_to_library')
-def trakt_tv_collection_to_library(preaprove = False, uncached = False):
+def trakt_tv_collection_to_library(preaprove=False, uncached=False):
     from trakt import trakt
     if preaprove or dialogs.yesno(_("Scan item to library"), "{0}[CR]{1}".format(_("Add %s") % ("'{0} {1} {2}'".format("Trakt", _("TV"), _("Collection").lower())),_("Are you sure?"))):
-        if uncached:
-            tv_add_all_to_library(trakt.trakt_get_collection_uncached("shows"), True)
-        else:
-            tv_add_all_to_library(trakt.trakt_get_collection("shows"))
+        if uncached: tv_add_all_to_library(trakt.trakt_get_collection_uncached("shows"), True)
+        else: tv_add_all_to_library(trakt.trakt_get_collection("shows"))
 
 @plugin.route('/tv/trakt/personal/watchlist_to_library')
-def trakt_tv_watchlist_to_library(preaprove = False, uncached = False):
+def trakt_tv_watchlist_to_library(preaprove=False, uncached=False):
     from trakt import trakt
     if preaprove or dialogs.yesno(_("Scan item to library"), "{0}[CR]{1}".format(_("Add %s") % ("'{0} {1} {2}'".format("Trakt", _("TV"), _("Watchlist").lower())),_("Are you sure?"))):
-        if uncached:
-            tv_add_all_to_library(trakt.trakt_get_watchlist_uncached("shows"), True)
-        else:
-            tv_add_all_to_library(trakt.trakt_get_watchlist("shows"))
+        if uncached: tv_add_all_to_library(trakt.trakt_get_watchlist_uncached("shows"), True)
+        else: tv_add_all_to_library(trakt.trakt_get_watchlist("shows"))
 
 @plugin.route('/tv/trakt/personal/recommendations_to_library')
 def trakt_tv_recommendations_to_library():
     from trakt import trakt
     if dialogs.yesno(_("Scan item to library"), "{0}[CR]{1}".format(_("Add %s") % ("'{0} {1} {2}'".format("Trakt", _("TV"), _("Recommendations").lower())),_("Are you sure?"))):
-        tv_add_all_to_library(trakt.get_recommendations("shows"))
+        if uncached: tv_add_all_to_library(trakt.get_recommendations("shows"), True)
+        else: tv_add_all_to_library(trakt.get_recommendations("shows"))
 
 @plugin.route('/tv/trakt/updated/<page>')
 def tv_trakt_updated(page):
@@ -839,37 +1018,39 @@ def set_live_library_player(path):
     player_file.close()
 
 def tv_add_all_to_library(items, noscan = False):
-    import_tvdb()    
-    # setup library folder
     library_folder = setup_library(plugin.get_setting(SETTING_TV_LIBRARY_FOLDER, unicode))
-    # add to library
-    for item in items:
-        ids = item["show"]["ids"]
-        tvdb_id = ids.get('tvdb')
-        if not tvdb_id:
-            continue
-        show = tvdb[int(tvdb_id)]
-        if plugin.get_setting(SETTING_TV_DEFAULT_AUTO_ADD, bool) == True:
-            if add_tvshow_to_library(library_folder, show, plugin.get_setting(SETTING_TV_DEFAULT_PLAYER_FROM_LIBRARY, unicode)):
-                set_property("clean_library", 1)
-        else:
-            if add_tvshow_to_library(library_folder, show, ADDON_DEFAULT.id):
-                set_property("clean_library", 1)
-    if noscan:
-        return
-    # start scan
-    scan_library(type="video")
+    ids = ""
+    import_tvdb()
+    if "results" in items: ids = '\n'.join([str(show["id"]) for show, item in execute(tmdb_to_tvdb, items["results"], workers=10)])
+    else: ids = '\n'.join([str(i["show"]["ids"]["tvdb"]) if i["show"]["ids"]["tvdb"] != None and i["show"]["ids"]["tvdb"] != "" else i["show"]["ids"]["imdb"] for i in items])
+    shows_batch_add_file = plugin.get_setting(SETTING_TV_BATCH_ADD_FILE_PATH, unicode)
+    if xbmcvfs.exists(shows_batch_add_file):
+        batch_add_file = xbmcvfs.File(shows_batch_add_file)
+        pre_ids = batch_add_file.read()
+        xids = pre_ids.split("\n")
+        for id in xids:
+            if id != "" and id != None and id not in ids: ids = ids + str(id) + '\n'
+        batch_add_file.close()
+        xbmcvfs.delete(shows_batch_add_file)
+    batch_add_file = xbmcvfs.File(shows_batch_add_file, 'w')
+    batch_add_file.write(str(ids))
+    batch_add_file.close()
+    xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq-forqed/tv/batch_add_to_library)")
+
 
 @plugin.route('/tv/add_to_library_parsed/<id>/<player>')
 def tv_add_to_library_parsed(id, player):
     import_tvdb()
+    if id.startswith("tt"):
+        try: id = tvdb.search_by_imdb(id)
+        except: return dialogs.ok(_("%s not found") % _("TV show"), "{0} {1} in TheTVDb".format(_("no show information found for"), id))
     library_folder = setup_library(plugin.get_setting(SETTING_TV_LIBRARY_FOLDER, unicode))
     show = tvdb[int(id)]
     imdb = show['imdb_id']
     library_folder = setup_library(plugin.get_setting(SETTING_TV_LIBRARY_FOLDER, unicode))
     # add to library
     if add_tvshow_to_library(library_folder, show, player): set_property("clean_library", 1)
-    scan_library(type="video")
+    scan_library(type="video", path=plugin.get_setting(SETTING_TV_LIBRARY_FOLDER, unicode))
 
 @plugin.route('/tv/add_to_library/<id>')
 def tv_add_to_library(id):
@@ -899,7 +1080,7 @@ def tv_add_to_library(id):
         if add_tvshow_to_library(library_folder, show, player.id):
             set_property("clean_library", 1)
     # start scan
-    scan_library(type="video")
+    scan_library(type="video", path=plugin.get_setting(SETTING_TV_LIBRARY_FOLDER, unicode))
 
 
 @plugin.route('/tv/batch_add_to_library')
@@ -932,18 +1113,18 @@ def tv_batch_add_to_library():
                     show = tvdb[int(tvdb_id)]
                     batch_add_tvshows_to_library(library_folder, show)
             else:
-                if id == None or id == "None": pass
-                elif str(id).startswith("tt") and id != "": tvdb_id = get_tvdb_id_from_imdb_id(id)
+                if id == None or id == "None" or id == "": pass
+                elif str(id).startswith("tt"): tvdb_id = get_tvdb_id_from_imdb_id(id)
                 else: tvdb_id = id
-                if tvdb_id != "" and tvdb_id != None and tvdb_id != "None":
-                    try: show = tvdb[int(tvdb_id)]
-                    except: 
-                        dialogs.notify(msg='failed to add', title='Starting library scan afterwards', delay=3000, image=get_icon_path("tv"))
-                        print "[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed failed to add: " + str(id)
-                    if show: batch_add_tvshows_to_library(library_folder, show)
+                try:
+                    show = tvdb[int(tvdb_id)]
+                    batch_add_tvshows_to_library(library_folder, show)
+                except: 
+                    dialogs.notify(msg='failed to add', title='%s' % id, delay=3000, image=get_icon_path("tv"))
+                    xbmc.log("metalliq-forqed failed to add: {0}".format(id),xbmc.LOGNOTICE)
             ids_index += 1
         if xbmcvfs.exists(tv_batch_file): os.remove(xbmc.translatePath(tv_batch_file))
-        dialogs.notify(msg='Adding tvshow strm-files', title='Starting library scan afterwards', delay=3000, image=get_icon_path("tv"))
+        dialogs.notify(msg='Starting library scan afterwards', title='Adding tvshow strm-files', delay=5000, image=get_icon_path("tv"))
         update_library()
         return True
 
@@ -1062,8 +1243,8 @@ def list_trakt_episodes(result, with_time=False):
                       'properties' : {'fanart_image' : info['fanart']},
                       })
     plugin.set_content('episodes')
-    if FORCE == True: return plugin.finish(items=items, sort_methods=SORTRAKT, view_mode=VIEW)
-    else: return plugin.finish(items=items, sort_methods=SORTRAKT)
+    if FORCE == True: return plugin.finish(items=items, sort_methods=SORTRAKT, view_mode=VIEW, cache_to_disc=False, update_listing=True)
+    else: return plugin.finish(items=items, sort_methods=SORTRAKT, cache_to_disc=False, update_listing=True)
 
 def build_tvshow_info(tvdb_show, tmdb_show=None):
     tvdb_info = get_tvshow_metadata_tvdb(tvdb_show)
@@ -1123,17 +1304,9 @@ def make_tvshow_item(info):
                 if show['poster_path'] != None and show['poster_path'] != "": info['poster'] = u'%s%s' % ("http://image.tmdb.org/t/p/w500", show['poster_path'])
                 if info['fanart'] == None or info['fanart'] == "":
                     if show['backdrop_path'] != None and show['backdrop_path'] != "": info['fanart'] = u'%s%s' % ("http://image.tmdb.org/t/p/original", show['backdrop_path'])
-    if info['poster'] == None or info['poster'] == "":
-        if imdb_id != None and imdb_id != "": url = "http://www.omdbapi.com/?i=%s&plot=short&r=json" % imdb_id
-        else: url = "http://www.omdbapi.com/?t=%s&y=%s&plot=short&r=json" % (to_utf8(info['title']), info['year'])
-        response = urllib.urlopen(url)
-        data = json.loads(response.read())
-        if data['Response'] == "False": pass
-        else:
-            if data['Poster'] != "N/A" and data['Poster'] != "" and data['Poster'] != None: info['poster'] = data['Poster']
-    if info['poster'] == None or info['poster'] == "": info['poster'] = "http://cellardoortv.com/style/themes/MetalliQ-Forqed/unavailable_movieposter.png"
+    if info['poster'] == None or info['poster'] == "": info['poster'] = "https://github.com/metalmagic767/themes/raw/master/metalliq-forqed/default//unavailable.png"
     if info['fanart'] == None or info['fanart'] == "": info['fanart'] = get_background_path()
-    if xbmc.getCondVisibility("system.hasaddon(script.qlickplay)"): context_menu = [(_("Scan item to library"),"RunPlugin({0})".format(plugin.url_for("tv_add_to_library", id=tvdb_id))), ("%s %s" % (_("TV"), _("Trailer").lower()),"RunScript(script.qlickplay,info=playtvtrailer,tvdb_id={0})".format(tvdb_id)), ("[COLOR yellow]Mr Blamo[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay", "RunScript(script.qlickplay,info=tvinfo,tvdb_id={0})".format(tvdb_id)), ("%s %s (%s)" % ("Recommended", _("TV shows"), "TMDb"),"ActivateWindow(10025,plugin://script.qlickplay/?info=similartvshows&tvdb_id={0})".format(tvdb_id))]
+    if xbmc.getCondVisibility("system.hasaddon(script.qlickplay)"): context_menu = [(_("Scan item to library"),"RunPlugin({0})".format(plugin.url_for("tv_add_to_library", id=tvdb_id))), ("%s %s" % (_("TV"), _("Trailer").lower()),"RunScript(script.qlickplay,info=playtvtrailer,tvdb_id={0})".format(tvdb_id)), ("[COLOR ff0084ff]Q[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay", "RunScript(script.qlickplay,info=tvinfo,tvdb_id={0})".format(tvdb_id)), ("%s %s (%s)" % ("Recommended", _("TV shows"), "TMDb"),"ActivateWindow(10025,plugin://script.qlickplay/?info=similartvshows&tvdb_id={0})".format(tvdb_id))]
     elif xbmc.getCondVisibility("system.hasaddon(script.extendedinfo)"): context_menu = [(_("Scan item to library"),"RunPlugin({0})".format(plugin.url_for("tv_add_to_library", id=tvdb_id))), ("%s %s" % (_("TV"), _("Trailer").lower()),"RunScript(script.extendedinfo,info=playtvtrailer,tvdb_id={0})".format(tvdb_id)), (_("Extended TV show info"), "RunScript(script.extendedinfo,info=extendedtvinfo,tvdb_id={0})".format(tvdb_id)), ("%s %s (%s)" % ("Recommended", _("TV shows"), "TMDb"),"ActivateWindow(10025,plugin://script.extendedinfo/?info=similartvshows&tvdb_id={0})".format(tvdb_id))]
     else: context_menu = [(_("Scan item to library"),"RunPlugin({0})".format(plugin.url_for("tv_add_to_library", id=tvdb_id)))]
     context_menu.append((_("Add to playlist"), "RunPlugin({0})".format(plugin.url_for("lists_add_show_to_list", src='tvdb', id=tvdb_id))))
@@ -1161,7 +1334,7 @@ def list_seasons_tvdb(id):
         if season_num == 0 and not plugin.get_setting(SETTING_INCLUDE_SPECIALS, bool): continue
         elif not season.has_aired(flexible=plugin.get_setting(SETTING_AIRED_UNKNOWN, bool) ): continue
         season_info = get_season_metadata_tvdb(show_info, season)
-        if xbmc.getCondVisibility("system.hasaddon(script.qlickplay)"): context_menu = [("[COLOR yellow]Mr Blamo[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay", "RunScript(script.qlickplay,info=seasoninfo,tvshow={0},season={1})".format(title, season_num)), ("%s %s" % (_("TV"), _("Trailer").lower()),"RunScript(script.qlickplay,info=playtvtrailer,tvdb_id={0})".format(id)), (_("Recommended tv shows") + " (TMDb)","ActivateWindow(10025,plugin://script.qlickplay/?info=similartvshows&tvdb_id={0})".format(id))]
+        if xbmc.getCondVisibility("system.hasaddon(script.qlickplay)"): context_menu = [("[COLOR ff0084ff]Q[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay", "RunScript(script.qlickplay,info=seasoninfo,tvshow={0},season={1})".format(title, season_num)), ("%s %s" % (_("TV"), _("Trailer").lower()),"RunScript(script.qlickplay,info=playtvtrailer,tvdb_id={0})".format(id)), (_("Recommended tv shows") + " (TMDb)","ActivateWindow(10025,plugin://script.qlickplay/?info=similartvshows&tvdb_id={0})".format(id))]
         elif xbmc.getCondVisibility("system.hasaddon(script.extendedinfo)"): context_menu = [(_("Extended season info"), "RunScript(script.extendedinfo,info=seasoninfo,tvshow={0},season={1})".format(title, season_num)), ("%s %s" % (_("TV"), _("Trailer").lower()),"RunScript(script.extendedinfo,info=playtvtrailer,tvdb_id={0})".format(id)), (_("Recommended tv shows") + " (TMDb)","ActivateWindow(10025,plugin://script.extendedinfo/?info=similartvshows&tvdb_id={0})".format(id))]
         else: context_menu = []
         items.append({'label': u"%s %d" % (_("Season"), season_num),
@@ -1190,7 +1363,7 @@ def list_episodes_tvdb(id, season_num):
     for (episode_num, episode) in season.items():
         if not season_num == 0 and not episode.has_aired(flexible=plugin.get_setting(SETTING_AIRED_UNKNOWN, bool)): break
         episode_info = get_episode_metadata_tvdb(season_info, episode)
-        if xbmc.getCondVisibility("system.hasaddon(script.qlickplay)"): context_menu = [("[COLOR yellow]Mr Blamo[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay", "RunScript(script.qlickplay,info=episodeinfo,tvshow={0},season={1},episode={2})".format(title, season_num, episode_num)), ("%s %s" % (_("TV"), _("Trailer").lower()),"RunScript(script.qlickplay,info=playtvtrailer,tvdb_id={0})".format(id)), (_("Recommended tv shows") + " (TMDb)","ActivateWindow(10025,plugin://script.qlickplay/?info=similartvshows&tvdb_id={0})".format(id))]
+        if xbmc.getCondVisibility("system.hasaddon(script.qlickplay)"): context_menu = [("[COLOR ff0084ff]Q[/COLOR]lick[COLOR ff0084ff]P[/COLOR]lay", "RunScript(script.qlickplay,info=episodeinfo,tvshow={0},season={1},episode={2})".format(title, season_num, episode_num)), ("%s %s" % (_("TV"), _("Trailer").lower()),"RunScript(script.qlickplay,info=playtvtrailer,tvdb_id={0})".format(id)), (_("Recommended tv shows") + " (TMDb)","ActivateWindow(10025,plugin://script.qlickplay/?info=similartvshows&tvdb_id={0})".format(id))]
         elif xbmc.getCondVisibility("system.hasaddon(script.extendedinfo)"): context_menu = [(_("Extended episode info"), "RunScript(script.extendedinfo,info=episodeinfo,tvshow={0},season={1},episode={2})".format(title, season_num, episode_num)), ("%s %s" % (_("TV"), _("Trailer").lower()),"RunScript(script.extendedinfo,info=playtvtrailer,tvdb_id={0})".format(id)), (_("Recommended tv shows") + " (TMDb)","ActivateWindow(10025,plugin://script.extendedinfo/?info=similartvshows&tvdb_id={0})".format(id))]
         else: context_menu = []
         context_menu.append(("{0} {1}...".format(_("Select"), _("Stream").lower()),"PlayMedia({0})".format(plugin.url_for("tv_play", id=id, season=season_num, episode=episode_num, mode='select'))))
@@ -1218,7 +1391,7 @@ def tmdb_to_tvdb(tmdb_show):
     except: year = ""
     results = [x['id'] for x in tvdb.search(name, year)]
     # Get by id if not a single result
-    if len(results) != 1:        
+    if len(results) != 1:
         id = tmdb.TV(tmdb_show['id']).external_ids().get('tvdb_id', None)
         if id:
             results = [id]

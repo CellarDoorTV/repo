@@ -22,7 +22,8 @@ def get_channels():
 
 def get_library_channels():
     folder_path = plugin.get_setting(SETTING_LIVE_LIBRARY_FOLDER, unicode)
-    library_folder = setup_library(folder_path)
+    if not xbmcvfs.exists(folder_path):
+        return []
     # get channels in library
     try:
         library_channels = xbmcvfs.listdir(folder_path)[0]
@@ -94,7 +95,7 @@ def live():
                 'icon': get_icon_path("library"),
             },
             {
-                'label': _("Enter search string"),
+                'label': "{0}: {1}".format(_("Search"), _("Channel")),
                 'path': plugin.url_for("live_search"),
                 'icon': get_icon_path("search"),
             },
@@ -102,7 +103,7 @@ def live():
     else:
         items = [
             {
-                'label': _("Enter search string"),
+                'label': "{0}: {1}".format(_("Search"), _("Channel")),
                 'path': plugin.url_for("live_search"),
                 'icon': get_icon_path("search"),
             },

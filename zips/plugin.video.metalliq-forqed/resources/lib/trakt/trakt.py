@@ -11,9 +11,16 @@ from meta import plugin
 from settings import *
 from language import get_string as _
 
+TCI = plugin.get_setting(SETTING_TRAKT_API_CLIENT_ID, str)
+TCS = plugin.get_setting(SETTING_TRAKT_API_CLIENT_SECRET, str)
+
 API_ENDPOINT = "https://api-v2launch.trakt.tv"
-CLIENT_ID = "988f3835e5410b3f5e5e90b922a8a0016ef21ec65a2fc63f68e44a6b03041fe7"
-CLIENT_SECRET = "556510aeb941dbf23a2eaaa3aae089f928f0112b2a86d328190c280e3dcfd419"
+if len(TCI) == 64 and len(TCS) == 64:
+    CLIENT_ID = TCI
+    CLIENT_SECRET = TCS
+else:
+    CLIENT_ID = "8ed545c0b7f92cc26d1ecd6326995c6cf0053bd7596a98e962a472bee63274e6"
+    CLIENT_SECRET = "1ec4f37e5743e3086abace0c83444c25d9b655d1d77b793806b2c8205a510426"
 LIST_PRIVACY_IDS = (
     'private',
     'friends',

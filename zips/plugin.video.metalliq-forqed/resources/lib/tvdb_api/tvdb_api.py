@@ -132,7 +132,7 @@ class Episode(dict):
     def has_aired(self, flexible=False):
         if not self.get('firstaired', None):
             return flexible
-        return self.get_air_time() <= time.time() - (plugin.get_setting(SETTING_AIRDATE_OFFSET, int) * 24 * 60 * 60)
+        return self.get_air_time() <= time.time()
         
 class Tvdb:
     def __init__(self, api_key, language="en", cache="."):

@@ -35,7 +35,7 @@ class AddonChanneler(object):
 def get_channelers(media, filters = {}):
     assert media in ("tvshows", "movies", "musicvideos", "music", "live")
     channelers = []
-    channelers_path = "special://home/userdata/addon_data/{0}/players/".format(plugin.id)
+    channelers_path = "special://profile/addon_data/{0}/players/".format(plugin.id)
     files = [x for x in xbmcvfs.listdir(channelers_path)[1] if x.endswith(EXTENSION)]
     for file in files:
         path = channelers_path + file

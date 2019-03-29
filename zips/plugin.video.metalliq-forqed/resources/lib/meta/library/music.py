@@ -141,10 +141,10 @@ def setup_library(library_folder):
     if not xbmcvfs.exists(library_folder):
         # create folder
         xbmcvfs.mkdir(library_folder)
-        msg = _("Would you like to automatically set [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed as a music source?")
+        msg = _("Would you like to automatically set [COLOR cyan]metalliq-forqed[/COLOR] as a music source?")
         if dialogs.yesno("{0} {1}".format(_("Library"), "setup"), msg):
             source_thumbnail = get_icon_path("musicvideos")
-            source_name = "[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed "  + _("Music videos")
+            source_name = "[COLOR cyan]metalliq-forqed[/COLOR] "  + _("Music videos")
             source_content = "('{0}','musicvideos','metadata.musicvideos.theaudiodb.com','',2147483647,0,'<settings><setting id=\"fanarttvalbumthumbs\" value=\"true\" /><setting id=\"tadbalbumthumbs\" value=\"true\" /></settings>',0,0,NULL,NULL)".format(library_folder)
             add_source(source_name, library_folder, source_content, source_thumbnail)
     # return translated path
@@ -160,7 +160,7 @@ def auto_music_setup(library_folder):
         try:
             xbmcvfs.mkdir(library_folder)
             source_thumbnail = get_icon_path("musicvideos")
-            source_name = "[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed "  + _("Music videos")
+            source_name = "[COLOR cyan]metalliq-forqed[/COLOR] "  + _("Music videos")
             source_content = "('{0}','musicvideos','metadata.musicvideos.theaudiodb.com','',2147483647,0,'<settings><setting id=\"fanarttvalbumthumbs\" value=\"true\" /><setting id=\"tadbalbumthumbs\" value=\"true\" /></settings>',0,0,NULL,NULL)".format(library_folder)
             add_source(source_name, library_folder, source_content, source_thumbnail)
             return True

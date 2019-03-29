@@ -20,16 +20,16 @@ def caller_args():
     return dict([(i, values[i]) for i in args])
 
 def get_icon_path(icon_name):
-    if plugin.get_setting(SETTING_STYLE, unicode) != "Custom": return os.path.join('http://cellardoortv.com/style/themes/', plugin.get_setting(SETTING_STYLE, unicode).lower() + "/" , icon_name+".png")
+    if plugin.get_setting(SETTING_STYLE, unicode) != "Custom": return os.path.join('https://github.com/CellarDoorTV/Style/raw/master/metalliqforqed/', plugin.get_setting(SETTING_STYLE, unicode).lower() + "/" , icon_name+".png")
     else: return os.path.join(plugin.get_setting(SETTING_STYLE_CUSTOM_FOLDER, unicode), icon_name+".png")
 
 def get_background_path():
-    if plugin.get_setting(SETTING_BACKGROUND, unicode) == "Matching": return os.path.join('http://cellardoortv.com/style/themes/backgrounds/', str(plugin.get_setting(SETTING_STYLE, unicode).lower()) + ".png")
+    if plugin.get_setting(SETTING_BACKGROUND, unicode) == "Matching": return os.path.join('https://github.com/CellarDoorTV/Style/raw/master/metalliqforqed/backgrounds/', str(plugin.get_setting(SETTING_STYLE, unicode).lower()) + ".png")
     elif plugin.get_setting(SETTING_BACKGROUND, unicode) == "Custom": return os.path.join(plugin.get_setting(SETTING_BACKGROUND_CUSTOM_FOLDER, unicode), "fanart.png")
-    else: return os.path.join('http://cellardoortv.com/style/themes/backgrounds/', str(plugin.get_setting(SETTING_BACKGROUND, unicode).lower()) + ".png")
+    else: return os.path.join('https://github.com/CellarDoorTV/Style/raw/master/metalliqforqed/backgrounds/', str(plugin.get_setting(SETTING_BACKGROUND, unicode).lower()) + ".png")
 
 def get_banner_path():
-    return 'http://cellardoortv.com/style/themes/default/banner.jpg'
+    return 'https://github.com/CellarDoorTV/Style/raw/master/metalliqforqed/backgrounds/banner.jpg'
 
 def get_genre_icon(genre_id):
     genre_id = int(genre_id)

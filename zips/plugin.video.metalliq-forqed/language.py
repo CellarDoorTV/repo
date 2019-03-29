@@ -1720,7 +1720,6 @@ _strings['Reload skin'] = 20183
 _strings['Use poster view styles for TV shows'] = 20185
 _strings['Please wait'] = 20186
 _strings['Enable auto scrolling for plot & review'] = 20189
-_strings['Custom'] = 20190
 _strings['Enable debug logging'] = 20191
 _strings['Export music library'] = 20196
 _strings['Import music library'] = 20197

@@ -20,7 +20,7 @@ def get_movie_metadata(movie, genres_dict=None):
     info['originaltitle'] = movie['original_title']
     info['tmdb'] = str(movie['id'])
     if movie['poster_path'] and movie['poster_path'] != None and movie['poster_path'] != "": info['poster'] = u'%s%s' % ('http://image.tmdb.org/t/p/original', movie['poster_path'])
-    else: info['poster'] = "http://cellardoortv.com/style/themes/default/unavailable.png"
+    else: info['poster'] = "https://github.com/metalmagic767/themes/raw/master/metalliq-forqed/default/unavailable.png"
     if movie['backdrop_path'] and movie['backdrop_path'] != None and movie['backdrop_path'] != "": info['fanart'] = u'%s%s' % ('http://image.tmdb.org/t/p/original', movie['backdrop_path'])
     else: info['fanart'] = get_background_path()
     try: info['genre'] = u' / '.join([x['name'] for x in movie['genres']])
@@ -135,7 +135,7 @@ def get_tvshow_metadata_tmdb(show, genres_dict=None):
             try: info['genre'] = u' / '.join([genres_dict[x] for x in show['genre_ids']])
             except: info['genre'] = ''
     if show['poster_path']: info['poster'] = u'%s%s' % ('http://image.tmdb.org/t/p/original', show['poster_path'])
-    else: info['poster'] = "http://cellardoortv.com/style/themes/default/unavailable.png"
+    else: info['poster'] = "https://github.com/metalmagic767/themes/raw/master/metalliq-forqed/default/unavailable.png"
     if show['backdrop_path']: info['fanart'] = u'%s%s' % ('http://image.tmdb.org/t/p/original', show['backdrop_path'])
     else: info['fanart'] = get_background_path()
     return info
@@ -264,11 +264,11 @@ def item_images(type, tmdb_id=None, imdb_id=None, tvdb_id=None, name=None):
         if response.get("backdrop_path"): fanart = "http://image.tmdb.org/t/p/original/%s" % response.get("backdrop_path")
         else                            : fanart = get_background_path()
         if response.get("poster_path")  : poster = "http://image.tmdb.org/t/p/original/%s" % response.get("poster_path")
-        else                            : poster = "http://cellardoortv.com/style/themes/default/unavailable.png"
+        else                            : poster = "https://github.com/metalmagic767/themes/raw/master/metalliq-forqed/default/unavailable.png"
     elif isinstance(response, list):
         if response["backdrop_path"]: fanart = "http://image.tmdb.org/t/p/original/%s" % response["backdrop_path"]
         else                        : fanart = get_background_path()
         if response["poster_path"]  : poster = "http://image.tmdb.org/t/p/original/%s" % response["poster_path"]
-        else                        : poster = "http://cellardoortv.com/style/themes/default/unavailable.png"
+        else                        : poster = "https://github.com/metalmagic767/themes/raw/master/metalliq-forqed/default/unavailable.png"
     images = [poster, fanart]
     return images 

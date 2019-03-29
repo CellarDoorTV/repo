@@ -267,6 +267,8 @@ class Lister:
                 
             path = None
             
+            if hint.startswith("><"):
+                hint = hint.strip("><")
             if hint == "@any":
                 for dir in dirs:
                     rec_files, rec_dirs = self._browse_external(dir['path'], guidance[i+1:], parameters, unescaped_parameters, depth)

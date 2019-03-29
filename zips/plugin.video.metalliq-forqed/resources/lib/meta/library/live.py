@@ -100,10 +100,10 @@ def setup_library(library_folder):
         # create folder
         xbmcvfs.mkdir(library_folder)
         # auto configure folder
-        msg = _("Would you like to automatically set [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed as a channel video source?")
+        msg = _("Would you like to automatically set [COLOR cyan]metalliq-forqed[/COLOR] as a channel video source?")
         if dialogs.yesno("{0} {1}".format(_("Library"), "setup"), msg):
             source_thumbnail = get_icon_path("live")
-            source_name = "MetalliQ " + _("Channels")
+            source_name = "[COLOR cyan]metalliq-forqed[/COLOR] " + _("Channels")
             source_content = "('{0}','','','',0,0,'<settings></settings>',0,0,NULL,NULL)".format(library_folder)
             add_source(source_name, library_folder, source_content, source_thumbnail)
     # return translated path
@@ -116,7 +116,7 @@ def auto_live_setup(library_folder):
         try:
             xbmcvfs.mkdir(library_folder)
             source_thumbnail = get_icon_path("live")
-            source_name = "[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed " + _("Channels")
+            source_name = "[COLOR cyan]metalliq-forqed[/COLOR] " + _("Channels")
             source_content = "('{0}','','','',0,0,'<settings></settings>',0,0,NULL,NULL)".format(library_folder)
             add_source(source_name, library_folder, source_content, source_thumbnail)
             return True

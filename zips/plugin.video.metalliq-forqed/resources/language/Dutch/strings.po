@@ -826,3 +826,7 @@ msgstr ""
 msgctxt "#30905"
 msgid "Export [COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed movie and tvshow libraries as list"
 msgstr ""
+
+msgctxt "#30906"
+msgid "- [COLOR limegreen]Update Players From URL[/COLOR]"
+msgstr ""

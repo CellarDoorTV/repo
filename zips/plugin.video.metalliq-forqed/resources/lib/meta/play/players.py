@@ -38,7 +38,7 @@ class AddonPlayer(object):
 def get_players(media, filters = {}):
     assert media in ("tvshows", "movies", "musicvideos", "music", "live")
     players = []
-    players_path = "special://home/userdata/addon_data/{0}/players/".format(plugin.id)
+    players_path = "special://profile/addon_data/{0}/players/".format(plugin.id)
     files = [x for x in xbmcvfs.listdir(players_path)[1] if x.endswith(EXTENSION)]
     for file in files:
         path = players_path + file
