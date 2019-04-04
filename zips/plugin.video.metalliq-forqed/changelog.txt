@@ -1,6 +1,6 @@
 - [COLORlime]To get your favorite add-on in the Movie selector go to EIM 4Qed settings and clear simple selector then rerun total setup in MetalliQ 4Qed settings.[/COLOR] 
 
-v9.2.18leia
+v9.3.18leia
 - Fixed install players from zip (credit & thanks to Lockdown)
 - Added Azure, Golden and the original MetalliQ theme - Change themes in MetalliQ 4Qed settings then restat Kodi for them to stick
 

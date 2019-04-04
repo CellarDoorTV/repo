@@ -1,6 +1,9 @@
 - [COLORlime]To get your favorite add-on in the Movie selector go to EIM 4Qed settings and clear simple selector then rerun total setup in MetalliQ 4Qed settings.[/COLOR] 
 
-v100.7.18leia
+v100.7.18
+- Made compatible with 4QED FILTERS 
+
+v100.7.18
 - Fixed players installing from zip in MetalliQ 4Qed 
 - Fixed Official repository for 4Qed
 - This version is available to work with any Leia custom builds

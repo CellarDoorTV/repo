@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.metalliq-forqed" name="[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed" version="9.2.18leia" provider-name="[COLOR lime]Serious Fork[/COLOR]">
+<addon id="plugin.video.metalliq-forqed" name="[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed" version="9.3.18" provider-name="[COLOR lime]Serious Fork[/COLOR]">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 		<import addon="metadata.tvdb.com" version="3.0.14"/>

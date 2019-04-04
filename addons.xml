@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="repository.eim.forqed" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ED [COLOR white]Repository[/COLOR]" version="3.2" provider-name="[COLOR lime]Serious Fork[/COLOR]">
+<addon id="repository.eim.forqed" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ED [COLOR white]Repository[/COLOR]" version="3.3" provider-name="[COLOR lime]Serious Fork[/COLOR]">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -33,7 +33,7 @@
   </extension>
 </addon>
       
-<addon id="script.extendedinfo" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ed" version="100.7.18leia" provider-name="[COLOR lime]Serious Fork[/COLOR]">
+<addon id="script.extendedinfo" name="[COLOR limegreen]EIM[/COLOR]4[COLOR limegreen]Q[/COLOR]ed" version="100.8.18" provider-name="[COLOR lime]Serious Fork[/COLOR]">
   <requires>
     <import addon="xbmc.python" version="2.25.0"/>
     <import addon="script.module.pil" version="1.1.7"/>
@@ -45,7 +45,7 @@
     <import addon="plugin.program.super.favourites"/>
     <import addon="plugin.video.youtube" version="6.2.2"/>
     <import addon="resource.images.studios.white" version="0.0.18"/>
-    <import addon="plugin.video.metalliq-forqed" version="9.2.18leia"/>
+    <import addon="plugin.video.metalliq-forqed" version="9.3.18"/>
   </requires>
   <extension point="xbmc.python.script"             library="default.py">
     <provides>executable</provides>
@@ -76,7 +76,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.metalliq-forqed" name="[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed" version="9.2.18leia" provider-name="[COLOR lime]Serious Fork[/COLOR]">
+<addon id="plugin.video.metalliq-forqed" name="[COLOR limegreen]M[/COLOR]etalli[COLOR limegreen]Q[/COLOR] 4[COLOR limegreen]Q[/COLOR]ed" version="9.3.18" provider-name="[COLOR lime]Serious Fork[/COLOR]">
   <requires>
     <import addon="xbmc.python" version="2.19.0"/>
     <import addon="metadata.tvdb.com" version="3.0.14"/>
@@ -144,6 +144,66 @@
 
 </addon>
 
+<addon id="plugin.video.4qedfilters" name="4[COLOR limegreen]Q[/COLOR]ED FILTERS" version="2.0.3" provider-name="[COLOR lime]Serious Fork[/COLOR]">
+    <requires>
+        <import addon="xbmc.python" version="2.19.0" />
+        <import addon="script.module.universalscrapers" version="1.0.0" />
+        <import addon="script.module.python.koding.aio" version="0.9.6.6" />
+        <import addon="script.module.beautifulsoup" version="3.2.1" />
+        <import addon="script.module.requests" version="2.9.1" />
+        <import addon="script.module.addon.common" version="2.0.0" />
+        <import addon="script.module.xmltodict" version="0.9.0" />
+        <import addon="script.4qedfilters.xxx" version="2.2.1" />
+        <import addon="script.module.dateutil" />
+    <import addon="script.module.feedparser" version="5.1.3"/>
+        <!--<import addon="script.module.web-pdb" version="1.0"/>-->
+        <import addon="script.module.resolveurl" />
+        <!--<import addon="script.module.urlresolver" />-->
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>audio video</provides>
+    </extension>
+    <extension point="xbmc.arrakis" library="service.py" start="[login|startup]" />
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">ExtendedInfo Filters</summary>
+        <description lang="en">4[COLOR limegreen]Q[/COLOR]ED [COLOR lime]Filters gives you easy access to info filtered categories including adult content straight to EIM info lists. Works with any EIM fork.[/COLOR][CR]Some Categories of this addon are designed for ADULTS only and may include pictures and materials that some viewers may find offensive. If you are under the age of 18, if such material offends you or if it is illegal to view such material in your community please DO  NOT install this addon.[CR]Password Protected for Adult section is [COLORlime]PORN4ALL[/COLOR][CR]Experience EIM list info like never before.</description>
+        <disclaimer lang="en">This addon uses the TMDb API but is not endorsed or certified by TMDb.</disclaimer>
+        <platform>all</platform>
+        <license></license>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+            <screenshot>resources/media/screenshot-01.png</screenshot>
+            <screenshot>resources/media/screenshot-02.png</screenshot>
+            <screenshot>resources/media/screenshot-03.png</screenshot>
+        </assets>
+        <news></news>
+        <reuselanguageinvoker>false</reuselanguageinvoker>
+    </extension>
+</addon>
+
+<addon id="script.4qedfilters.xxx" name="4[COLOR limegreen]Q[/COLOR]ED XXX Script" version="2.2.1" provider-name="[COLOR lime]Serious Fork[/COLOR]">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.addon.common" />
+    <import addon="script.module.requests" />
+    <import addon="script.module.httplib2" />
+    <import addon="script.module.simplejson" /> 
+    <import addon="script.common.plugin.cache" />
+
+
+  </requires>
+  <extension point="xbmc.python.pluginsource"       library="default.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+  <summary lang="en">4QED FILTERS XXX</summary>
+  <description lang="en">No content is hosted by the addon creators[CR][COLORlime]Credits and thanks to The Perverted[/COLOR]</description>
+  <disclaimer lang="en">Credits and thanks to The Perverted</disclaimer>
+  <platform>all</platform>
+  </extension>
+</addon>
+
 <addon id="script.module.futures"
        name="futures"
        version="2.2.0"
@@ -208,6 +268,24 @@
     <website>https://pypi.python.org/pypi/requests-cache</website>
     <source>https://github.com/gedisony/script.module.requests-cache</source>
     <email>gedisony AT gmail.com</email>
+  </extension>
+</addon>
+
+<addon id="script.speedtestnet"
+       name="ARNU Box Speed Tester"
+       version="1.0.0"
+       provider-name="ARNU Box / Josh.5">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.script"
+             library="default.py">
+        <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">ARNU Box Speed Tester</summary>
+    <description lang="en">ARNU Box Speed Tester powered by speedtest.net will give you accurate Internet speed/ping test results. \n Brought to you by http://www.arnubox.com</description>
+    <platform>all</platform>
   </extension>
 </addon>
 
